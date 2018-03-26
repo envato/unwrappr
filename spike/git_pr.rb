@@ -1,6 +1,6 @@
 require 'octokit'
 
-client = Octokit::Client.new(access_token: 'token')
+client = Octokit::Client.new(access_token: ENV['GIT_TOKEN'])
 
 puts client.user.login
 
