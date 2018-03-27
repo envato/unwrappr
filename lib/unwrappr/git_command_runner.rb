@@ -12,7 +12,6 @@ module Unwrappr
         raise 'failed to add git changes' unless git_added_changes?
         raise 'failed to commit changes' unless git_committed?
         raise 'failed to push changes' unless git_pushed?
-
       end
 
       private
