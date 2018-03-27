@@ -11,7 +11,7 @@ module Unwrappr
       private
 
       def is_git_dir?
-       SafeShell.execute?('git', 'rev-parse --git-dir')
+        SafeShell.execute?('git', 'rev-parse --git-dir')
       end
 
       def branch_created?
