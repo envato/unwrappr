@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-
 RSpec.describe Unwrappr::GitCommandRunner do
 
   describe '#create_branch!' do
