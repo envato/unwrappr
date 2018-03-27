@@ -1,6 +1,6 @@
-RSpec.describe Unwrapper do
+RSpec.describe unwrappr do
   it "has a version number" do
-    expect(Unwrapper::VERSION).not_to be nil
+    expect(unwrappr::VERSION).not_to be nil
   end
 
   it "does something useful" do
