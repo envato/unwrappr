@@ -3,6 +3,7 @@ PATH
   specs:
     unwrappr (0.1.0)
       clamp
+      safe_shell
 
 GEM
   remote: https://rubygems.org/
@@ -38,7 +39,6 @@ DEPENDENCIES
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
-  safe_shell
   unwrappr!
 
 BUNDLED WITH
