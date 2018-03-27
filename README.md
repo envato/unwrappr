@@ -22,7 +22,10 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+To run this in the current repository use..
+```bash
+./exe/unwrappr
+```
 
 ## Development
 
