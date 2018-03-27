@@ -11,8 +11,7 @@ module Unwrappr
 
     def execute
       puts "Doing the unwrappr thing.."
-      # check if current directory is a git repo
-      # make branch
+      # make branch raise if current dir is not a git repo
       # run bundle update
       # commit and push
       # submit pr
