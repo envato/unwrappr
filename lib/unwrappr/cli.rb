@@ -3,7 +3,7 @@ require 'clamp'
 module Unwrappr
   class CLI < Clamp::Command
     option ["--version", "-v"], :flag, "Show version" do
-      puts "unwrappr v#{unwrappr::VERSION}"
+      puts "unwrappr v#{Unwrappr::VERSION}"
       exit(0)
     end
 
