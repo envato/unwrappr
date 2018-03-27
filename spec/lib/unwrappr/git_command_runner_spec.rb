@@ -46,9 +46,8 @@ RSpec.describe Unwrappr::GitCommandRunner do
               "checkout -b auto_bundle_update_#{expected_timestamp}"
             ).and_return false
 
-
-            expect { Unwrappr::GitCommandRunner.create_branch! }
-              .to raise_error 'failed to create branch'
+          expect { Unwrappr::GitCommandRunner.create_branch! }
+            .to raise_error 'failed to create branch'
         end
       end
     end
