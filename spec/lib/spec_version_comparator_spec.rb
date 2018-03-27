@@ -39,8 +39,9 @@ RSpec.describe Unwrappr::SpecVersionComparator do
     let(:specs_before) { { cloudinary: '1.9.1', apiary: '2.3.1' } }
     let(:specs_after) { { cloudinary: '1.9.1', apiary: '3.1.1' } }
 
-    it 'returns all dependencies' do
-      expect(subject.size).to eq 2
+    it 'returns only updated dependencies', :aggregate_failures do
+      expect(subject.size).to eq 1
+      expect(subject.first[:dependency]).to eq :apiary
     end
   end
 end
