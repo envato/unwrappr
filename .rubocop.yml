@@ -13,3 +13,7 @@ Metrics/LineLength:
     - 'spec/**/*'
     - 'test/**/*'
     
+Style/Documentation:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
