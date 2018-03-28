@@ -125,4 +125,56 @@ RSpec.describe Unwrappr::GitCommandRunner do
       end
     end
   end
+
+  describe '#make_pull_request!' do
+    let(:github_response) { double('response') }
+    let(:octokit_client) do
+      double('octokit_client')
+    end
+    before do
+      allow(SafeShell).to receive(:execute)
+        .with('git', 'rev-parse --abbrev-ref HEAD')
+        .and_return 'foo_bar'
+
+      allow(SafeShell).to receive(:execute)
+        .with('git', 'config --get remote.origin.url')
+        .and_return 'git@github.com:org_name/repo_name.git\n'
+
+      ENV['GITHUB_TOKEN'] = 't0K3Nz'
+      allow(Octokit::Client).to receive(:new)
+        .with(access_token: 't0K3Nz').and_return octokit_client
+    end
+
+    context 'Given a successful octokit pull request request' do
+      it 'does not raise' do
+        allow(octokit_client).to receive(:create_pull_request)
+          .with(
+            'org_name/repo_name',
+            'master',
+            'foo_bar',
+            'Automated Bundle Update',
+            'Automatic Bundle Update for review'
+          ).and_return github_response
+
+        expect { Unwrappr::GitCommandRunner.make_pull_request! }
+          .not_to raise_error
+      end
+    end
+
+    context 'Given an exception is raised from octokit' do
+      it 'raises' do
+        allow(octokit_client).to receive(:create_pull_request)
+          .with(
+            'org_name/repo_name',
+            'master',
+            'foo_bar',
+            'Automated Bundle Update',
+            'Automatic Bundle Update for review'
+          ).and_raise Exception
+
+        expect { Unwrappr::GitCommandRunner.make_pull_request! }
+          .to raise_error 'failed to make pull request'
+      end
+    end
+  end
 end
