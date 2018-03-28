@@ -28,28 +28,24 @@ module Unwrappr
       private
 
       def git_dir?
-        !current_branch_name.empty?
+        git_wrap { !current_branch_name.empty? }
       end
 
       def branch_created?
         timestamp = Time.now.strftime('%Y%d%m-%H%M').freeze
-        git.branch("auto_bundle_update_#{timestamp}").checkout
-        true
+        git_wrap { git.branch("auto_bundle_update_#{timestamp}").checkout }
       end
 
       def git_added_changes?
-        git.add(all: true)
-        true
+        git_wrap { git.add(all: true) }
       end
 
       def git_committed?
-        git.commit('Automatic Bundle Update')
-        true
+        git_wrap { git.commit('Automatic Bundle Update') }
       end
 
       def git_pushed?
-        git.push
-        true
+        git_wrap { git.push('origin', current_branch_name) }
       end
 
       def current_branch_name
@@ -80,6 +76,13 @@ module Unwrappr
 
       def git
         @git ||= Git.open(Dir.pwd, log: Logger.new(STDOUT))
+      end
+
+      def git_wrap
+        yield
+        true
+      rescue Git::GitExecuteError
+        false
       end
     end
   end
