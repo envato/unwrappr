@@ -26,36 +26,63 @@ module Unwrappr
 
       private
 
+      LOG_OPTIONS = {}.tap do |opts|
+        opts[:stdout] = 'unwrappr.log' if ENV['DEBUG']
+        opts[:stderr] = 'unwrappr.log' if ENV['DEBUG']
+      end
+
       def git_dir?
-        SafeShell.execute?('git', 'rev-parse --git-dir')
+        SafeShell.execute?('git', 'rev-parse', '--git-dir', LOG_OPTIONS)
       end
 
       def branch_created?
-        timestamp = Time.now.strftime('%Y%d%m-%H%m')
+        timestamp = Time.now.strftime('%Y%d%m-%H%M').freeze
         SafeShell.execute?(
           'git',
-          "checkout -b auto_bundle_update_#{timestamp}"
+          'checkout',
+          '-b',
+          "auto_bundle_update_#{timestamp}",
+          LOG_OPTIONS
         )
       end
 
       def git_added_changes?
-        SafeShell.execute?('git', 'add -A')
+        SafeShell.execute?('git',
+                           'add',
+                           '-A',
+                           LOG_OPTIONS)
       end
 
       def git_committed?
-        SafeShell.execute?('git', 'commit -m "auto bundle update"')
+        SafeShell.execute?('git',
+                           'commit',
+                           '-m',
+                           'auto bundle update',
+                           LOG_OPTIONS)
       end
 
       def git_pushed?
-        SafeShell.execute?('git', "push origin #{current_branch_name}")
+        SafeShell.execute?('git',
+                           'push',
+                           'origin',
+                           current_branch_name,
+                           LOG_OPTIONS)
       end
 
       def current_branch_name
-        SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
+        SafeShell.execute('git',
+                          'rev-parse',
+                          '--abbrev-ref',
+                          'HEAD',
+                          LOG_OPTIONS)
       end
 
       def repo_name_and_org
-        repo = SafeShell.execute('git', 'config --get remote.origin.url')
+        repo = SafeShell.execute('git',
+                                 'config',
+                                 '--get',
+                                 'remote.origin.url',
+                                 LOG_OPTIONS)
         # expect "git@github.com:org_name/repo_name.git\n"
         # return org_name/repo_name
         repo.split(':')[1].split('.')[0].strip
