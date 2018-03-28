@@ -1,6 +1,7 @@
 require 'safe_shell'
 
 module Unwrappr
+  # Runs the bundle command. No surprises.
   module BundlerCommandRunner
     class << self
       def bundle_update!

@@ -1,10 +1,8 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::BundlerCommandRunner do
-
   describe '#bundle_update!' do
     context 'Given bundle update fails' do
-
       before do
         allow(SafeShell).to receive(:execute?)
           .with('bundle', 'update').and_return false
@@ -17,7 +15,6 @@ RSpec.describe Unwrappr::BundlerCommandRunner do
     end
 
     context 'Given bundle update succeeds' do
-
       before do
         allow(SafeShell).to receive(:execute?)
           .with('bundle', 'update').and_return true
