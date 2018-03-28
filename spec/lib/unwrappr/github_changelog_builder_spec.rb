@@ -4,7 +4,6 @@ module Unwrappr
     let(:repository) { double('repository') }
     let(:base) { double('base') }
     let(:head) { double('head') }
-    # let(:response) { [double('response')] }
     let(:commit) { double('commit', message: 'hi!') }
     let(:commit_info) { double('commit information', commit: commit) }
     let(:response) { double('response', commits: [commit_info]) }
