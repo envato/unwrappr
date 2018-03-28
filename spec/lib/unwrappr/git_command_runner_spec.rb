@@ -9,7 +9,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
     context 'Given current directory is not a git repo' do
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('git', 'rev-parse --git-dir').and_return false
+          .with('git', 'rev-parse', '--git-dir', {}).and_return false
       end
 
       it 'raises' do
@@ -24,7 +24,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('git', 'rev-parse --git-dir').and_return true
+          .with('git', 'rev-parse', '--git-dir', {}).and_return true
 
         allow(Time).to receive(:now).and_return(now)
       end
@@ -33,7 +33,10 @@ RSpec.describe Unwrappr::GitCommandRunner do
         allow(SafeShell).to receive(:execute?)
           .with(
             'git',
-            "checkout -b auto_bundle_update_#{expected_timestamp}"
+            'checkout',
+            '-b',
+            "auto_bundle_update_#{expected_timestamp}",
+            {}
           ).and_return true
 
         expect { Unwrappr::GitCommandRunner.create_branch! }.not_to raise_error
@@ -44,7 +47,10 @@ RSpec.describe Unwrappr::GitCommandRunner do
           allow(SafeShell).to receive(:execute?)
             .with(
               'git',
-              "checkout -b auto_bundle_update_#{expected_timestamp}"
+              'checkout',
+              '-b',
+              "auto_bundle_update_#{expected_timestamp}",
+              {}
             ).and_return false
 
           expect { Unwrappr::GitCommandRunner.create_branch! }
@@ -58,7 +64,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
     context 'Given the git add command fails' do
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('git', 'add -A').and_return false
+          .with('git', 'add', '-A', {}).and_return false
       end
 
       it 'raises' do
@@ -70,13 +76,13 @@ RSpec.describe Unwrappr::GitCommandRunner do
     context 'Given the git add command is successful' do
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('git', 'add -A').and_return true
+          .with('git', 'add', '-A', {}).and_return true
       end
 
       context 'When the git commit command fails' do
         before do
           allow(SafeShell).to receive(:execute?)
-            .with('git', 'commit -m "auto bundle update"').and_return false
+            .with('git', 'commit', '-m', 'auto bundle update', {}).and_return false
         end
 
         it 'raises' do
@@ -88,17 +94,17 @@ RSpec.describe Unwrappr::GitCommandRunner do
       context 'Given the git commit command is successful' do
         before do
           allow(SafeShell).to receive(:execute?)
-            .with('git', 'commit -m "auto bundle update"').and_return true
+            .with('git', 'commit', '-m', 'auto bundle update', {}).and_return true
         end
 
         context 'Given the git push command fails' do
           before do
             allow(SafeShell).to receive(:execute)
-              .with('git', 'rev-parse --abbrev-ref HEAD')
+              .with('git', 'rev-parse', '--abbrev-ref', 'HEAD', {})
               .and_return 'foo_bar'
 
             allow(SafeShell).to receive(:execute?)
-              .with('git', 'push origin foo_bar').and_return false
+              .with('git', 'push', 'origin', 'foo_bar', {}).and_return false
           end
 
           it 'raises' do
@@ -110,11 +116,11 @@ RSpec.describe Unwrappr::GitCommandRunner do
         context 'Given the git push command is successful' do
           before do
             allow(SafeShell).to receive(:execute)
-              .with('git', 'rev-parse --abbrev-ref HEAD')
+              .with('git', 'rev-parse', '--abbrev-ref', 'HEAD', {})
               .and_return 'foo_bar'
 
             allow(SafeShell).to receive(:execute?)
-              .with('git', 'push origin foo_bar').and_return true
+              .with('git', 'push', 'origin', 'foo_bar', {}).and_return true
           end
 
           it 'does not raise' do
