@@ -2,6 +2,7 @@ require 'safe_shell'
 require 'octokit'
 
 module Unwrappr
+  # Runs Git commands
   module GitCommandRunner
     class << self
       def create_branch!
