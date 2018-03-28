@@ -3,7 +3,3 @@ services:
   app:
     build: .
     image: unwrappr
-    environment:
-      - DATABASE_URL=mysql2://root:test@db:3306/sso_server_test
-      - NEWRELIC_AGENT_ENABLED=false
-      - REDIS_URL=redis://redis:6379/0
