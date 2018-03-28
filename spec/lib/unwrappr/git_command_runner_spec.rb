@@ -1,10 +1,12 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::GitCommandRunner do
+  before do
+    described_class.reset_client
+  end
 
   describe '#create_branch!' do
     context 'Given current directory is not a git repo' do
-
       before do
         allow(SafeShell).to receive(:execute?)
           .with('git', 'rev-parse --git-dir').and_return false
@@ -18,7 +20,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
     context 'Given the current directory is a git repo' do
       let(:now) { Time.now }
-      let(:expected_timestamp) { now.strftime("%Y%d%m-%H%m") }
+      let(:expected_timestamp) { now.strftime('%Y%d%m-%H%m') }
 
       before do
         allow(SafeShell).to receive(:execute?)
@@ -38,7 +40,6 @@ RSpec.describe Unwrappr::GitCommandRunner do
       end
 
       context 'When there is some failiure in creating the branch' do
-
         it 'raises' do
           allow(SafeShell).to receive(:execute?)
             .with(
@@ -54,7 +55,6 @@ RSpec.describe Unwrappr::GitCommandRunner do
   end
 
   describe '#commit_and_push_changes' do
-
     context 'Given the git add command fails' do
       before do
         allow(SafeShell).to receive(:execute?)
