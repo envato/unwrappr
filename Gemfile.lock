@@ -49,6 +49,8 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.16)
+  octokit
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
