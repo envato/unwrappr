@@ -26,7 +26,7 @@ module Unwrappr
       end
 
       def branch_created?
-        timestamp = Time.now.strftime("%Y%d%m-%H%m")
+        timestamp = Time.now.strftime('%Y%d%m-%H%m')
         SafeShell.execute?(
           'git',
           "checkout -b auto_bundle_update_#{timestamp}"
@@ -64,8 +64,8 @@ module Unwrappr
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-        rescue Exception
-          return false
+      rescue Exception
+        false
       end
 
       def git_client

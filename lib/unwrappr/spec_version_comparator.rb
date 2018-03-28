@@ -7,7 +7,7 @@ module Unwrappr
         {
           dependency: key,
           before: specs_versions_before[key],
-          after: specs_versions_after[key],
+          after: specs_versions_after[key]
         }
       end
 

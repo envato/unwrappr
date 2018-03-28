@@ -6,5 +6,4 @@ require 'unwrappr/lock_file_comparator'
 require 'unwrappr/spec_version_comparator'
 
 module Unwrappr
-
 end

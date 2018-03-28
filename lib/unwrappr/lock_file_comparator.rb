@@ -7,7 +7,7 @@ module Unwrappr
 
         versions_diff = SpecVersionComparator.perform(
           specs_versions(lock_file_before),
-          specs_versions(lock_file_after),
+          specs_versions(lock_file_after)
         )
 
         { versions: versions_diff }
