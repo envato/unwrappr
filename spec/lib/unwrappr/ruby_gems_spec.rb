@@ -8,7 +8,7 @@ module Unwrappr
     let(:response_body) { '{}'}
 
     before do
-        allow(Faraday).to receive(:get).and_return(response)
+      allow(Faraday).to receive(:get).and_return(response)
     end
 
     context 'connectivity' do
