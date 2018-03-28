@@ -6,7 +6,7 @@ module Unwrappr
   module GitCommandRunner
     class << self
       def create_branch!
-        raise 'Not a git working dir' unless is_git_dir?
+        raise 'Not a git working dir' unless git_dir?
         raise 'failed to create branch' unless branch_created?
       end
 
@@ -22,7 +22,7 @@ module Unwrappr
 
       private
 
-      def is_git_dir?
+      def git_dir?
         SafeShell.execute?('git', 'rev-parse --git-dir')
       end
 
@@ -43,14 +43,14 @@ module Unwrappr
       end
 
       def git_pushed?
-        SafeShell.execute?('git', "push origin #{get_current_branch_name}")
+        SafeShell.execute?('git', "push origin #{current_branch_name}")
       end
 
-      def get_current_branch_name
+      def current_branch_name
         SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
       end
 
-      def get_repo_name_and_org
+      def repo_name_and_org
         repo = SafeShell.execute('git', 'config --get remote.origin.url')
         # expect "git@github.com:org_name/repo_name.git\n"
         # return org_name/repo_name
@@ -59,18 +59,18 @@ module Unwrappr
 
       def pull_request_created?
         git_client.create_pull_request(
-          get_repo_name_and_org,
+          repo_name_and_org,
           'master',
-          get_current_branch_name,
+          current_branch_name,
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-      rescue Exception
+      rescue StandardError
         false
       end
 
       def git_client
-        @client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+        @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
       end
     end
   end
