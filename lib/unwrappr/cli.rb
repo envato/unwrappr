@@ -1,6 +1,7 @@
 require 'clamp'
 
 module Unwrappr
+  # Entry point for the app
   class CLI < Clamp::Command
     option ['--version', '-v'], :flag, 'Show version' do
       puts "unwrappr v#{Unwrappr::VERSION}"
