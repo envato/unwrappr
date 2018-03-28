@@ -5,7 +5,7 @@ steps:
     command: "script/ci.sh"
     agents:
       queue: platform-docker-spot
-      env:
+    env:
       BUILDKITE_DOCKER_COMPOSE_FILE: docker-compose.ci.yml
       BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
     parallelism: 1
