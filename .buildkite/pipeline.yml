@@ -5,5 +5,8 @@ steps:
     command: "script/ci.sh"
     agents:
       queue: platform-docker-spot
+      env:
+      BUILDKITE_DOCKER_COMPOSE_FILE: docker-compose.ci.yml
+      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
     parallelism: 1
     timeout_in_minutes: 20
