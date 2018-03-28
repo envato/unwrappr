@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::GitCommandRunner do
+  before do
+    described_class.reset_client
+  end
+
   describe '#create_branch!' do
     context 'Given current directory is not a git repo' do
       before do

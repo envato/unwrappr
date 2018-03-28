@@ -20,6 +20,10 @@ module Unwrappr
         raise 'failed to make pull request' unless pull_request_created?
       end
 
+      def reset_client
+        @git_client = nil
+      end
+
       private
 
       def git_dir?
@@ -57,6 +61,7 @@ module Unwrappr
         repo.split(':')[1].split('.')[0].strip
       end
 
+      # rubocop:disable Lint/RescueException
       def pull_request_created?
         git_client.create_pull_request(
           repo_name_and_org,
@@ -65,9 +70,10 @@ module Unwrappr
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-      rescue StandardError
+      rescue Exception
         false
       end
+      # rubocop:enable Lint/RescueException
 
       def git_client
         @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
