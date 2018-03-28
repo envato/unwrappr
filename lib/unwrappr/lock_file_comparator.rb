@@ -1,4 +1,5 @@
 module Unwrappr
+  # Compares two lock files and emits a diff of versions
   module LockFileComparator
     class << self
       def perform(lock_file_content_before, lock_file_content_after)
