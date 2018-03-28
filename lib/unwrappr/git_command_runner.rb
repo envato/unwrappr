@@ -1,4 +1,5 @@
-require 'safe_shell'
+require 'git'
+require 'logger'
 require 'octokit'
 
 module Unwrappr
@@ -22,46 +23,43 @@ module Unwrappr
 
       def reset_client
         @git_client = nil
+        @git = nil
       end
 
       private
 
       def git_dir?
-        SafeShell.execute?('git', 'rev-parse --git-dir')
+        git_wrap { !current_branch_name.empty? }
       end
 
       def branch_created?
-        timestamp = Time.now.strftime('%Y%d%m-%H%m')
-        SafeShell.execute?(
-          'git',
-          "checkout -b auto_bundle_update_#{timestamp}"
-        )
+        timestamp = Time.now.strftime('%Y%d%m-%H%M').freeze
+        git_wrap { git.branch("auto_bundle_update_#{timestamp}").checkout }
       end
 
       def git_added_changes?
-        SafeShell.execute?('git', 'add -A')
+        git_wrap { git.add(all: true) }
       end
 
       def git_committed?
-        SafeShell.execute?('git', 'commit -m "auto bundle update"')
+        git_wrap { git.commit('Automatic Bundle Update') }
       end
 
       def git_pushed?
-        SafeShell.execute?('git', "push origin #{current_branch_name}")
+        git_wrap { git.push('origin', current_branch_name) }
       end
 
       def current_branch_name
-        SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
+        git.current_branch
       end
 
       def repo_name_and_org
-        repo = SafeShell.execute('git', 'config --get remote.origin.url')
+        repo = git.config('remote.origin.url')
         # expect "git@github.com:org_name/repo_name.git\n"
         # return org_name/repo_name
         repo.split(':')[1].split('.')[0].strip
       end
 
-      # rubocop:disable Lint/RescueException
       def pull_request_created?
         git_client.create_pull_request(
           repo_name_and_org,
@@ -70,13 +68,28 @@ module Unwrappr
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-      rescue Exception
+        true
+      rescue Octokit::ClientError
         false
       end
-      # rubocop:enable Lint/RescueException
 
       def git_client
         @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+      end
+
+      def git
+        log_options = {}.tap do |opt|
+          opt[:log] = Logger.new(STDOUT) if ENV['DEBUG']
+        end
+
+        @git ||= Git.open(Dir.pwd, log_options)
+      end
+
+      def git_wrap
+        yield
+        true
+      rescue Git::GitExecuteError
+        false
       end
     end
   end
