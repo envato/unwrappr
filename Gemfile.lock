@@ -2,7 +2,9 @@ PATH
   remote: .
   specs:
     unwrappr (0.1.0)
+      bundler (~> 1.16)
       clamp
+      faraday
       octokit (~> 4.0)
       safe_shell
 
@@ -47,7 +49,6 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  bundler (~> 1.16)
   pry
   rake (~> 10.0)
   rspec (~> 3.0)
