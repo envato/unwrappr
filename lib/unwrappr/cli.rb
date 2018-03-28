@@ -11,8 +11,8 @@ module Unwrappr
     option ['-o', '--open'], 'OPEN', 'See whats changed'
 
     def execute
-      puts 'Doing the unwrappr thing..'
-      # make branch raise if current dir is not a git repo
+      puts 'Doing the unwrappr thing...'
+      GitCommandRunner.create_branch!
       # run bundle update
       # commit and push
       # submit pr
