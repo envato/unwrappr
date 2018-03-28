@@ -1,11 +1,11 @@
 module Unwrappr
   RSpec.describe RubyGems do
-    subject(:gem_info) { described_class.gem_info(gem_name)}
+    subject(:gem_info) { described_class.gem_info(gem_name) }
     let(:gem_name) { 'gem_name' }
 
-    let(:response) { double('faraday_response', status: response_status, body: response_body)}
+    let(:response) { double('faraday_response', status: response_status, body: response_body) }
     let(:response_status) { 200 }
-    let(:response_body) { '{}'}
+    let(:response_body) { '{}' }
 
     before do
       allow(Faraday).to receive(:get).and_return(response)
@@ -21,7 +21,7 @@ module Unwrappr
     end
 
     context 'existing gem' do
-      let(:response_body) { '{"key": "value" }'}
+      let(:response_body) { '{"key": "value" }' }
 
       it 'returns provided details' do
         expect(subject.key).to eql('value')
@@ -30,7 +30,7 @@ module Unwrappr
 
     context 'unknown gem' do
       let(:response_status) { 404 }
-      let(:response_body) { 'Not found'}
+      let(:response_body) { 'Not found' }
 
       it 'returns nil' do
         expect(subject).to be_nil
@@ -45,7 +45,7 @@ module Unwrappr
       end
 
       it 'returns nil' do
-        expect{ subject }.to raise_error(instance_of(UnknownError))
+        expect { subject }.to raise_error(instance_of(UnknownError))
       end
     end
   end
