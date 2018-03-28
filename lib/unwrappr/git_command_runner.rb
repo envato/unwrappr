@@ -79,7 +79,7 @@ module Unwrappr
       end
 
       def git
-        @git ||= Git.init(Dir.pwd, log: Logger.new(STDOUT))
+        @git ||= Git.open(Dir.pwd, log: Logger.new(STDOUT))
       end
     end
   end
