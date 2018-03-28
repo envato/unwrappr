@@ -1,4 +1,5 @@
-require 'safe_shell'
+require 'git'
+require 'logger'
 require 'octokit'
 
 module Unwrappr
@@ -26,69 +27,42 @@ module Unwrappr
 
       private
 
-      LOG_OPTIONS = {}.tap do |opts|
-        opts[:stdout] = 'unwrappr.log' if ENV['DEBUG']
-        opts[:stderr] = 'unwrappr.log' if ENV['DEBUG']
-      end
-
       def git_dir?
-        SafeShell.execute?('git', 'rev-parse', '--git-dir', LOG_OPTIONS)
+        !current_branch_name.empty?
       end
 
       def branch_created?
         timestamp = Time.now.strftime('%Y%d%m-%H%M').freeze
-        SafeShell.execute?(
-          'git',
-          'checkout',
-          '-b',
-          "auto_bundle_update_#{timestamp}",
-          LOG_OPTIONS
-        )
+        git.branch("auto_bundle_update_#{timestamp}").checkout
+        true
       end
 
       def git_added_changes?
-        SafeShell.execute?('git',
-                           'add',
-                           '-A',
-                           LOG_OPTIONS)
+        git.add(all: true)
+        true
       end
 
       def git_committed?
-        SafeShell.execute?('git',
-                           'commit',
-                           '-m',
-                           'auto bundle update',
-                           LOG_OPTIONS)
+        git.commit('Automatic Bundle Update')
+        true
       end
 
       def git_pushed?
-        SafeShell.execute?('git',
-                           'push',
-                           'origin',
-                           current_branch_name,
-                           LOG_OPTIONS)
+        git.push
+        true
       end
 
       def current_branch_name
-        SafeShell.execute('git',
-                          'rev-parse',
-                          '--abbrev-ref',
-                          'HEAD',
-                          LOG_OPTIONS)
+        git.current_branch
       end
 
       def repo_name_and_org
-        repo = SafeShell.execute('git',
-                                 'config',
-                                 '--get',
-                                 'remote.origin.url',
-                                 LOG_OPTIONS)
+        repo = git.config('remote.origin.url')
         # expect "git@github.com:org_name/repo_name.git\n"
         # return org_name/repo_name
         repo.split(':')[1].split('.')[0].strip
       end
 
-      # rubocop:disable Lint/RescueException
       def pull_request_created?
         git_client.create_pull_request(
           repo_name_and_org,
@@ -97,13 +71,15 @@ module Unwrappr
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-      rescue Exception
-        false
+        true
       end
-      # rubocop:enable Lint/RescueException
 
       def git_client
         @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+      end
+
+      def git
+        @git ||= Git.init(Dir.pwd, log: Logger.new(STDOUT))
       end
     end
   end
