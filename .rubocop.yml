@@ -1,0 +1,15 @@
+---
+AllCops:
+  Exclude:
+    - 'spike/*.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+
+Metrics/LineLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'
+    
