@@ -1,11 +1,13 @@
-require 'safe_shell'
+require 'git'
+require 'logger'
 require 'octokit'
 
 module Unwrappr
+  # Runs Git commands
   module GitCommandRunner
     class << self
       def create_branch!
-        raise 'Not a git working dir' unless is_git_dir?
+        raise 'Not a git working dir' unless git_dir?
         raise 'failed to create branch' unless branch_created?
       end
 
@@ -19,38 +21,40 @@ module Unwrappr
         raise 'failed to make pull request' unless pull_request_created?
       end
 
+      def reset_client
+        @git_client = nil
+        @git = nil
+      end
+
       private
 
-      def is_git_dir?
-        SafeShell.execute?('git', 'rev-parse --git-dir')
+      def git_dir?
+        git_wrap { !current_branch_name.empty? }
       end
 
       def branch_created?
-        timestamp = Time.now.strftime("%Y%d%m-%H%m")
-        SafeShell.execute?(
-          'git',
-          "checkout -b auto_bundle_update_#{timestamp}"
-        )
+        timestamp = Time.now.strftime('%Y%d%m-%H%M').freeze
+        git_wrap { git.branch("auto_bundle_update_#{timestamp}").checkout }
       end
 
       def git_added_changes?
-        SafeShell.execute?('git', 'add -A')
+        git_wrap { git.add(all: true) }
       end
 
       def git_committed?
-        SafeShell.execute?('git', 'commit -m "auto bundle update"')
+        git_wrap { git.commit('Automatic Bundle Update') }
       end
 
       def git_pushed?
-        SafeShell.execute?('git', "push origin #{get_current_branch_name}")
+        git_wrap { git.push('origin', current_branch_name) }
       end
 
-      def get_current_branch_name
-        SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
+      def current_branch_name
+        git.current_branch
       end
 
-      def get_repo_name_and_org
-        repo = SafeShell.execute('git', 'config --get remote.origin.url')
+      def repo_name_and_org
+        repo = git.config('remote.origin.url')
         # expect "git@github.com:org_name/repo_name.git\n"
         # return org_name/repo_name
         repo.split(':')[1].split('.')[0].strip
@@ -58,18 +62,34 @@ module Unwrappr
 
       def pull_request_created?
         git_client.create_pull_request(
-          get_repo_name_and_org,
+          repo_name_and_org,
           'master',
-          get_current_branch_name,
+          current_branch_name,
           'Automated Bundle Update',
           'Automatic Bundle Update for review'
         )
-        rescue Exception
-          return false
+        true
+      rescue Octokit::ClientError
+        false
       end
 
       def git_client
-        @client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+        @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+      end
+
+      def git
+        log_options = {}.tap do |opt|
+          opt[:log] = Logger.new(STDOUT) if ENV['DEBUG']
+        end
+
+        @git ||= Git.open(Dir.pwd, log_options)
+      end
+
+      def git_wrap
+        yield
+        true
+      rescue Git::GitExecuteError
+        false
       end
     end
   end
