@@ -1,4 +1,5 @@
 module Unwrappr
+  # Compares two lock files and emits a diff of versions
   module LockFileComparator
     class << self
       def perform(lock_file_content_before, lock_file_content_after)
@@ -7,7 +8,7 @@ module Unwrappr
 
         versions_diff = SpecVersionComparator.perform(
           specs_versions(lock_file_before),
-          specs_versions(lock_file_after),
+          specs_versions(lock_file_after)
         )
 
         { versions: versions_diff }
