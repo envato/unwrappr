@@ -23,6 +23,7 @@ module Unwrappr
 
       def reset_client
         @git_client = nil
+        @git = nil
       end
 
       private
@@ -68,6 +69,8 @@ module Unwrappr
           'Automatic Bundle Update for review'
         )
         true
+      rescue Octokit::ClientError
+        false
       end
 
       def git_client
@@ -75,7 +78,11 @@ module Unwrappr
       end
 
       def git
-        @git ||= Git.open(Dir.pwd, log: Logger.new(STDOUT))
+        log_options = {}.tap do |opt|
+          opt[:log] = Logger.new(STDOUT) if ENV['DEBUG']
+        end
+
+        @git ||= Git.open(Dir.pwd, log_options)
       end
 
       def git_wrap

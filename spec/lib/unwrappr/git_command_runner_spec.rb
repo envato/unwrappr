@@ -1,15 +1,17 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::GitCommandRunner do
+  let!(:fake_git) { instance_double(Git::Base) }
+
   before do
     described_class.reset_client
+    allow(Git).to receive(:open).and_return(fake_git)
   end
 
   describe '#create_branch!' do
     context 'Given current directory is not a git repo' do
       before do
-        allow(SafeShell).to receive(:execute?)
-          .with('git', 'rev-parse', '--git-dir', {}).and_return false
+        expect(fake_git).to receive(:current_branch).and_raise(Git::GitExecuteError)
       end
 
       it 'raises' do
@@ -19,40 +21,20 @@ RSpec.describe Unwrappr::GitCommandRunner do
     end
 
     context 'Given the current directory is a git repo' do
-      let(:now) { Time.now }
-      let(:expected_timestamp) { now.strftime('%Y%d%m-%H%m') }
-
+      let(:result) { double('Branch', checkout: true) }
       before do
-        allow(SafeShell).to receive(:execute?)
-          .with('git', 'rev-parse', '--git-dir', {}).and_return true
-
-        allow(Time).to receive(:now).and_return(now)
+        allow(Time).to receive(:now).and_return(Time.parse('2017-01-01 11:23'))
+        expect(fake_git).to receive(:current_branch).and_return('master')
       end
 
       it 'does not raise' do
-        allow(SafeShell).to receive(:execute?)
-          .with(
-            'git',
-            'checkout',
-            '-b',
-            "auto_bundle_update_#{expected_timestamp}",
-            {}
-          ).and_return true
-
+        expect(fake_git).to receive(:branch).with('auto_bundle_update_20170101-1123').and_return(result)
         expect { Unwrappr::GitCommandRunner.create_branch! }.not_to raise_error
       end
 
       context 'When there is some failiure in creating the branch' do
         it 'raises' do
-          allow(SafeShell).to receive(:execute?)
-            .with(
-              'git',
-              'checkout',
-              '-b',
-              "auto_bundle_update_#{expected_timestamp}",
-              {}
-            ).and_return false
-
+          expect(fake_git).to receive(:branch).with('auto_bundle_update_20170101-1123').and_raise(Git::GitExecuteError)
           expect { Unwrappr::GitCommandRunner.create_branch! }
             .to raise_error 'failed to create branch'
         end
@@ -61,10 +43,13 @@ RSpec.describe Unwrappr::GitCommandRunner do
   end
 
   describe '#commit_and_push_changes' do
+    before do
+      allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
+    end
+
     context 'Given the git add command fails' do
       before do
-        allow(SafeShell).to receive(:execute?)
-          .with('git', 'add', '-A', {}).and_return false
+        expect(fake_git).to receive(:add).and_raise(Git::GitExecuteError)
       end
 
       it 'raises' do
@@ -75,14 +60,12 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
     context 'Given the git add command is successful' do
       before do
-        allow(SafeShell).to receive(:execute?)
-          .with('git', 'add', '-A', {}).and_return true
+        expect(fake_git).to receive(:add).and_return(true)
       end
 
       context 'When the git commit command fails' do
         before do
-          allow(SafeShell).to receive(:execute?)
-            .with('git', 'commit', '-m', 'auto bundle update', {}).and_return false
+          expect(fake_git).to receive(:commit).and_raise(Git::GitExecuteError)
         end
 
         it 'raises' do
@@ -93,18 +76,12 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
       context 'Given the git commit command is successful' do
         before do
-          allow(SafeShell).to receive(:execute?)
-            .with('git', 'commit', '-m', 'auto bundle update', {}).and_return true
+          expect(fake_git).to receive(:commit).and_return(true)
         end
 
         context 'Given the git push command fails' do
           before do
-            allow(SafeShell).to receive(:execute)
-              .with('git', 'rev-parse', '--abbrev-ref', 'HEAD', {})
-              .and_return 'foo_bar'
-
-            allow(SafeShell).to receive(:execute?)
-              .with('git', 'push', 'origin', 'foo_bar', {}).and_return false
+            expect(fake_git).to receive(:push).and_raise(Git::GitExecuteError)
           end
 
           it 'raises' do
@@ -115,12 +92,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
         context 'Given the git push command is successful' do
           before do
-            allow(SafeShell).to receive(:execute)
-              .with('git', 'rev-parse', '--abbrev-ref', 'HEAD', {})
-              .and_return 'foo_bar'
-
-            allow(SafeShell).to receive(:execute?)
-              .with('git', 'push', 'origin', 'foo_bar', {}).and_return true
+            expect(fake_git).to receive(:push).and_return(true)
           end
 
           it 'does not raise' do
@@ -134,34 +106,17 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
   describe '#make_pull_request!' do
     let(:github_response) { double('response') }
-    let(:octokit_client) do
-      double('octokit_client')
-    end
+    let(:octokit_client) { instance_double(Octokit::Client).as_null_object }
+
     before do
-      allow(SafeShell).to receive(:execute)
-        .with('git', 'rev-parse --abbrev-ref HEAD')
-        .and_return 'foo_bar'
-
-      allow(SafeShell).to receive(:execute)
-        .with('git', 'config --get remote.origin.url')
-        .and_return 'git@github.com:org_name/repo_name.git\n'
-
-      ENV['GITHUB_TOKEN'] = 't0K3Nz'
-      allow(Octokit::Client).to receive(:new)
-        .with(access_token: 't0K3Nz').and_return octokit_client
+      allow(Octokit::Client).to receive(:new).and_return octokit_client
+      allow(fake_git).to receive(:config).with('remote.origin.url').and_return('https://blah/org/repo')
+      allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
     end
 
     context 'Given a successful octokit pull request request' do
       it 'does not raise' do
-        allow(octokit_client).to receive(:create_pull_request)
-          .with(
-            'org_name/repo_name',
-            'master',
-            'foo_bar',
-            'Automated Bundle Update',
-            'Automatic Bundle Update for review'
-          ).and_return github_response
-
+        allow(octokit_client).to receive(:create_pull_request).and_return(github_response)
         expect { Unwrappr::GitCommandRunner.make_pull_request! }
           .not_to raise_error
       end
@@ -169,14 +124,8 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
     context 'Given an exception is raised from octokit' do
       it 'raises' do
-        allow(octokit_client).to receive(:create_pull_request)
-          .with(
-            'org_name/repo_name',
-            'master',
-            'foo_bar',
-            'Automated Bundle Update',
-            'Automatic Bundle Update for review'
-          ).and_raise Exception
+        expect(octokit_client).to receive(:create_pull_request)
+          .and_raise Octokit::ClientError
 
         expect { Unwrappr::GitCommandRunner.make_pull_request! }
           .to raise_error 'failed to make pull request'
