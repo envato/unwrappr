@@ -54,10 +54,10 @@ module Unwrappr
       end
 
       def repo_name_and_org
-        repo = git.config('remote.origin.url')
-        # expect "git@github.com:org_name/repo_name.git\n"
-        # return org_name/repo_name
-        repo.split(':')[1].split('.')[0].strip
+        repo_url = git.config('remote.origin.url')
+        pattern = %r{github.com[/:](?<org>.*)/(?<repo>.*)(\.git)?}
+        m = pattern.match(repo_url)
+        [m[:org], m[:repo]].join('/')
       end
 
       def pull_request_created?
