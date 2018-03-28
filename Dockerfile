@@ -13,8 +13,8 @@ MAINTAINER "Envato <envato@envato.com>"
 #     && rm dockerize-linux-amd64-$DOCKERIZE_VERSION.tar.gz
 
 RUN mkdir -p unwrappr
-ADD . unwrappr-mysql
+ADD . unwrappr
 
 RUN gem install bundler
-WORKDIR /event_sourcery-unwrappr
+WORKDIR /unwrappr
 RUN bundle install
