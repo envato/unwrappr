@@ -3,6 +3,13 @@ lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'unwrappr/version'
 
+AUTHORS = {
+  'emilyn.escabarte@envato.com' => 'Emilyn Escabarte',
+  'joe.sustaric@envato.com' => 'Joe Sustaric',
+  'pete.johns@envato.com' => 'Pete Johns',
+  'vladimir.chervanev@envato.com' => 'Vladimir Chervanev'
+}.freeze
+
 Gem::Specification.new do |spec|
   spec.name          = 'unwrappr'
   spec.version       = Unwrappr::VERSION
