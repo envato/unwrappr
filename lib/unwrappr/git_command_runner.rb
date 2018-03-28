@@ -1,4 +1,5 @@
 require 'safe_shell'
+require 'octokit'
 
 module Unwrappr
   module GitCommandRunner
@@ -12,6 +13,10 @@ module Unwrappr
         raise 'failed to add git changes' unless git_added_changes?
         raise 'failed to commit changes' unless git_committed?
         raise 'failed to push changes' unless git_pushed?
+      end
+
+      def make_pull_request!
+        raise 'failed to make pull request' unless pull_request_created?
       end
 
       private
@@ -37,8 +42,34 @@ module Unwrappr
       end
 
       def git_pushed?
-        branch_name = SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
-        SafeShell.execute?('git', "push origin #{branch_name}")
+        SafeShell.execute?('git', "push origin #{get_current_branch_name}")
+      end
+
+      def get_current_branch_name
+        SafeShell.execute('git', 'rev-parse --abbrev-ref HEAD')
+      end
+
+      def get_repo_name_and_org
+        repo = SafeShell.execute('git', 'config --get remote.origin.url')
+        # expect "git@github.com:org_name/repo_name.git\n"
+        # return org_name/repo_name
+        repo.split(':')[1].split('.')[0].strip
+      end
+
+      def pull_request_created?
+        git_client.create_pull_request(
+          get_repo_name_and_org,
+          'master',
+          get_current_branch_name,
+          'Automated Bundle Update',
+          'Automatic Bundle Update for review'
+        )
+        rescue Exception
+          return false
+      end
+
+      def git_client
+        @client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
       end
     end
   end
