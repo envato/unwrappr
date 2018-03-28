@@ -4,31 +4,32 @@ module Unwrappr
     let(:repository) { double('repository') }
     let(:base) { double('base') }
     let(:head) { double('head') }
-    let(:response) { [double('response')] }
+    # let(:response) { [double('response')] }
+    let(:commit) { double('commit', message: "hi!") }
+    let(:commit_info) { double("commit information", commit: commit)}
+    let(:response) { double('response', commits: [commit_info]) }
 
     context "with a successful request" do
       before do
-        allow(Unwrappr::GithubChangelogBuilder).to receive(:build)
-          .with(repository: repository, base: base, head: head)
-          .and_return(response)
+        allow(Octokit.client).to receive(:compare).and_return(response)
+      end
+
+      it "returns an array of commit messages" do
+        expect(subject).to eq(["hi!"])
+      end
+    end
+
+    context "with NotFound error" do
+      before do
+        allow(Octokit.client).to receive(:compare).and_raise(Octokit::NotFound)
       end
 
       it "does not raise" do
         expect{subject}.not_to raise_error
       end
-    end
 
-    context "with a failed request" do
-      class NotFoundError < StandardError; end
-
-      before do
-        allow(Unwrappr::GithubChangelogBuilder).to receive(:build)
-          .with(repository: repository, base: base, head: head)
-          .and_raise(NotFoundError)
-      end
-
-      it "raises" do
-        expect{subject}.to raise_error(instance_of(NotFoundError))
+      it "returns an empty array" do
+        expect(subject).to eq([])
       end
     end
   end
