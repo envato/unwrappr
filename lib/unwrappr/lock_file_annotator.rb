@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 module Unwrappr
+  # Annotates a lock file,
   module LockFileAnnotator
     FILE_NAME = 'Gemfile.lock'
     OLD_REVISION = 'HEAD~1'
@@ -17,6 +18,8 @@ module Unwrappr
       annotate(File.read(old_file), File.read(new_file))
     end
 
+    # rubocop:disable Metrics/AbcSize
+    # rubocop:disable Metrics/MethodLength
     def self.annotate(old_content, new_content)
       diff = LockFileComparator.perform(old_content, new_content)
       result = []
@@ -43,5 +46,7 @@ module Unwrappr
 
       result
     end
+    # rubocop:enable Metrics/AbcSize
+    # rubocop:enable Metrics/MethodLength
   end
 end
