@@ -74,7 +74,7 @@ module Unwrappr
           'master',
           current_branch_name,
           'Automated Bundle Update',
-          'Automatic Bundle Update for review'
+          Unwrappr::LockFileAnnotator.annotate_revisions.to_s
         )
         true
       rescue Octokit::ClientError
