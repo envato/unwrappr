@@ -132,4 +132,30 @@ RSpec.describe Unwrappr::GitCommandRunner do
       end
     end
   end
+
+  describe '#show' do
+    subject(:show) { Unwrappr::GitCommandRunner.show('HEAD', 'Gemfile.lock') }
+
+    before do
+      allow(fake_git).to receive(:show)
+    end
+
+    it 'calls git.show using proper parameters' do
+      expect(fake_git).to receive(:show).with('HEAD', 'Gemfile.lock')
+
+      show
+    end
+
+    it 'returns the result' do
+      allow(fake_git).to receive(:show).and_return('content')
+
+      expect(show).to eq('content')
+    end
+
+    it 'handles client exceptions' do
+      allow(fake_git).to receive(:show).and_raise(Git::GitExecuteError)
+
+      expect(show).to be_nil
+    end
+  end
 end

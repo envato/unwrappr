@@ -26,6 +26,12 @@ module Unwrappr
         @git = nil
       end
 
+      def show(revision, path)
+        git.show(revision, path)
+      rescue Git::GitExecuteError
+        nil
+      end
+
       private
 
       def git_dir?
