@@ -1,8 +1,8 @@
 module Unwrappr
   module LockFileAnnotator
-    FILE_NAME = 'Gemfile.lock'
-    OLD_REVISION = 'HEAD~1'
-    NEW_REVISION = 'HEAD'
+    FILE_NAME = 'Gemfile.lock'.freeze
+    OLD_REVISION = 'HEAD~1'.freeze
+    NEW_REVISION = 'HEAD'.freeze
 
     def self.annotate_revisions
       old_content = GitCommandRunner.show(OLD_REVISION, FILE_NAME)
@@ -20,12 +20,16 @@ module Unwrappr
       diff = LockFileComparator.perform(old_content, new_content)
       result = []
 
-      diff[:versions].each do |dependency:, before:, after: |
+      diff[:versions].each do |dependency:, before:, after:|
         sources_uri = RubyGems.try_get_source_code_uri(dependency)
         next if sources_uri.nil?
-        next unless sources_uri =~  %r{https?://github.com/([^/]+/[^/]+)$}i
+        next unless sources_uri =~ %r{https?://github.com/([^/]+/[^/]+)$}i
 
-        messages = GithubChangelogBuilder.build(repository: $1, base: before, head: after)
+        messages = GithubChangelogBuilder.build(
+          repository: $1,
+          base: before,
+          head: after
+        )
         result << { dependency.to_s => messages }
       end
 
