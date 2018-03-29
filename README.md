@@ -64,36 +64,15 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 - The Target project has its dependencies managed by bundler
 - The box that this executes on has access to push branches to origin
 ## <a id="design-guide"></a>🎨 Design Guide
-```mermaid
-graph TD
-    a0((old<br/>Gemfile.lock))
-    b0((new<br/>Gemfile.lock))
-
-    subgraph Find git log diffs
-        c0(Parser) --> d0(Comparator)
-    end
-
-    a0 --> c0
-    b0 --> c0
-    d0 --> e0((Diff))
-
-    subgraph Unwrappr
-        a1(Create a unique <br/>`auto_bundle_update_timestamp` branch) --> b1(Run `bundle update`)
-        b1 --> c1(Commit and push changes)
-        c1 --> d1(Submit a PR)
-        d1 --> e1(Find git log diffs)
-        e1 --> f1(Get github diff link)
-        f1 --> g1(Figure out where to annotate the PR)
-        g1 --> h1(Annotate the PR)
-        h1 --> i1{All updates covered?}
-        i1 --> |No| e1
-    end
-  i1 --> |Yes| j1((bundle update PR))
-```
+<img src="https://user-images.githubusercontent.com/20217279/38064968-84130efa-334c-11e8-904f-10d9e48d7134.png" width="480"><br/>
 ## <a id="example"></a>🎬 Example
 **COMING SOON:** See our Pull Requests in action via a [dummy](https://github.com/envato/dummy) app
 ## <a id="contributing"></a>🌱 Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/envato/unwrappr. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+## <a id="license"></a>📜 License
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+## <a id="code-of-conduct"></a>🐾 Code of Conduct 
+Everyone interacting in the unwrappr project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/envato/unwrappr/blob/master/CODE_OF_CONDUCT.md).oming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 ## <a id="license"></a>📜 License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 ## <a id="code-of-conduct"></a>🐾 Code of Conduct 
