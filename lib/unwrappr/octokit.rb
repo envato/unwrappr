@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Wrapper around octokit
 module Octokit
   def self.client

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   # Compares two lock files and emits a diff of versions
   module LockFileComparator

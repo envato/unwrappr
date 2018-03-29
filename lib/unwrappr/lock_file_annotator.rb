@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module Unwrappr
   module LockFileAnnotator
-    FILE_NAME = 'Gemfile.lock'.freeze
-    OLD_REVISION = 'HEAD~1'.freeze
-    NEW_REVISION = 'HEAD'.freeze
+    FILE_NAME = 'Gemfile.lock'
+    OLD_REVISION = 'HEAD~1'
+    NEW_REVISION = 'HEAD'
 
     def self.annotate_revisions
       old_content = GitCommandRunner.show(OLD_REVISION, FILE_NAME)
@@ -16,7 +18,6 @@ module Unwrappr
     end
 
     def self.annotate(old_content, new_content)
-
       diff = LockFileComparator.perform(old_content, new_content)
       result = []
 
@@ -26,19 +27,18 @@ module Unwrappr
         next unless sources_uri =~ %r{https?://github.com/([^/]+/[^/]+)$}i
 
         messages = GithubChangelogBuilder.build(
-          repository: $1,
+          repository: Regexp.last_match(1),
           base: before,
           head: after
         )
         result << { dependency.to_s => messages } if messages.any?
 
         messages = GithubChangelogBuilder.build(
-          repository: $1,
+          repository: Regexp.last_match(1),
           base: 'v' + before,
           head: 'v' + after
         )
         result << { dependency.to_s => messages } if messages.any?
-
       end
 
       result

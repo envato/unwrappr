@@ -1,10 +1,12 @@
+# frozen_string_literal: true
+
 require 'json'
 
 module Unwrappr
   # A wrapper around RubyGems' API
   module RubyGems
-    SERVER = 'https://rubygems.org'.freeze
-    GET_GEM = '/api/v1/gems/%s.json'.freeze
+    SERVER = 'https://rubygems.org'
+    GET_GEM = '/api/v1/gems/%s.json'
 
     class << self
       def gem_info(name)

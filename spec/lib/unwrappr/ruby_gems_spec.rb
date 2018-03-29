@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   RSpec.describe RubyGems do
     subject(:gem_info) { described_class.gem_info(gem_name) }

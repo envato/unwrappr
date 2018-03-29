@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   RSpec.describe GithubChangelogBuilder do
     subject(:build) { described_class.build(repository: repository, base: base, head: head) }

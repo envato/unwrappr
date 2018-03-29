@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'unwrappr/bundler_command_runner'
 require 'unwrappr/cli'
 require 'unwrappr/git_command_runner'

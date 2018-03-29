@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   # specs_versions is a hash like { name: 'version' }
   class SpecVersionComparator
