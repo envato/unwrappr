@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   # Builds a changelog GitHub
   class GithubChangelogBuilder

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Unwrappr
   RSpec.describe LockFileComparator do
     subject(:perform) { described_class.perform(lock_file_content_before, lock_file_content_after) }
