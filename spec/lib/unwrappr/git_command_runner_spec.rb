@@ -112,7 +112,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
     before do
       allow(Octokit::Client).to receive(:new).and_return octokit_client
-      allow(fake_git).to receive(:config).with('remote.origin.url').and_return('https://blah/org/repo')
+      allow(fake_git).to receive(:config).with('remote.origin.url').and_return('https://github.com/org/repo')
       allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
       allow(fake_git).to receive(:show).and_return('some text')
     end
