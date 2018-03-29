@@ -26,7 +26,7 @@ module Unwrappr
         next unless sources_uri =~  %r{https?://github.com/([^/]+/[^/]+)$}i
 
         messages = GithubChangelogBuilder.build(repository: $1, base: before, head: after)
-        result << { [dependency] => messages }
+        result << { dependency.to_s => messages }
       end
 
       result
