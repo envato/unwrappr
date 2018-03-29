@@ -12,9 +12,10 @@ module Unwrappr
 
     def execute
       puts 'Doing the unwrappr thing...'
-      Unwrappr::GitCommandRunner.create_branch!
-      Unwrappr::BundlerCommandRunner.bundle_update!
-      Unwrappr::GitCommandRunner.commit_and_push_changes!
+      GitCommandRunner.create_branch!
+      BundlerCommandRunner.bundle_update!
+      GitCommandRunner.commit_and_push_changes!
+      GitCommandRunner.make_pull_request!
       # submit pr
       # 'For each updated gem' do
       #    find git log diffs
