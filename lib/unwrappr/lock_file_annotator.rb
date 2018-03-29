@@ -30,7 +30,15 @@ module Unwrappr
           base: before,
           head: after
         )
-        result << { dependency.to_s => messages }
+        result << { dependency.to_s => messages } if messages.any?
+
+        messages = GithubChangelogBuilder.build(
+          repository: $1,
+          base: 'v' + before,
+          head: 'v' + after
+        )
+        result << { dependency.to_s => messages } if messages.any?
+
       end
 
       result
