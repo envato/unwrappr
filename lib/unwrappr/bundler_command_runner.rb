@@ -13,7 +13,12 @@ module Unwrappr
       private
 
       def updated_gems?
-        SafeShell.execute?('bundle', 'update')
+        SafeShell.execute?(
+          'bundle',
+          'update',
+          stdout: 'stdout.txt',
+          stderr: 'error.txt'
+        )
       end
     end
   end

@@ -27,16 +27,21 @@ RSpec.describe Unwrappr::GitCommandRunner do
       before do
         allow(Time).to receive(:now).and_return(Time.parse('2017-01-01 11:23'))
         expect(fake_git).to receive(:current_branch).and_return('master')
+        expect(fake_git).to receive(:checkout).with('origin/master')
       end
 
       it 'does not raise' do
-        expect(fake_git).to receive(:branch).with('auto_bundle_update_20170101-1123').and_return(result)
+        expect(fake_git).to receive(:branch)
+          .with('auto_bundle_update_20170101-1123')
+          .and_return(result)
         expect { Unwrappr::GitCommandRunner.create_branch! }.not_to raise_error
       end
 
       context 'When there is some failiure in creating the branch' do
         it 'raises' do
-          expect(fake_git).to receive(:branch).with('auto_bundle_update_20170101-1123').and_raise(Git::GitExecuteError)
+          expect(fake_git).to receive(:branch)
+            .with('auto_bundle_update_20170101-1123')
+            .and_raise(Git::GitExecuteError)
           expect { Unwrappr::GitCommandRunner.create_branch! }
             .to raise_error 'failed to create branch'
         end

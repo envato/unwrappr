@@ -7,7 +7,12 @@ RSpec.describe Unwrappr::BundlerCommandRunner do
     context 'Given bundle update fails' do
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('bundle', 'update').and_return false
+          .with(
+            'bundle',
+            'update',
+            stdout: 'stdout.txt',
+            stderr: 'error.txt'
+          ).and_return false
       end
 
       it 'raises' do
@@ -19,7 +24,12 @@ RSpec.describe Unwrappr::BundlerCommandRunner do
     context 'Given bundle update succeeds' do
       before do
         allow(SafeShell).to receive(:execute?)
-          .with('bundle', 'update').and_return true
+          .with(
+            'bundle',
+            'update',
+            stdout: 'stdout.txt',
+            stderr: 'error.txt'
+          ).and_return true
       end
 
       it 'does not raise' do
