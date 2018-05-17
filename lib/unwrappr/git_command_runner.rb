@@ -65,8 +65,8 @@ module Unwrappr
       end
 
       def repo_name_and_org
-        repo_url = git.config('remote.origin.url')
-        pattern = %r{github.com[/:](?<org>.*)/(?<repo>.*)(\.git)?}
+        repo_url = git.config('remote.origin.url').gsub(/\.git$/, '')
+        pattern = %r{github.com[/:](?<org>.*)/(?<repo>.*)}
         m = pattern.match(repo_url)
         [m[:org], m[:repo]].join('/')
       end
