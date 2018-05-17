@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'bundler'
+
 module Unwrappr
   # Compares two lock files and emits a diff of versions
   module LockFileComparator
