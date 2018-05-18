@@ -3,6 +3,7 @@
 require 'git'
 require 'logger'
 require 'octokit'
+require 'pp'
 
 module Unwrappr
   # Runs Git commands
@@ -77,7 +78,7 @@ module Unwrappr
           'master',
           current_branch_name,
           'Automated Bundle Update',
-          Unwrappr::LockFileAnnotator.annotate_revisions.to_s
+          "```\n#{Unwrappr::LockFileAnnotator.annotate_revisions.pretty_inspect}\n```"
         )
         true
       rescue Octokit::ClientError
