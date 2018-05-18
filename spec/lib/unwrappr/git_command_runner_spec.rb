@@ -112,21 +112,55 @@ RSpec.describe Unwrappr::GitCommandRunner do
   end
 
   describe '#make_pull_request!' do
+    subject(:make_pull_request!) { Unwrappr::GitCommandRunner.make_pull_request! }
     let(:github_response) { double('response') }
     let(:octokit_client) { instance_double(Octokit::Client).as_null_object }
+    let(:git_url) { 'https://github.com/org/repo' }
 
     before do
       allow(Octokit::Client).to receive(:new).and_return octokit_client
-      allow(fake_git).to receive(:config).with('remote.origin.url').and_return('https://github.com/org/repo')
+      allow(fake_git).to receive(:config).with('remote.origin.url').and_return(git_url)
       allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
       allow(fake_git).to receive(:show).and_return('some text')
     end
 
-    context 'Given a successful octokit pull request request' do
-      it 'does not raise' do
+    context 'Given a successful octokit pull request is created' do
+      before do
         allow(octokit_client).to receive(:create_pull_request).and_return(github_response)
-        expect { Unwrappr::GitCommandRunner.make_pull_request! }
-          .not_to raise_error
+      end
+
+      context 'When Git URL ends with .git' do
+        let(:git_url) { 'git@github.com:org/repo.git' }
+
+        it 'creates a pull request in the repo' do
+          make_pull_request!
+          expect(octokit_client).to have_received(:create_pull_request).with(
+            'org/repo',
+            any_args
+          )
+        end
+
+        it 'does not raise any error' do
+          expect { make_pull_request! }
+            .not_to raise_error
+        end
+      end
+
+      context 'When Git URL does not end with .git' do
+        let(:git_url) { 'https://github.com/org/repo' }
+
+        it 'creates a pull request in the repo' do
+          make_pull_request!
+          expect(octokit_client).to have_received(:create_pull_request).with(
+            'org/repo',
+            any_args
+          )
+        end
+
+        it 'does not raise any error' do
+          expect { make_pull_request! }
+            .not_to raise_error
+        end
       end
     end
 
