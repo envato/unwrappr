@@ -5,7 +5,7 @@
 
 [![Gem version](https://img.shields.io/gem/v/unwrappr.svg?style=flat-square)](https://github.com/envato/unwrappr)
 [![Gem downloads](https://img.shields.io/gem/dt/unwrappr.svg?style=flat-square)](https://rubygems.org/gems/unwrappr)
-[![Build status](https://badge.buildkite.com/d7db34f910131ff2a03d31dcc0ee960a3bc5f0df2c42ec4eb4.svg?style=flat-square)](https://buildkite.com/envato-marketplaces/unwrappr)
+[![Build status](https://badge.buildkite.com/d7db34f910131ff2a03d31dcc0ee960a3bc5f0df2c42ec4eb4.svg?branch=master&style=flat-square)](https://buildkite.com/envato-marketplaces/unwrappr)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/envato/unwrappr/blob/master/LICENSE.txt)
 [![PRs welcome](https://img.shields.io/badge/PRs-welcome-orange.svg?style=flat-square)](https://github.com/envato/unwrappr/issues)
 [![code with heart by Envato](https://img.shields.io/badge/%3C%2F%3E%20with%20%E2%99%A5%20by-Envato%20unwrappr%20team-ff69b4.svg?style=flat-square)](https://github.com/envato/unwrappr)
