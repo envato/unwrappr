@@ -1,12 +1,38 @@
 ---
 
 steps:
-  - name: ":rspec: RSpec"
-    command: "script/ci.sh"
+  - label: ":ruby: 2.5 :rspec:"
+    command: "bundle install && bundle exec rspec"
+    plugins:
+      docker#v1.2.1:
+        image: "ruby:2.5"
     agents:
-      queue: platform-docker-spot
-    env:
-      BUILDKITE_DOCKER_COMPOSE_FILE: docker-compose.ci.yml
-      BUILDKITE_DOCKER_COMPOSE_CONTAINER: app
-    parallelism: 1
-    timeout_in_minutes: 20
+      queue: "platform-docker-spot"
+    timeout_in_minutes: 5
+
+  - label: ":ruby: 2.4 :rspec:"
+    command: "bundle install && bundle exec rspec"
+    plugins:
+      docker#v1.2.1:
+        image: "ruby:2.4"
+    agents:
+      queue: "platform-docker-spot"
+    timeout_in_minutes: 5
+
+  - label: ":ruby: 2.3 :rspec:"
+    command: "bundle install && bundle exec rspec"
+    plugins:
+      docker#v1.2.1:
+        image: "ruby:2.3"
+    agents:
+      queue: "platform-docker-spot"
+    timeout_in_minutes: 5
+
+  - label: ":rubocop:"
+    command: "bundle install && bundle exec rubocop"
+    plugins:
+      docker#v1.2.1:
+        image: "ruby"
+    agents:
+      queue: "platform-docker-spot"
+    timeout_in_minutes: 5
