@@ -2,7 +2,7 @@
 
 steps:
   - label: ":ruby: 2.5 :rspec:"
-    command: "bundle install && bundle exec rspec"
+    command: ".buildkite/steps/rspec.sh"
     plugins:
       docker#v1.2.1:
         image: "ruby:2.5"
@@ -11,7 +11,7 @@ steps:
     timeout_in_minutes: 5
 
   - label: ":ruby: 2.4 :rspec:"
-    command: "bundle install && bundle exec rspec"
+    command: ".buildkite/steps/rspec.sh"
     plugins:
       docker#v1.2.1:
         image: "ruby:2.4"
@@ -20,7 +20,7 @@ steps:
     timeout_in_minutes: 5
 
   - label: ":ruby: 2.3 :rspec:"
-    command: "bundle install && bundle exec rspec"
+    command: ".buildkite/steps/rspec.sh"
     plugins:
       docker#v1.2.1:
         image: "ruby:2.3"
@@ -29,7 +29,7 @@ steps:
     timeout_in_minutes: 5
 
   - label: ":rubocop:"
-    command: "bundle install && bundle exec rubocop"
+    command: ".buildkite/steps/rubocop.sh"
     plugins:
       docker#v1.2.1:
         image: "ruby"
