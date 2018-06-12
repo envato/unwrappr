@@ -3,6 +3,7 @@
 require 'bundler/setup'
 require 'unwrappr'
 require 'pry'
+require 'rspec/its'
 
 RSpec.configure do |config|
   # Enable flags like --only-failures and --next-failure
