@@ -72,16 +72,24 @@ module Unwrappr
       end
 
       def pull_request_created?
-        git_client.create_pull_request(
+        pr = git_client.create_pull_request(
           repo_name_and_org,
           'master',
           current_branch_name,
-          'Automated Bundle Update',
-          GithubCommitLog.annotate_revisions.to_s
+          'Automated Bundle Update'
         )
+        annotate_pull_request(pr.number)
         true
       rescue Octokit::ClientError
         false
+      end
+
+      def annotate_pull_request(pr_number)
+        LockFileAnnotator.annotate_github_pull_request(
+          repo:       repo_name_and_org,
+          pr_number:  pr_number,
+          client:     git_client
+        )
       end
 
       def git_client

@@ -113,8 +113,8 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
   describe '#make_pull_request!' do
     subject(:make_pull_request!) { Unwrappr::GitCommandRunner.make_pull_request! }
-    let(:github_response) { double('response') }
-    let(:octokit_client) { instance_double(Octokit::Client).as_null_object }
+    let(:github_response) { double('response', number: 34) }
+    let(:octokit_client) { instance_spy(Octokit::Client) }
     let(:git_url) { 'https://github.com/org/repo' }
 
     before do
@@ -122,6 +122,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
       allow(fake_git).to receive(:config).with('remote.origin.url').and_return(git_url)
       allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
       allow(fake_git).to receive(:show).and_return('some text')
+      allow(Unwrappr::LockFileAnnotator).to receive(:annotate_github_pull_request)
     end
 
     context 'Given a successful octokit pull request is created' do
@@ -140,6 +141,13 @@ RSpec.describe Unwrappr::GitCommandRunner do
           )
         end
 
+        it 'annotates the pull request' do
+          make_pull_request!
+          expect(Unwrappr::LockFileAnnotator)
+            .to have_received(:annotate_github_pull_request)
+            .with(repo: 'org/repo', pr_number: 34, client: octokit_client)
+        end
+
         it 'does not raise any error' do
           expect { make_pull_request! }
             .not_to raise_error
@@ -155,6 +163,13 @@ RSpec.describe Unwrappr::GitCommandRunner do
             'org/repo',
             any_args
           )
+        end
+
+        it 'annotates the pull request' do
+          make_pull_request!
+          expect(Unwrappr::LockFileAnnotator)
+            .to have_received(:annotate_github_pull_request)
+            .with(repo: 'org/repo', pr_number: 34, client: octokit_client)
         end
 
         it 'does not raise any error' do
