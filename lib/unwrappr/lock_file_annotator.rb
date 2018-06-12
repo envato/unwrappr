@@ -1,7 +1,21 @@
 # frozen_string_literal: true
 
 module Unwrappr
-  # TODO: write something about what this class does.
+  # The main entry object for annotating Gemfile.lock files.
+  #
+  # This class has four main collaborators:
+  #
+  # - **lock_file_diff_source**: Provides a means of obtaining `LockFileDiff`
+  #   instances.
+  #
+  # - **annotation_sink**: A place to send gem change annotations.
+  #
+  # - **gem_researchers**: These collect extra information about the gem
+  #   change. Unwrapprs if you will.
+  #
+  # - **annotation_writer**: Collects the gem change and all the collated
+  #   research
+  #   and presents it in a nicely formatted annotation.
   class LockFileAnnotator
     def self.annotate_github_pull_request(
       repo:, pr_number:, client: Octokit.client

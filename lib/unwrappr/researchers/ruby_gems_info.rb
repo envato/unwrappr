@@ -2,10 +2,10 @@
 
 module Unwrappr
   module Researchers
-    # Implements the GemResearcher interface required by the
-    # LockFileAnnotator.
-    #
     # Obtains information about the gem from https://rubygems.org/
+    #
+    # Implements the `gem_researcher` interface required by the
+    # LockFileAnnotator.
     class RubyGemsInfo
       def research(gem_change, gem_change_info)
         gem_change_info.merge(

@@ -3,6 +3,9 @@
 module Unwrappr
   module Github
     # Saves Gemfile.lock annotations as Github pull request comments.
+    #
+    # Implements the `annotation_sink` interface as defined by the
+    # LockFileAnnotator.
     class PrSink
       def initialize(repo, pr_number, client)
         @repo = repo

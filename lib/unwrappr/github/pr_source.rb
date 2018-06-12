@@ -5,6 +5,9 @@ require 'base64'
 module Unwrappr
   module Github
     # Obtains Gemfile.lock changes from a Github Pull Request
+    #
+    # Implements the `lock_file_diff_source` interface as defined by the
+    # LockFileAnnotator.
     class PrSource
       def initialize(repo, pr_number, client)
         @repo = repo
