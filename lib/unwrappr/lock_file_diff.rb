@@ -1,9 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'gem_change'
-require_relative 'gem_version'
-require_relative 'lock_file_comparator'
-
 module Unwrappr
   # Responsible for identifying all gem changes between two versions of a
   # Gemfile.lock file.
