@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'unwrappr/annotation_writer'
 require 'unwrappr/bundler_command_runner'
 require 'unwrappr/cli'
 require 'unwrappr/gem_change'
