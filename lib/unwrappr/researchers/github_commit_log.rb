@@ -2,7 +2,7 @@
 
 module Unwrappr
   # Annotates a lock file,
-  module LockFileAnnotator
+  module GithubCommitLog
     FILE_NAME = 'Gemfile.lock'
     OLD_REVISION = 'HEAD~1'
     NEW_REVISION = 'HEAD'

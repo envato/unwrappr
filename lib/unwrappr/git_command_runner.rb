@@ -77,7 +77,7 @@ module Unwrappr
           'master',
           current_branch_name,
           'Automated Bundle Update',
-          Unwrappr::LockFileAnnotator.annotate_revisions.to_s
+          GithubCommitLog.annotate_revisions.to_s
         )
         true
       rescue Octokit::ClientError

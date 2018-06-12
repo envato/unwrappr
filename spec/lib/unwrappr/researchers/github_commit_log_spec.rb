@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Unwrappr
-  RSpec.describe LockFileAnnotator do
+  RSpec.describe GithubCommitLog do
     subject(:annotate) { described_class.annotate(lock_file_content_before, lock_file_content_after) }
 
     let(:lock_file_content_before) { double('lock_file_content_before') }
