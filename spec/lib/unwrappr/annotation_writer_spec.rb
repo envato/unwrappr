@@ -92,7 +92,7 @@ module Unwrappr
           it { should eq <<~MESSAGE }
             ### test-gem
 
-            Gem added :dizzy:
+            Gem added :snowman:
 
             [_~~change-log~~, ~~source-code~~_]
           MESSAGE

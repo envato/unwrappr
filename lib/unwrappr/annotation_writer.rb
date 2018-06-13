@@ -30,7 +30,7 @@ module Unwrappr
                    :base_version, :head_version
 
     def change_description
-      if added? then 'Gem added :dizzy:'
+      if added? then 'Gem added :snowman:'
       elsif removed? then 'Gem removed :fire:'
       elsif major?
         "**Major** version #{grade}:exclamation: #{version_diff}"
