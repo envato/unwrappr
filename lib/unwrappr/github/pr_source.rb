@@ -30,10 +30,11 @@ module Unwrappr
       private
 
       def lock_file_diffs
-        @lock_file_diffs ||= @client.pull_request_files(@repo, @pr_number)
-                                    .select do |file|
-                                      file.filename =~ /Gemfile\.lock$/
-                                    end
+        @lock_file_diffs ||= @client
+                             .pull_request_files(@repo, @pr_number)
+                             .select do |file|
+                               File.basename(file.filename) == 'Gemfile.lock'
+                             end
       end
 
       def file_contents(filename, ref)
