@@ -14,14 +14,14 @@ module Unwrappr
         subject(:version) { GemVersion.new('5.1') }
         its(:major) { should be(5) }
         its(:minor) { should be(1) }
-        its(:patch) { should be(nil) }
+        its(:patch) { should be(0) }
       end
 
       context 'given 7' do
         subject(:version) { GemVersion.new('7') }
         its(:major) { should be(7) }
-        its(:minor) { should be(nil) }
-        its(:patch) { should be(nil) }
+        its(:minor) { should be(0) }
+        its(:patch) { should be(0) }
       end
 
       context 'given 12.5.19-beta' do

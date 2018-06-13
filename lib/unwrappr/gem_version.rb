@@ -9,12 +9,13 @@ module Unwrappr
 
     def initialize(version_string)
       @version_string = version_string
-      @major = match_version(/^(\d+)/)
-      @minor = match_version(/^\d+\.(\d+)/)
-      @patch = match_version(/^\d+\.\d+\.(\d+)/)
+      @version = Gem::Version.create(version_string)
+      @major = segment(0)
+      @minor = segment(1)
+      @patch = segment(2)
     end
 
-    attr_reader :major, :minor, :patch
+    attr_reader :major, :minor, :patch, :version
 
     def major_difference?(other)
       (major != other.major)
@@ -32,15 +33,7 @@ module Unwrappr
     end
 
     def <=>(other)
-      if major_difference?(other)
-        major <=> other.major
-      elsif minor_difference?(other)
-        minor <=> other.minor
-      elsif patch_difference?(other)
-        patch <=> other.patch
-      else
-        0
-      end
+      @version <=> other.version
     end
 
     def to_s
@@ -49,9 +42,9 @@ module Unwrappr
 
     private
 
-    def match_version(pattern)
-      match = pattern.match(@version_string)
-      match && match[1].to_i
+    def segment(index)
+      segment = @version.canonical_segments[index] || 0
+      (segment.is_a?(Numeric) ? segment : nil)
     end
   end
 end
