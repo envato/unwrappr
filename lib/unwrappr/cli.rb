@@ -22,5 +22,24 @@ module Unwrappr
         GitCommandRunner.make_pull_request!
       end
     end
+
+    subcommand 'annotate-pull-request',
+               'Annotate Gemfile.lock changes in a Github pull request' do
+
+      option '--repo', 'REPO',
+             'The repo in github <owner/project>',
+             required: true
+
+      option '--pr', 'PR',
+             'The github PR number',
+             required: true
+
+      def execute
+        LockFileAnnotator.annotate_github_pull_request(
+          repo: repo,
+          pr_number: pr.to_i
+        )
+      end
+    end
   end
 end
