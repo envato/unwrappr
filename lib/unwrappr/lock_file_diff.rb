@@ -37,7 +37,10 @@ module Unwrappr
       version && GemVersion.new(version)
     end
 
+    # Obtain the line in the patch that should be annotated
     def line_number_for_change(change)
+      # If a gem is removed, use the `-` line (as there is no `+` line).
+      # For all other cases use the `+` line.
       type = (change[:after].nil? ? '-' : '+')
       line_numbers[change[:dependency].to_s][type]
     end
@@ -54,6 +57,10 @@ module Unwrappr
     end
 
     def extract_gem_and_change_type(line)
+      # We only care about lines like this:
+      # '+    websocket-driver (0.6.5)'
+      # Careful not to match this (note the wider indent):
+      # '+      websocket-extensions (>= 0.1.0)'
       pattern = /^(?<change_type>[\+\-])    (?<gem_name>[a-z\-_]+) \(\d/
       match = pattern.match(line)
       return match[:gem_name], match[:change_type] unless match.nil?
