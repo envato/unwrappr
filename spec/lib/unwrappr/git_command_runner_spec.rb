@@ -185,7 +185,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
           .and_raise Octokit::ClientError
 
         expect { Unwrappr::GitCommandRunner.make_pull_request! }
-          .to raise_error 'failed to make pull request'
+          .to raise_error 'failed to create and annotate pull request'
       end
     end
   end
