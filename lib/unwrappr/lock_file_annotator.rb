@@ -1,52 +1,67 @@
 # frozen_string_literal: true
 
 module Unwrappr
-  # Annotates a lock file,
-  module LockFileAnnotator
-    FILE_NAME = 'Gemfile.lock'
-    OLD_REVISION = 'HEAD~1'
-    NEW_REVISION = 'HEAD'
-
-    def self.annotate_revisions
-      old_content = GitCommandRunner.show(OLD_REVISION, FILE_NAME)
-      new_content = GitCommandRunner.show(NEW_REVISION, FILE_NAME)
-
-      annotate(old_content, new_content)
+  # The main entry object for annotating Gemfile.lock files.
+  #
+  # This class has four main collaborators:
+  #
+  # - **lock_file_diff_source**: Provides a means of obtaining `LockFileDiff`
+  #   instances.
+  #
+  # - **annotation_sink**: A place to send gem change annotations.
+  #
+  # - **gem_researchers**: These collect extra information about the gem
+  #   change. Unwrapprs if you will.
+  #
+  # - **annotation_writer**: Collects the gem change and all the collated
+  #   research
+  #   and presents it in a nicely formatted annotation.
+  class LockFileAnnotator
+    def self.annotate_github_pull_request(
+      repo:, pr_number:, client: Octokit.client
+    )
+      new(
+        lock_file_diff_source: Github::PrSource.new(repo, pr_number, client),
+        annotation_sink: Github::PrSink.new(repo, pr_number, client),
+        annotation_writer_factory: AnnotationWriter,
+        gem_researchers: [
+          Researchers::RubyGemsInfo.new
+        ]
+      ).annotate
     end
 
-    def self.annotate_files(old_file, new_file)
-      annotate(File.read(old_file), File.read(new_file))
+    def initialize(
+      lock_file_diff_source:,
+      annotation_sink:,
+      annotation_writer_factory:,
+      gem_researchers:
+    )
+      @lock_file_diff_source = lock_file_diff_source
+      @annotation_sink = annotation_sink
+      @annotation_writer_factory = annotation_writer_factory
+      @gem_researchers = gem_researchers
     end
 
-    # rubocop:disable Metrics/AbcSize
-    # rubocop:disable Metrics/MethodLength
-    def self.annotate(old_content, new_content)
-      diff = LockFileComparator.perform(old_content, new_content)
-      result = []
-
-      diff[:versions].each do |dependency:, before:, after:|
-        sources_uri = RubyGems.try_get_source_code_uri(dependency)
-        next if sources_uri.nil?
-        next unless sources_uri =~ %r{https?://github.com/([^/]+/[^/]+)$}i
-
-        messages = GithubChangelogBuilder.build(
-          repository: Regexp.last_match(1),
-          base: before,
-          head: after
-        )
-        result << { dependency.to_s => messages } if messages.any?
-
-        messages = GithubChangelogBuilder.build(
-          repository: Regexp.last_match(1),
-          base: 'v' + before,
-          head: 'v' + after
-        )
-        result << { dependency.to_s => messages } if messages.any?
+    def annotate
+      @lock_file_diff_source.each_file do |lock_file_diff|
+        lock_file_diff.each_gem_change do |gem_change|
+          gem_change_info = research_gem(gem_change)
+          message = annotation_writer(gem_change, gem_change_info).write
+          @annotation_sink.annotate_change(gem_change, message)
+        end
       end
-
-      result
     end
-    # rubocop:enable Metrics/AbcSize
-    # rubocop:enable Metrics/MethodLength
+
+    private
+
+    def research_gem(gem_change)
+      @gem_researchers.reduce({}) do |gem_change_info, researcher|
+        researcher.research(gem_change, gem_change_info)
+      end
+    end
+
+    def annotation_writer(gem_change, gem_change_info)
+      @annotation_writer_factory.new(gem_change, gem_change_info)
+    end
   end
 end

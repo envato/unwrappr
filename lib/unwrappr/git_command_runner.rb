@@ -20,7 +20,9 @@ module Unwrappr
       end
 
       def make_pull_request!
-        raise 'failed to make pull request' unless pull_request_created?
+        create_and_annotate_pull_request
+      rescue Octokit::ClientError
+        raise 'failed to create and annotate pull request'
       end
 
       def reset_client
@@ -71,17 +73,22 @@ module Unwrappr
         [m[:org], m[:repo]].join('/')
       end
 
-      def pull_request_created?
-        git_client.create_pull_request(
+      def create_and_annotate_pull_request
+        pr = git_client.create_pull_request(
           repo_name_and_org,
           'master',
           current_branch_name,
-          'Automated Bundle Update',
-          Unwrappr::LockFileAnnotator.annotate_revisions.to_s
+          'Automated Bundle Update'
         )
-        true
-      rescue Octokit::ClientError
-        false
+        annotate_pull_request(pr.number)
+      end
+
+      def annotate_pull_request(pr_number)
+        LockFileAnnotator.annotate_github_pull_request(
+          repo:       repo_name_and_org,
+          pr_number:  pr_number,
+          client:     git_client
+        )
       end
 
       def git_client
