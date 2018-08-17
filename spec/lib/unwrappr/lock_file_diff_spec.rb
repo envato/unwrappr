@@ -17,7 +17,7 @@ module Unwrappr
       GEM
         remote: https://rubygems.org/
         specs:
-      -    diff-lcs (1.3)
+      -    diff_lcs (1.3)
       -    rspec (3.7.0)
       +    pry (0.11.3)
       +    rspec (4.0.0)
@@ -26,18 +26,21 @@ module Unwrappr
       -      rspec-mocks (~> 3.7.0)
       +      rspec-expectations (~> 3.8.0)
       +      rspec-mocks (~> 3.6.0)
-          rspec-core (3.7.1)
+           rspec-core (3.7.1)
             rspec-support (~> 3.7.0)
       -    rspec-expectations (3.7.0)
-      -      diff-lcs (>= 1.2.0, < 2.0)
+      -      diff_lcs (>= 1.2.0, < 2.0)
       +    rspec-expectations (3.8.0)
             rspec-support (~> 3.7.0)
       -    rspec-mocks (3.7.0)
-      -      diff-lcs (>= 1.2.0, < 2.0)
+      -      diff_lcs (>= 1.2.0, < 2.0)
       +    rspec-mocks (3.6.0)
             rspec-support (~> 3.7.0)
       -    rspec-support (3.7.0)
       +    rspec-support (3.7.1)
+           highline (2.0.0)
+      -    i18n (1.0.1)
+      +    i18n (1.1.0)
 
       PLATFORMS
         ruby
@@ -53,7 +56,7 @@ module Unwrappr
       GEM
         remote: https://rubygems.org/
         specs:
-          diff-lcs (1.3)
+          diff_lcs (1.3)
           rspec (3.7.0)
             rspec-core (~> 3.7.0)
             rspec-expectations (~> 3.7.0)
@@ -61,12 +64,14 @@ module Unwrappr
           rspec-core (3.7.1)
             rspec-support (~> 3.7.0)
           rspec-expectations (3.7.0)
-            diff-lcs (>= 1.2.0, < 2.0)
+            diff_lcs (>= 1.2.0, < 2.0)
             rspec-support (~> 3.7.0)
           rspec-mocks (3.7.0)
-            diff-lcs (>= 1.2.0, < 2.0)
+            diff_lcs (>= 1.2.0, < 2.0)
             rspec-support (~> 3.7.0)
           rspec-support (3.7.0)
+          highline (2.0.0)
+          i18n (1.0.1)
 
       PLATFORMS
         ruby
@@ -94,6 +99,8 @@ module Unwrappr
           rspec-mocks (3.6.0)
             rspec-support (~> 3.7.0)
           rspec-support (3.7.1)
+          highline (2.0.0)
+          i18n (1.1.0)
 
       PLATFORMS
         ruby
@@ -114,12 +121,12 @@ module Unwrappr
       end
 
       it 'yields the correct number of gem changes' do
-        expect(gem_changes.count).to eq(6)
+        expect(gem_changes.count).to eq(7)
       end
 
       describe '1st' do
         subject(:first_gem_change) { gem_changes[0] }
-        its(:name) { should eq('diff-lcs') }
+        its(:name) { should eq('diff_lcs') }
         it { should be_removed }
         its(:line_number) { should eq 4 }
         its(:base_version) { should eq GemVersion.new('1.3') }
@@ -128,6 +135,16 @@ module Unwrappr
 
       describe '2nd' do
         subject(:second_gem_change) { gem_changes[1] }
+        its(:name) { should eq('i18n') }
+        it { should be_upgrade }
+        it { should be_minor }
+        its(:line_number) { should eq 27 }
+        its(:base_version) { should eq GemVersion.new('1.0.1') }
+        its(:head_version) { should eq GemVersion.new('1.1.0') }
+      end
+
+      describe '3rd' do
+        subject(:second_gem_change) { gem_changes[2] }
         its(:name) { should eq('pry') }
         it { should be_added }
         its(:line_number) { should eq 6 }
@@ -135,8 +152,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('0.11.3') }
       end
 
-      describe '3rd' do
-        subject(:third_gem_change) { gem_changes[2] }
+      describe '4th' do
+        subject(:third_gem_change) { gem_changes[3] }
         its(:name) { should eq('rspec') }
         it { should be_upgrade }
         it { should be_major }
@@ -145,8 +162,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('4.0.0') }
       end
 
-      describe '4th' do
-        subject(:fourth_gem_change) { gem_changes[3] }
+      describe '5th' do
+        subject(:fourth_gem_change) { gem_changes[4] }
         its(:name) { should eq('rspec-expectations') }
         it { should be_upgrade }
         it { should be_minor }
@@ -155,8 +172,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('3.8.0') }
       end
 
-      describe '5th' do
-        subject(:fifth_gem_change) { gem_changes[4] }
+      describe '6th' do
+        subject(:fifth_gem_change) { gem_changes[5] }
         its(:name) { should eq('rspec-mocks') }
         it { should be_downgrade }
         it { should be_minor }
@@ -165,8 +182,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('3.6.0') }
       end
 
-      describe '6th' do
-        subject(:sixth_gem_change) { gem_changes[5] }
+      describe '7th' do
+        subject(:sixth_gem_change) { gem_changes[6] }
         its(:name) { should eq('rspec-support') }
         it { should be_upgrade }
         it { should be_patch }
