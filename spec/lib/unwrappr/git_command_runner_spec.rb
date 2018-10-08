@@ -7,6 +7,9 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
   before do
     described_class.reset_client
+    allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
+    allow(ENV).to receive(:[]).with('GITHUB_TOKEN').and_return('fake tokenz r us')
+    allow(ENV).to receive(:key?).with('GITHUB_TOKEN').and_return(true)
     allow(Git).to receive(:open).and_return(fake_git)
   end
 
