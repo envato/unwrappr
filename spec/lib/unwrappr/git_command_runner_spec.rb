@@ -7,9 +7,6 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
   before do
     described_class.reset_client
-    allow(ENV).to receive(:[]).with('DEBUG').and_return(nil)
-    allow(ENV).to receive(:[]).with('GITHUB_TOKEN').and_return('fake tokenz r us')
-    allow(ENV).to receive(:key?).with('GITHUB_TOKEN').and_return(true)
     allow(Git).to receive(:open).and_return(fake_git)
   end
 
@@ -121,6 +118,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
     let(:git_url) { 'https://github.com/org/repo' }
 
     before do
+      allow(ENV).to receive(:fetch).with('GITHUB_TOKEN').and_return('fake tokenz r us')
       allow(Octokit::Client).to receive(:new).and_return octokit_client
       allow(fake_git).to receive(:config).with('remote.origin.url').and_return(git_url)
       allow(fake_git).to receive(:current_branch).and_return('some-new-branch')
