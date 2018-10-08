@@ -1,0 +1,36 @@
+Warning: the running version of Bundler (1.16.1) is older than the version that created the lockfile (1.16.2). We suggest you upgrade to the latest version of Bundler by running `gem install bundler`.
+Fetching gem metadata from https://rubygems.org/........
+Fetching gem metadata from https://rubygems.org/.
+Resolving dependencies...
+Using rake 10.5.0
+Using public_suffix 3.0.3 (was 3.0.2)
+Using ast 2.4.0
+Using bundler 1.16.1
+Using clamp 1.3.0 (was 1.2.1)
+Using coderay 1.1.2
+Using diff-lcs 1.3
+Using multipart-post 2.0.0
+Using git 1.5.0 (was 1.3.0)
+Using jaro_winkler 1.5.1
+Using method_source 0.9.0
+Using parallel 1.12.1
+Using powerpack 0.1.2 (was 0.1.1)
+Using rainbow 3.0.0
+Using rspec-support 3.8.0 (was 3.7.1)
+Using ruby-progressbar 1.10.0 (was 1.9.0)
+Using unicode-display_width 1.4.0 (was 1.3.0)
+Using safe_shell 1.1.0
+Using addressable 2.5.2
+Using faraday 0.15.3 (was 0.14.0)
+Using parser 2.5.1.2 (was 2.5.0.5)
+Using pry 0.11.3
+Using rspec-core 3.8.0 (was 3.7.1)
+Using rspec-expectations 3.8.1 (was 3.7.0)
+Using rspec-mocks 3.8.0 (was 3.7.0)
+Using sawyer 0.8.1
+Using rubocop 0.59.2 (was 0.54.0)
+Using rspec-its 1.2.0
+Using rspec 3.8.0 (was 3.7.0)
+Using octokit 4.12.0 (was 4.8.0)
+Using unwrappr 0.2.1 (was 0.1.0) from source at `.`
+Bundle updated!
