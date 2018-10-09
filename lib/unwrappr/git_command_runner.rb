@@ -92,7 +92,20 @@ module Unwrappr
       end
 
       def git_client
-        @git_client ||= Octokit::Client.new(access_token: ENV['GITHUB_TOKEN'])
+        @git_client ||= Octokit::Client.new(access_token: github_token)
+      end
+
+      def github_token
+        @github_token ||= ENV.fetch('GITHUB_TOKEN') do
+          raise %(
+Missing environment variable GITHUB_TOKEN.
+See https://github.com/settings/tokens to set up personal access tokens.
+Add to the environment:
+
+    export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+)
+        end
       end
 
       def git
