@@ -3,8 +3,10 @@
 /_yardoc/
 /coverage/
 /doc/
+/error.txt
 /pkg/
 /spec/reports/
+/stdout.txt
 /tmp/
 
 # rspec failure tracking
