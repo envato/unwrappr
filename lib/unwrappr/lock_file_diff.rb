@@ -47,10 +47,12 @@ module Unwrappr
 
     def line_numbers
       return @line_numbers if defined?(@line_numbers)
+
       @line_numbers = Hash.new { |hash, key| hash[key] = {} }
       @patch.split("\n").each_with_index do |line, line_number|
         gem_name, change_type = extract_gem_and_change_type(line)
         next if gem_name.nil? || change_type.nil?
+
         @line_numbers[gem_name][change_type] = line_number
       end
       @line_numbers
