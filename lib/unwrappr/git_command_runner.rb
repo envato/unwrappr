@@ -28,6 +28,7 @@ module Unwrappr
       def reset_client
         @git_client = nil
         @git = nil
+        @github_token = nil
       end
 
       def show(revision, path)
