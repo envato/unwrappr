@@ -11,7 +11,7 @@ AUTHORS = {
   'vladimir.chervanev@envato.com' => 'Vladimir Chervanev'
 }.freeze
 
-Gem::Specification.new do |spec|
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.name = 'unwrappr'
   spec.version = Unwrappr::VERSION
   spec.authors = AUTHORS.values
