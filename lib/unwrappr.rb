@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-require 'unwrappr/annotation_writer'
 require 'unwrappr/bundler_command_runner'
 require 'unwrappr/cli'
 require 'unwrappr/gem_change'
@@ -18,6 +17,10 @@ require 'unwrappr/researchers/github_commit_log'
 require 'unwrappr/ruby_gems'
 require 'unwrappr/spec_version_comparator'
 require 'unwrappr/version'
+require 'unwrappr/writers/composite'
+require 'unwrappr/writers/project_links'
+require 'unwrappr/writers/title'
+require 'unwrappr/writers/version_change'
 
 # Define our namespace
 module Unwrappr
