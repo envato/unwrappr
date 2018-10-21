@@ -29,7 +29,8 @@ module Unwrappr
           Writers::ProjectLinks
         ),
         gem_researcher: Researchers::Composite.new(
-          Researchers::RubyGemsInfo.new
+          Researchers::RubyGemsInfo.new,
+          Researchers::GithubComparison.new(client)
         )
       ).annotate
     end
