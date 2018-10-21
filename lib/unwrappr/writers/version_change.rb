@@ -46,7 +46,7 @@ module Unwrappr
         if upgrade?
           'upgrade :chart_with_upwards_trend:'
         elsif downgrade?
-          'downgrade :exclamation::chart_with_downwards_trend:'
+          'downgrade :chart_with_downwards_trend::exclamation:'
         end
       end
 
