@@ -38,7 +38,7 @@ module Unwrappr
           let(:head_version) { GemVersion.new('3.8.5') }
 
           it { should eq <<~MESSAGE }
-            **Minor** version downgrade :chart_with_downwards_trend::large_orange_diamond: 3.9.0 → 3.8.5
+            **Minor** version downgrade :exclamation::chart_with_downwards_trend::large_orange_diamond: 3.9.0 → 3.8.5
           MESSAGE
         end
 
