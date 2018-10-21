@@ -26,7 +26,8 @@ module Unwrappr
         annotation_writer: Writers::Composite.new(
           Writers::Title,
           Writers::VersionChange,
-          Writers::ProjectLinks
+          Writers::ProjectLinks,
+          Writers::GithubCommitLog
         ),
         gem_researcher: Researchers::Composite.new(
           Researchers::RubyGemsInfo.new,
