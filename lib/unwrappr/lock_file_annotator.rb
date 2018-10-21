@@ -10,8 +10,8 @@ module Unwrappr
   #
   # - **annotation_sink**: A place to send gem change annotations.
   #
-  # - **gem_researchers**: These collect extra information about the gem
-  #   change. Unwrapprs if you will.
+  # - **gem_researcher**: Collects extra information about the gem change.
+  #   Unwrapprs if you will.
   #
   # - **annotation_writer**: Collects the gem change and all the collated
   #   research and presents it in a nicely formatted annotation.
@@ -28,9 +28,9 @@ module Unwrappr
           Writers::VersionChange,
           Writers::ProjectLinks
         ),
-        gem_researchers: [
+        gem_researcher: Researchers::Composite.new(
           Researchers::RubyGemsInfo.new
-        ]
+        )
       ).annotate
     end
     # rubocop:enable Metrics/MethodLength
@@ -39,29 +39,21 @@ module Unwrappr
       lock_file_diff_source:,
       annotation_sink:,
       annotation_writer:,
-      gem_researchers:
+      gem_researcher:
     )
       @lock_file_diff_source = lock_file_diff_source
       @annotation_sink = annotation_sink
       @annotation_writer = annotation_writer
-      @gem_researchers = gem_researchers
+      @gem_researcher = gem_researcher
     end
 
     def annotate
       @lock_file_diff_source.each_file do |lock_file_diff|
         lock_file_diff.each_gem_change do |gem_change|
-          gem_change_info = research_gem(gem_change)
+          gem_change_info = @gem_researcher.research(gem_change, {})
           message = @annotation_writer.write(gem_change, gem_change_info)
           @annotation_sink.annotate_change(gem_change, message)
         end
-      end
-    end
-
-    private
-
-    def research_gem(gem_change)
-      @gem_researchers.reduce({}) do |gem_change_info, researcher|
-        researcher.research(gem_change, gem_change_info)
       end
     end
   end
