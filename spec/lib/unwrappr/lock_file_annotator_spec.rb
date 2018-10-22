@@ -4,9 +4,13 @@ module Unwrappr
   RSpec.describe Unwrappr::LockFileAnnotator do
     subject(:annotator) do
       described_class.new(
-        lock_file_diff_source:     lock_file_diff_source,
-        annotation_sink:           annotation_sink,
-        annotation_writer_factory: AnnotationWriter,
+        lock_file_diff_source: lock_file_diff_source,
+        annotation_sink: annotation_sink,
+        annotation_writer: Writers::Composite.new(
+          Writers::Title,
+          Writers::VersionChange,
+          Writers::ProjectLinks
+        ),
         gem_researchers: [Researchers::RubyGemsInfo.new]
       )
     end
