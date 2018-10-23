@@ -26,13 +26,22 @@ module Unwrappr
         return nil if comparison.nil?
 
         collapsed_section('Commits', <<~MESSAGE)
-          A change of **#{comparison.total_commits}** commits:
+          A change of **#{comparison.total_commits}** commits. See the full changes on [the compare page](#{comparison.html_url}).
+
+          #{list_commits_introduction}
           #{commit_messages.join("\n")}
-          - See the full changes on [the compare page](#{comparison.html_url}).
         MESSAGE
       end
 
       private
+
+      def list_commits_introduction
+        if comparison.commits.length > MAX_COMMITS
+          "These are the first #{MAX_COMMITS} commits:"
+        else
+          'These are the individual commits:'
+        end
+      end
 
       def commit_messages
         comparison.commits.first(MAX_COMMITS).map(&method(:commit_message))

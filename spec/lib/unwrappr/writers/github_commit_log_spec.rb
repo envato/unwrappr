@@ -35,9 +35,10 @@ module Unwrappr
             <details>
             <summary>Commits</summary>
 
-            A change of **1** commits:
+            A change of **1** commits. See the full changes on [the compare page](test-html-url).
+
+            These are the individual commits:
             - (1234567) [egg egg egg egg egg egg egg egg egg egg egg egg egg egg egg …](test-commit-html-url)
-            - See the full changes on [the compare page](test-html-url).
 
 
             </details>
@@ -63,8 +64,8 @@ module Unwrappr
           end
 
           it 'writes only 10 commits' do
-            expect(write).to include <<~MESSAGE
-              A change of **11** commits:
+            expect(write).to end_with <<~MESSAGE
+              These are the first 10 commits:
               - (test-co) [test-commit-message](test-commit-html-url)
               - (test-co) [test-commit-message](test-commit-html-url)
               - (test-co) [test-commit-message](test-commit-html-url)
@@ -75,7 +76,9 @@ module Unwrappr
               - (test-co) [test-commit-message](test-commit-html-url)
               - (test-co) [test-commit-message](test-commit-html-url)
               - (test-co) [test-commit-message](test-commit-html-url)
-              - See the full changes on [the compare page](test-html-url).
+
+
+              </details>
             MESSAGE
           end
         end
