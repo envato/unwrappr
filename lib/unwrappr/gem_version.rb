@@ -43,7 +43,11 @@ module Unwrappr
     private
 
     def segment(index)
-      segment = @version.canonical_segments[index] || 0
+      segment = if @version.respond_to?(:canonical_segments)
+                  @version.canonical_segments[index] || 0
+                else
+                  @version.segments[index] || 0
+                end
       (segment.is_a?(Numeric) ? segment : nil)
     end
   end
