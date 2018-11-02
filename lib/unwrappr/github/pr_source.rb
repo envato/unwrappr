@@ -18,11 +18,11 @@ module Unwrappr
       def each_file
         lock_file_diffs.each do |lock_file_diff|
           yield LockFileDiff.new(
-            filename:   lock_file_diff.filename,
-            base_file:  file_contents(lock_file_diff.filename, base_sha),
-            head_file:  file_contents(lock_file_diff.filename, head_sha),
-            patch:      lock_file_diff.patch,
-            sha:        head_sha
+            filename: lock_file_diff.filename,
+            base_file: file_contents(lock_file_diff.filename, base_sha),
+            head_file: file_contents(lock_file_diff.filename, head_sha),
+            patch: lock_file_diff.patch,
+            sha: head_sha
           )
         end
       end

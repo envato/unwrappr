@@ -12,7 +12,7 @@ module Unwrappr
           let(:gem_change_info) do
             {
               ruby_gems: spy(source_code_uri: 'source-uri',
-                             changelog_uri:   'changelog-uri')
+                             changelog_uri: 'changelog-uri')
             }
           end
 

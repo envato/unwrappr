@@ -4,11 +4,11 @@ module Unwrappr
   RSpec.describe LockFileDiff do
     subject(:lock_file_diff) do
       LockFileDiff.new(
-        filename:  'Gemfile.lock',
+        filename: 'Gemfile.lock',
         base_file: base_file,
         head_file: head_file,
-        patch:     patch,
-        sha:       '123'
+        patch: patch,
+        sha: '123'
       )
     end
 

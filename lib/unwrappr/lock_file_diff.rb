@@ -17,10 +17,10 @@ module Unwrappr
     def each_gem_change
       version_changes.each do |change|
         yield GemChange.new(
-          name:           change[:dependency].to_s,
-          base_version:   gem_version(change[:before]),
-          head_version:   gem_version(change[:after]),
-          line_number:    line_number_for_change(change),
+          name: change[:dependency].to_s,
+          base_version: gem_version(change[:before]),
+          head_version: gem_version(change[:after]),
+          line_number: line_number_for_change(change),
           lock_file_diff: self
         )
       end
