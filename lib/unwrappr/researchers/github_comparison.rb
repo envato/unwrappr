@@ -8,7 +8,8 @@ module Unwrappr
     # Implements the `gem_researcher` interface required by the
     # LockFileAnnotator.
     class GithubComparison
-      GITHUB_SOURCE_URI_PATTERN = %r{^https?://github.com/(?<repo>[^/]+/[^/]+)}i
+      GITHUB_SOURCE_URI_PATTERN =
+        %r{^https?://github.com/(?<repo>[^/]+/[^/]+)}i.freeze
 
       def initialize(client)
         @client = client
