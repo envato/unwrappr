@@ -60,11 +60,11 @@ module Unwrappr
       it 'produces a LockFileDiff with the expected attributes' do
         files
         expect(LockFileDiff).to have_received(:new)
-          .with(filename:   'my/Gemfile.lock',
-                base_file:  'content-1',
-                head_file:  'content-2',
-                patch:      'my-gem-patch',
-                sha:        'head-sha')
+          .with(filename: 'my/Gemfile.lock',
+                base_file: 'content-1',
+                head_file: 'content-2',
+                patch: 'my-gem-patch',
+                sha: 'head-sha')
       end
     end
   end
