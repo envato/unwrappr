@@ -11,7 +11,9 @@ module Unwrappr
           Writers::VersionChange,
           Writers::ProjectLinks
         ),
-        gem_researchers: [Researchers::RubyGemsInfo.new]
+        gem_researcher: Researchers::Composite.new(
+          Researchers::RubyGemsInfo.new
+        )
       )
     end
 
