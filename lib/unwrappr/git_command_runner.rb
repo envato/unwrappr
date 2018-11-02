@@ -86,9 +86,9 @@ module Unwrappr
 
       def annotate_pull_request(pr_number)
         LockFileAnnotator.annotate_github_pull_request(
-          repo:       repo_name_and_org,
-          pr_number:  pr_number,
-          client:     git_client
+          repo: repo_name_and_org,
+          pr_number: pr_number,
+          client: git_client
         )
       end
 
