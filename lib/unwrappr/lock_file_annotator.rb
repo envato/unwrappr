@@ -31,6 +31,7 @@ module Unwrappr
         ),
         gem_researcher: Researchers::Composite.new(
           Researchers::RubyGemsInfo.new,
+          Researchers::GithubRepo.new,
           Researchers::GithubComparison.new(client)
         )
       ).annotate
