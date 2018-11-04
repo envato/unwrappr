@@ -27,10 +27,12 @@ module Unwrappr
           Writers::Title,
           Writers::VersionChange,
           Writers::ProjectLinks,
+          Writers::SecurityVulnerabilities,
           Writers::GithubCommitLog
         ),
         gem_researcher: Researchers::Composite.new(
           Researchers::RubyGemsInfo.new,
+          Researchers::SecurityVulnerabilities.new,
           Researchers::GithubComparison.new(client)
         )
       ).annotate
