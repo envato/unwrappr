@@ -37,18 +37,12 @@ module Unwrappr
         context 'given a Github repo' do
           let(:github_repo) { 'envato/unwrappr' }
 
-          context 'given the repo has "vx.x.x" tags' do
-            before do
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
-                .and_return(response)
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', '1.0.0', '1.1.0')
-                .and_return(nil)
-            end
+          context 'given the gem is added' do
+            let(:base_version) { nil }
+            let(:head_version) { GemVersion.new('1.1.0') }
 
-            it 'returns the data from Github' do
-              expect(research).to include(github_comparison: response)
+            it "doesn't add data from Github" do
+              expect(research).to_not include(:github_comparison)
             end
 
             it 'returns the data provided in gem_change_info' do
@@ -56,22 +50,59 @@ module Unwrappr
             end
           end
 
-          context 'given the repo has "x.x.x" tags' do
-            before do
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
-                .and_return(nil)
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', '1.0.0', '1.1.0')
-                .and_return(response)
-            end
+          context 'given the gem is removed' do
+            let(:base_version) { GemVersion.new('1.0.0') }
+            let(:head_version) { nil }
 
-            it 'returns the data from Github' do
-              expect(research).to include(github_comparison: response)
+            it "doesn't add data from Github" do
+              expect(research).to_not include(:github_comparison)
             end
 
             it 'returns the data provided in gem_change_info' do
               expect(research).to include(gem_change_info)
+            end
+          end
+
+          context 'given the gem version changed' do
+            let(:base_version) { GemVersion.new('1.0.0') }
+            let(:head_version) { GemVersion.new('1.1.0') }
+
+            context 'given the repo has "vx.x.x" tags' do
+              before do
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
+                  .and_return(response)
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', '1.0.0', '1.1.0')
+                  .and_return(nil)
+              end
+
+              it 'returns the data from Github' do
+                expect(research).to include(github_comparison: response)
+              end
+
+              it 'returns the data provided in gem_change_info' do
+                expect(research).to include(gem_change_info)
+              end
+            end
+
+            context 'given the repo has "x.x.x" tags' do
+              before do
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
+                  .and_return(nil)
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', '1.0.0', '1.1.0')
+                  .and_return(response)
+              end
+
+              it 'returns the data from Github' do
+                expect(research).to include(github_comparison: response)
+              end
+
+              it 'returns the data provided in gem_change_info' do
+                expect(research).to include(gem_change_info)
+              end
             end
           end
         end

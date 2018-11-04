@@ -14,14 +14,14 @@ module Unwrappr
 
       def research(gem_change, gem_change_info)
         repo = gem_change_info[:github_repo]
-        return gem_change_info if repo.nil?
+        return gem_change_info if repo.nil? ||
+                                  gem_change.base_version.nil? ||
+                                  gem_change.head_version.nil?
 
         gem_change_info.merge(
-          github_comparison: try_comparing(
-            repo: repo,
-            base: gem_change.base_version,
-            head: gem_change.head_version
-          )
+          github_comparison: try_comparing(repo: repo,
+                                           base: gem_change.base_version,
+                                           head: gem_change.head_version)
         )
       end
 
