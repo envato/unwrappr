@@ -7,10 +7,10 @@ module Unwrappr
         subject(:write) { VersionChange.write(gem_change, gem_change_info) }
 
         let(:gem_change) do
-          GemChange.new(name:           'test-gem',
-                        head_version:   head_version,
-                        base_version:   base_version,
-                        line_number:    9870,
+          GemChange.new(name: 'test-gem',
+                        head_version: head_version,
+                        base_version: base_version,
+                        line_number: 9870,
                         lock_file_diff: instance_double(LockFileDiff))
         end
         let(:gem_change_info) { {} }

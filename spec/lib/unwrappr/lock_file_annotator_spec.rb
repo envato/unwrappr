@@ -11,7 +11,9 @@ module Unwrappr
           Writers::VersionChange,
           Writers::ProjectLinks
         ),
-        gem_researchers: [Researchers::RubyGemsInfo.new]
+        gem_researcher: Researchers::Composite.new(
+          Researchers::RubyGemsInfo.new
+        )
       )
     end
 
@@ -95,27 +97,27 @@ module Unwrappr
         before do
           allow(::Unwrappr::RubyGems).to receive(:gem_info)
             .with('rspec-support')
-            .and_return(spy(homepage_uri:     'home-uri',
-                            source_code_uri:  'source-uri',
-                            changelog_uri:    'changelog-uri'))
+            .and_return(spy(homepage_uri: 'home-uri',
+                            source_code_uri: 'source-uri',
+                            changelog_uri: 'changelog-uri'))
           allow(lock_file_diff_source).to receive(:each_file)
-            .and_yield(LockFileDiff.new(filename:   'Gemfile.lock',
-                                        base_file:  base_lock_file,
-                                        head_file:  head_lock_file,
-                                        patch:      patch,
-                                        sha:        '89ee3f7d'))
+            .and_yield(LockFileDiff.new(filename: 'Gemfile.lock',
+                                        base_file: base_lock_file,
+                                        head_file: head_lock_file,
+                                        patch: patch,
+                                        sha: '89ee3f7d'))
         end
 
         it 'annotates gem changes' do
           annotate
           expect(annotation_sink).to have_received(:annotate_change)
             .with(
-              having_attributes(name:         'rspec-support',
+              having_attributes(name: 'rspec-support',
                                 base_version: GemVersion.new('3.7.0'),
                                 head_version: GemVersion.new('3.7.1'),
-                                filename:     'Gemfile.lock',
-                                sha:          '89ee3f7d',
-                                line_number:  5),
+                                filename: 'Gemfile.lock',
+                                sha: '89ee3f7d',
+                                line_number: 5),
               <<~MESSAGE
                 ### [rspec-support](home-uri)
 

@@ -30,17 +30,17 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.require_paths = ['lib']
 
   spec.add_dependency 'bundler', '~> 1.16'
-  spec.add_dependency 'clamp'
-  spec.add_dependency 'faraday'
-  spec.add_dependency 'git'
+  spec.add_dependency 'clamp', '~> 1'
+  spec.add_dependency 'faraday', '~> 0'
+  spec.add_dependency 'git', '~> 1'
   spec.add_dependency 'octokit', '~> 4.0'
-  spec.add_dependency 'safe_shell'
+  spec.add_dependency 'safe_shell', '~> 1'
 
-  spec.add_development_dependency 'guard'
-  spec.add_development_dependency 'guard-rspec'
-  spec.add_development_dependency 'pry'
+  spec.add_development_dependency 'guard', '~> 2'
+  spec.add_development_dependency 'guard-rspec', '~> 4'
+  spec.add_development_dependency 'pry', '~> 0'
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
-  spec.add_development_dependency 'rspec-its'
-  spec.add_development_dependency 'rubocop'
+  spec.add_development_dependency 'rspec-its', '~> 1'
+  spec.add_development_dependency 'rubocop', '~> 0'
 end
