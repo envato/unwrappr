@@ -34,7 +34,7 @@ module Unwrappr
       end
 
       def link_or_strikethrough(text, url)
-        if url.nil?
+        if url.nil? || url.empty?
           "~~#{text}~~"
         else
           "[#{text}](#{url})"
