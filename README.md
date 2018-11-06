@@ -88,22 +88,9 @@ git commits and tags, and push the `.gem` file to
 ## <a id="example"></a> :clapper: Example
 **COMING SOON:** See our Pull Requests in action via a [dummy](https://github.com/envato/dummy) app
 
-## <a id="contributing"></a> :seedling: Contributing
-
-Bug reports and pull requests are welcome on GitHub at
-https://github.com/envato/unwrappr. This project is intended to be a safe,
-welcoming space for collaboration, and contributors are expected to adhere to
-the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
 ## <a id="license"></a> :scroll: License
+The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
 
-The gem is available as open source under the terms of the [MIT
-License](https://opensource.org/licenses/MIT).
+## <a id="contributing"></a> :seedling: Contributing and Code of Conduct
 
-## <a id="code-of-conduct"></a> :paw_prints: Code of Conduct
-
-Everyone interacting in the unwrappr project’s codebases, issue trackers, chat
-rooms and mailing lists is expected to follow the [code of
-conduct](https://github.com/envato/unwrappr/blob/master/CODE_OF_CONDUCT.md).oming
-space for collaboration, and contributors are expected to adhere to the
-[Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/envato/unwrappr. This project is intended to be a safe, welcoming space for collaboration. Everyone interacting in the unwrappr project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/envato/unwrappr/blob/master/CODE_OF_CONDUCT.md).
