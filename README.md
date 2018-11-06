@@ -15,7 +15,6 @@
 - [Usage](#usage)
 - [Development](#development)
 - [Assumptions](#assumptions)
-- [Design guide](#design-guide)
 - [Example](#example)
 - [Contributing and Code of Conduct](#contributing)
 - [License](#license)
@@ -70,9 +69,6 @@ git commits and tags, and push the `.gem` file to
 - The box that this executes on has access to push branches to origin
 - Annotated PRs are hosted by GitHub
 
-## <a id="design-guide"></a> :art: Design Guide
-
-<img src="https://user-images.githubusercontent.com/20217279/38064968-84130efa-334c-11e8-904f-10d9e48d7134.png" width="480"><br/>
 ## <a id="example"></a> :clapper: Example
 
 See our `unwrappr` in action here: https://github.com/envato/unwrappr-demo/pull/2 . Please feel free to submit examples.
