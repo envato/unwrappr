@@ -177,7 +177,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
         specify do
           expect { make_pull_request! }
-            .to raise_error(RuntimeError, 'failed to create and annotate pull request')
+            .to raise_error(RuntimeError, /^Failed to create and annotate pull request: /)
         end
       end
     end

@@ -6,7 +6,7 @@ require 'octokit'
 
 module Unwrappr
   # Runs Git commands
-  module GitCommandRunner
+  module GitCommandRunner # rubocop:disable Metrics/ModuleLength
     class << self
       def create_branch!
         raise 'Not a git working dir' unless git_dir?
@@ -21,8 +21,8 @@ module Unwrappr
 
       def make_pull_request!
         create_and_annotate_pull_request
-      rescue Octokit::ClientError
-        raise 'failed to create and annotate pull request'
+      rescue Octokit::ClientError => e
+        raise "Failed to create and annotate pull request: #{e}"
       end
 
       def reset_client
@@ -79,9 +79,18 @@ module Unwrappr
           repo_name_and_org,
           'master',
           current_branch_name,
-          'Automated Bundle Update'
+          'Automated Bundle Update',
+          pull_request_body
         )
         annotate_pull_request(pr.number)
+      end
+
+      def pull_request_body
+        <<~BODY
+          Gems brought up-to-date with :heart: by [Unwrappr](https://github.com/envato/unwrappr).
+
+          See individual annotations below for details.
+        BODY
       end
 
       def annotate_pull_request(pr_number)
