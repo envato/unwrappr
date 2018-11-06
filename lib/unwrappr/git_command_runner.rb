@@ -21,8 +21,8 @@ module Unwrappr
 
       def make_pull_request!
         create_and_annotate_pull_request
-      rescue Octokit::ClientError
-        raise 'failed to create and annotate pull request'
+      rescue Octokit::ClientError => e
+        raise "Failed to create and annotate pull request: #{e}"
       end
 
       def reset_client
