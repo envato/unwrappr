@@ -26,18 +26,14 @@
 [Encouraging the use and creation of open source software is one of the ways we
 serve our community](https://opensource.envato.com/).
 
-Many (all?) of our products are based on free and open-source software. Many
+Many of Envato's products are based on free and open-source software. Many
 (most) of our products are written in Ruby and use
 [Bundler](https://bundler.io/) to manage their dependencies on both open- and
 closed-source libraries.
 
 Keeping dependencies up-to-date requires regular work. Some teams automate this,
-others do it manually (see
-[https://github.com/search?q=org%3Aenvato+bundle+update&type=Commits](https://github.com/search?q=org%3Aenvato+bundle+update&type=Commits)
-).
-
-Even the automation we have for Market requires some manual and cerebral labour
-to get the dependency update into production.
+others do it manually. This project seeks to reduce manual and cerebral labor
+to get regular dependency updates into production.
 
 ## <a id="installation"></a> :floppy_disk: Installation
 
