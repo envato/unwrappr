@@ -45,21 +45,10 @@ In this directory, you'll find the files you need to be able to package up your
 Ruby library into a gem. Put your Ruby code in the file `lib/unwrappr`. To
 experiment with that code, run `bin/console` for an interactive prompt.
 
-**TODO:** Delete this section
 ## <a id="installation"></a> :floppy_disk: Installation
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'unwrappr'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install unwrappr
+
 ## <a id="usage"></a> :blue_book: Usage
 To run this in the current repository use..
 ```bash
