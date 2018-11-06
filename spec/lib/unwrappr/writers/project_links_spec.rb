@@ -21,6 +21,19 @@ module Unwrappr
           MESSAGE
         end
 
+        context 'given gem change info with missing urls' do
+          let(:gem_change_info) do
+            {
+              ruby_gems: spy(source_code_uri: '',
+                             changelog_uri: '')
+            }
+          end
+
+          it { is_expected.to eq <<~MESSAGE }
+            [_~~change-log~~, ~~source-code~~_]
+          MESSAGE
+        end
+
         context 'given no gem change info' do
           let(:gem_change_info) { {} }
 

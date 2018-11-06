@@ -45,6 +45,13 @@ module Unwrappr
     def segment(index)
       segment = @version.canonical_segments[index] || 0
       (segment.is_a?(Numeric) ? segment : nil)
+    rescue NoMethodError
+      abort(<<~MESSAGE)
+        Unwrappr requires RubyGems v2.7.0 or newer.
+
+        To upgrade to the latest RubyGems visit https://rubygems.org/pages/download
+
+      MESSAGE
     end
   end
 end
