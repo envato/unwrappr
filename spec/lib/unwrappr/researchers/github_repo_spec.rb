@@ -9,42 +9,28 @@ module Unwrappr
         subject(:research) { github_repo.research(gem_change, gem_change_info) }
 
         let(:gem_change) { instance_double(GemChange) }
-        let(:gem_change_info) { { ruby_gems: info } }
-        let(:info) do
-          spy(:ruby_gem_info,
-              source_code_uri: source_code_uri,
-              homepage_uri: homepage_uri)
-        end
-        let(:homepage_uri) { nil }
+        [
+          [nil, nil, nil],
+          ['', '', nil],
+          [' ', ' ', nil],
+          [nil, 'https://github.com/envato/stack_master/tree', 'envato/stack_master'],
+          ['', 'https://github.com/envato/stack_master/tree', 'envato/stack_master'],
+          [' ', 'https://github.com/envato/stack_master/tree', 'envato/stack_master'],
+          ['https://bitbucket.org/envato/unwrappr/tree', 'https://github.com/envato/stack_master/tree', 'envato/stack_master'],
+          ['https://github.com/envato/unwrappr/tree', 'https://github.com/envato/stack_master/tree', 'envato/unwrappr']
+        ].each do |source_code_uri, homepage_uri, expected_repo|
+          context "given source_code_uri: #{source_code_uri.inspect}, homepage_uri: #{homepage_uri.inspect}" do
+            let(:gem_change_info) do
+              {
+                ruby_gems: {
+                  source_code_uri: source_code_uri,
+                  homepage_uri: homepage_uri
+                }
+              }
+            end
 
-        context 'given a non Github source code URI' do
-          let(:source_code_uri) { 'https://bitbucket.org/envato/unwrappr/tree' }
-
-          it "doesn't add the Github repo" do
-            expect(research).to_not include(:github_repo)
-          end
-
-          it 'returns the data provided in gem_change_info' do
-            expect(research).to include(gem_change_info)
-          end
-        end
-
-        context 'given a nil source code URI' do
-          let(:source_code_uri) { nil }
-
-          it "doesn't add the Github repo" do
-            expect(research).to_not include(:github_repo)
-          end
-
-          it 'returns the data provided in gem_change_info' do
-            expect(research).to include(gem_change_info)
-          end
-
-          context 'given a Github homepage uri' do
-            let(:homepage_uri) { 'https://github.com/envato/stack_master/tree' }
-
-            it 'extracts the repo' do
-              expect(research).to include(github_repo: 'envato/stack_master')
+            it "sets the github_repo to #{expected_repo.inspect}" do
+              expect(research[:github_repo]).to eq(expected_repo)
             end
 
             it 'returns the data provided in gem_change_info' do
@@ -53,11 +39,11 @@ module Unwrappr
           end
         end
 
-        context 'given a Github source code URI' do
-          let(:source_code_uri) { 'https://github.com/envato/unwrappr/tree' }
+        context 'given no ruby_gems info' do
+          let(:gem_change_info) { { ruby_gems: nil, something_else: 'xyz' } }
 
-          it 'extracts the repo' do
-            expect(research).to include(github_repo: 'envato/unwrappr')
+          it 'sets the github_repo to nil' do
+            expect(research[:github_repo]).to be_nil
           end
 
           it 'returns the data provided in gem_change_info' do

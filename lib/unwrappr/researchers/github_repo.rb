@@ -10,12 +10,15 @@ module Unwrappr
       GITHUB_URI_PATTERN = %r{^https?://github.com/(?<repo>[^/]+/[^/]+)}i.freeze
 
       def research(_gem_change, gem_change_info)
-        uri = gem_change_info[:ruby_gems]&.source_code_uri ||
-              gem_change_info[:ruby_gems]&.homepage_uri
-        match = GITHUB_URI_PATTERN.match(uri)
-        return gem_change_info if match.nil?
+        repo = match_repo(gem_change_info, :source_code_uri) ||
+               match_repo(gem_change_info, :homepage_uri)
+        gem_change_info.merge(github_repo: repo)
+      end
 
-        gem_change_info.merge(github_repo: match[:repo])
+      def match_repo(gem_change_info, uri_name)
+        uri = gem_change_info.dig(:ruby_gems, uri_name)
+        match = GITHUB_URI_PATTERN.match(uri)
+        match[:repo] if match
       end
     end
   end
