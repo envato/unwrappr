@@ -86,7 +86,8 @@ git commits and tags, and push the `.gem` file to
 
 <img src="https://user-images.githubusercontent.com/20217279/38064968-84130efa-334c-11e8-904f-10d9e48d7134.png" width="480"><br/>
 ## <a id="example"></a> :clapper: Example
-**COMING SOON:** See our Pull Requests in action via a [dummy](https://github.com/envato/dummy) app
+
+See our `unwrappr` in action here: https://github.com/envato/unwrappr-demo/pull/2 . Please feel free to submit examples.
 
 ## <a id="license"></a> :scroll: License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
