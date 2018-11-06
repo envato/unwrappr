@@ -8,16 +8,12 @@ module Unwrappr
     # Implements the `gem_researcher` interface required by the
     # LockFileAnnotator.
     class GithubComparison
-      GITHUB_SOURCE_URI_PATTERN =
-        %r{^https?://github.com/(?<repo>[^/]+/[^/]+)}i.freeze
-
       def initialize(client)
         @client = client
       end
 
       def research(gem_change, gem_change_info)
-        source_uri = gem_change_info[:ruby_gems]&.source_code_uri
-        repo = GITHUB_SOURCE_URI_PATTERN.match(source_uri)&.[](:repo)
+        repo = gem_change_info[:github_repo]
         return gem_change_info if repo.nil?
 
         gem_change_info.merge(
