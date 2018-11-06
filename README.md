@@ -50,10 +50,15 @@ experiment with that code, run `bin/console` for an interactive prompt.
     $ gem install unwrappr
 
 ## <a id="usage"></a> :blue_book: Usage
-To run this in the current repository use..
+
+To run this in the current working directory use...
+
 ```bash
-./exe/unwrappr
+export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+unwrappr
 ```
+
+See https://github.com/settings/tokens to set up personal access tokens.
 
 ## <a id="development"></a> :hammer: Development
 
