@@ -12,7 +12,7 @@
 
 
 
-## 🚩 Table of Contents
+## :triangular_flag_on_post: Table of Contents
 - [Background](#background)
 - [Experiment](#experiment)
 - [Installation](#installation)
@@ -25,7 +25,7 @@
 - [License](#license)
 - [Code of conduct](#code-of-conduct)
 
-## <a id="background"></a> 🐈 Background
+## <a id="background"></a> :cat2: Background
 [Encouraging the use and creation of open source software is one of the ways we serve our community](https://opensource.envato.com/).
 
 Many (all?) of our products are based on free and open-source software. Many (most) of our products are written in Ruby and use  [Bundler](https://bundler.io/)  to manage their dependencies on both open- and closed-source libraries.
@@ -35,11 +35,11 @@ Keeping dependencies up-to-date requires regular work. Some teams automate this,
 Even the automation we have for Market requires some manual and cerebral labour to get the dependency update into production.
 
 **TODO:** Modify this section if going public
-## <a id="experiment"></a>🔬 Experiment
+## <a id="experiment"></a> :microscope: Experiment
 In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/unwrappr`. To experiment with that code, run `bin/console` for an interactive prompt.
 
 **TODO:** Delete this section
-## <a id="installation"></a>💾 Installation
+## <a id="installation"></a> :floppy_disk: Installation
 Add this line to your application's Gemfile:
 
 ```ruby
@@ -53,28 +53,28 @@ And then execute:
 Or install it yourself as:
 
     $ gem install unwrappr
-## <a id="usage"></a>📘 Usage
+## <a id="usage"></a> :blue_book: Usage
 To run this in the current repository use..
 ```bash
 ./exe/unwrappr
 ```
-## <a id="development"></a>🔨 Development
+## <a id="development"></a> :hammer: Development
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
 
 To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-## <a id="assumptions"></a>⚓️ Assumptions
+## <a id="assumptions"></a> :anchor: Assumptions
 - All dependencies are in Git
 - Git dependencies have tags matching to gem's versions
 - Git is installed on the box running Unwrappr
 - The Target project has its dependencies managed by bundler
 - The box that this executes on has access to push branches to origin
-## <a id="design-guide"></a>🎨 Design Guide
+## <a id="design-guide"></a> :art: Design Guide
 <img src="https://user-images.githubusercontent.com/20217279/38064968-84130efa-334c-11e8-904f-10d9e48d7134.png" width="480"><br/>
-## <a id="example"></a>🎬 Example
+## <a id="example"></a> :clapper: Example
 **COMING SOON:** See our Pull Requests in action via a [dummy](https://github.com/envato/dummy) app
-## <a id="contributing"></a>🌱 Contributing
+## <a id="contributing"></a> :seedling: Contributing
 Bug reports and pull requests are welcome on GitHub at https://github.com/envato/unwrappr. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-## <a id="license"></a>📜 License
+## <a id="license"></a> :scroll: License
 The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
-## <a id="code-of-conduct"></a>🐾 Code of Conduct 
+## <a id="code-of-conduct"></a> :paw_prints: Code of Conduct
 Everyone interacting in the unwrappr project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/envato/unwrappr/blob/master/CODE_OF_CONDUCT.md).oming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
