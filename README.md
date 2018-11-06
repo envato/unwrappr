@@ -39,12 +39,6 @@ others do it manually (see
 Even the automation we have for Market requires some manual and cerebral labour
 to get the dependency update into production.
 
-**TODO:** Modify this section if going public
-## <a id="experiment"></a> :microscope: Experiment
-In this directory, you'll find the files you need to be able to package up your
-Ruby library into a gem. Put your Ruby code in the file `lib/unwrappr`. To
-experiment with that code, run `bin/console` for an interactive prompt.
-
 ## <a id="installation"></a> :floppy_disk: Installation
 
     $ gem install unwrappr
