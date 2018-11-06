@@ -75,12 +75,15 @@ release a new version, update the version number in `version.rb`, and then run
 `bundle exec rake release`, which will create a git tag for the version, push
 git commits and tags, and push the `.gem` file to
 [rubygems.org](https://rubygems.org).
+
 ## <a id="assumptions"></a> :anchor: Assumptions
+
 - All dependencies are in Git
 - Git dependencies have tags matching to gem's versions
 - Git is installed on the box running Unwrappr
-- The Target project has its dependencies managed by bundler
+- The target project has its dependencies managed by bundler
 - The box that this executes on has access to push branches to origin
+- Annotated PRs are hosted by GitHub
 
 ## <a id="design-guide"></a> :art: Design Guide
 
