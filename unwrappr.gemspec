@@ -49,7 +49,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
     'bug_tracker_uri' => 'https://github.com/envato/unwrappr/issues',
     'changelog_uri' => 'https://github.com/envato/unwrappr/blob/master/CHANGELOG.md',
     'documentation_uri' => 'https://github.com/envato/unwrappr/blob/master/README.md',
-    'homepage_uri' => 'https://opensource.envato.com/',
+    'homepage_uri' => 'https://opensource.envato.com/projects/unwrappr.html',
     'source_code_uri' => 'https://github.com/envato/unwrappr'
   }
 end
