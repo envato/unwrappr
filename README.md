@@ -17,9 +17,8 @@
 - [Assumptions](#assumptions)
 - [Design guide](#design-guide)
 - [Example](#example)
-- [Contributing](#contributing)
+- [Contributing and Code of Conduct](#contributing)
 - [License](#license)
-- [Code of conduct](#code-of-conduct)
 
 ## <a id="background"></a> :cat2: Background
 
