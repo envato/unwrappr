@@ -31,6 +31,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.require_paths = ['lib']
 
   spec.add_dependency 'bundler', '~> 1.16'
+  spec.add_dependency 'bundler-audit', '~> 0'
   spec.add_dependency 'clamp', '~> 1'
   spec.add_dependency 'faraday', '~> 0'
   spec.add_dependency 'git', '~> 1'
