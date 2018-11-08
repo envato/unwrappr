@@ -40,10 +40,9 @@ module Unwrappr
 
         def pull_request_body
           <<~BODY
-          Gems brought up-to-date with :heart: by [Unwrappr](https://github.com/envato/unwrappr).
-
-          See individual annotations below for details.
-        BODY
+            Gems brought up-to-date with :heart: by [Unwrappr](https://github.com/envato/unwrappr).
+             See individual annotations below for details.
+          BODY
         end
 
         def annotate_pull_request(pr_number)
