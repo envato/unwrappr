@@ -19,7 +19,7 @@ module Unwrappr
         GitCommandRunner.create_branch!
         BundlerCommandRunner.bundle_update!
         GitCommandRunner.commit_and_push_changes!
-        GitCommandRunner.make_pull_request!
+        GitHub::Client.make_pull_request!
       end
     end
 
