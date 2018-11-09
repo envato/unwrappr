@@ -2,11 +2,10 @@
 
 require 'git'
 require 'logger'
-require 'octokit'
 
 module Unwrappr
   # Runs Git commands
-  module GitCommandRunner # rubocop:disable Metrics/ModuleLength
+  module GitCommandRunner
     class << self
       def create_branch!
         raise 'Not a git working dir' unless git_dir?
@@ -19,22 +18,22 @@ module Unwrappr
         raise 'failed to push changes' unless git_pushed?
       end
 
-      def make_pull_request!
-        create_and_annotate_pull_request
-      rescue Octokit::ClientError => e
-        raise "Failed to create and annotate pull request: #{e}"
-      end
-
       def reset_client
-        @git_client = nil
         @git = nil
-        @github_token = nil
       end
 
       def show(revision, path)
         git.show(revision, path)
       rescue Git::GitExecuteError
         nil
+      end
+
+      def remote
+        git.config('remote.origin.url')
+      end
+
+      def current_branch_name
+        git.current_branch
       end
 
       private
@@ -61,61 +60,6 @@ module Unwrappr
 
       def git_pushed?
         git_wrap { git.push('origin', current_branch_name) }
-      end
-
-      def current_branch_name
-        git.current_branch
-      end
-
-      def repo_name_and_org
-        repo_url = git.config('remote.origin.url').gsub(/\.git$/, '')
-        pattern = %r{github.com[/:](?<org>.*)/(?<repo>.*)}
-        m = pattern.match(repo_url)
-        [m[:org], m[:repo]].join('/')
-      end
-
-      def create_and_annotate_pull_request
-        pr = git_client.create_pull_request(
-          repo_name_and_org,
-          'master',
-          current_branch_name,
-          'Automated Bundle Update',
-          pull_request_body
-        )
-        annotate_pull_request(pr.number)
-      end
-
-      def pull_request_body
-        <<~BODY
-          Gems brought up-to-date with :heart: by [Unwrappr](https://github.com/envato/unwrappr).
-
-          See individual annotations below for details.
-        BODY
-      end
-
-      def annotate_pull_request(pr_number)
-        LockFileAnnotator.annotate_github_pull_request(
-          repo: repo_name_and_org,
-          pr_number: pr_number,
-          client: git_client
-        )
-      end
-
-      def git_client
-        @git_client ||= Octokit::Client.new(access_token: github_token)
-      end
-
-      def github_token
-        @github_token ||= ENV.fetch('GITHUB_TOKEN') do
-          raise %(
-Missing environment variable GITHUB_TOKEN.
-See https://github.com/settings/tokens to set up personal access tokens.
-Add to the environment:
-
-    export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-
-)
-        end
       end
 
       def git
