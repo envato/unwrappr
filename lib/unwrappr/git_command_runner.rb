@@ -36,6 +36,10 @@ module Unwrappr
         git.current_branch
       end
 
+      def clone_repository(repo, directory)
+        git_wrap { Git.clone(repo, directory) }
+      end
+
       private
 
       def git_dir?

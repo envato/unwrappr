@@ -3,6 +3,14 @@
 require 'clamp'
 
 module Unwrappr
+  def self.run_unwapper_in_pwd
+    puts "Doing the unwrappr thing in #{Dir.pwd}"
+    GitCommandRunner.create_branch!
+    BundlerCommandRunner.bundle_update!
+    GitCommandRunner.commit_and_push_changes!
+    GitHub::Client.make_pull_request!
+  end
+
   # Entry point for the app
   class CLI < Clamp::Command
     self.default_subcommand = 'all'
@@ -15,11 +23,7 @@ module Unwrappr
     subcommand 'all', 'run bundle update, push to github, '\
                       'create a pr and annotate changes' do
       def execute
-        puts 'Doing the unwrappr thing...'
-        GitCommandRunner.create_branch!
-        BundlerCommandRunner.bundle_update!
-        GitCommandRunner.commit_and_push_changes!
-        GitHub::Client.make_pull_request!
+        run_unwapper_in_pwd
       end
     end
 
@@ -39,6 +43,30 @@ module Unwrappr
           repo: repo,
           pr_number: pr.to_i
         )
+      end
+    end
+
+    subcommand('clone', <<~DESCRIPTION) do
+      Clone one git repository or more and create an annotated bundle update PR for each.
+    DESCRIPTION
+
+      option '--repo',
+             'REPO',
+             'The repo in github <owner/project>',
+             required: true,
+             multivalued: true
+
+      def execute
+        repo_list.each do |repo|
+          unless Dir.exist?(repo)
+            GitCommandRunner.clone_repository(
+              "https://github.com/#{repo}",
+              repo
+            )
+          end
+
+          Dir.chdir(repo) { Unwrappr.run_unwapper_in_pwd }
+        end
       end
     end
   end
