@@ -15,7 +15,7 @@ module Unwrappr
   class CLI < Clamp::Command
     self.default_subcommand = 'all'
 
-    option ['--version', '-v'], :flag, 'Show version' do
+    option ['-v', '--version'], :flag, 'Show version' do
       puts "unwrappr v#{Unwrappr::VERSION}"
       exit(0)
     end
@@ -30,11 +30,11 @@ module Unwrappr
     subcommand 'annotate-pull-request',
                'Annotate Gemfile.lock changes in a Github pull request' do
 
-      option '--repo', 'REPO',
+      option ['-r', '--repo'], 'REPO',
              'The repo in github <owner/project>',
              required: true
 
-      option '--pr', 'PR',
+      option ['-p', '--pr'], 'PR',
              'The github PR number',
              required: true
 
@@ -50,11 +50,13 @@ module Unwrappr
       Clone one git repository or more and create an annotated bundle update PR for each.
     DESCRIPTION
 
-      option '--repo',
+      option(['-r', '--repo'],
              'REPO',
-             'The repo in github <owner/project>',
+             <<~DESCRIPTION,
+               a repo in github <owner/project>, may be specified multiple times
+             DESCRIPTION
              required: true,
-             multivalued: true
+             multivalued: true)
 
       def execute
         repo_list.each do |repo|
