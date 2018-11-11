@@ -2,15 +2,8 @@
 
 require 'clamp'
 
+# Welcome to unwrappr...
 module Unwrappr
-  def self.run_unwapper_in_pwd
-    puts "Doing the unwrappr thing in #{Dir.pwd}"
-    GitCommandRunner.create_branch!
-    BundlerCommandRunner.bundle_update!
-    GitCommandRunner.commit_and_push_changes!
-    GitHub::Client.make_pull_request!
-  end
-
   # Entry point for the app
   class CLI < Clamp::Command
     self.default_subcommand = 'all'
@@ -71,5 +64,13 @@ module Unwrappr
         end
       end
     end
+  end
+
+  def self.run_unwapper_in_pwd
+    puts "Doing the unwrappr thing in #{Dir.pwd}"
+    GitCommandRunner.create_branch!
+    BundlerCommandRunner.bundle_update!
+    GitCommandRunner.commit_and_push_changes!
+    GitHub::Client.make_pull_request!
   end
 end
