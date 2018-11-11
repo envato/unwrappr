@@ -40,6 +40,10 @@ module Unwrappr
         git_wrap { Git.clone(repo, directory) }
       end
 
+      def file_exist?(filename)
+        !git.ls_files(filename).empty?
+      end
+
       private
 
       def git_dir?
@@ -67,11 +71,17 @@ module Unwrappr
       end
 
       def git
-        log_options = {}.tap do |opt|
+        if Dir.pwd == @git&.dir&.path
+          @git
+        else
+          Git.open(Dir.pwd, log_options)
+        end
+      end
+
+      def log_options
+        {}.tap do |opt|
           opt[:log] = Logger.new(STDOUT) if ENV['DEBUG']
         end
-
-        @git ||= Git.open(Dir.pwd, log_options)
       end
 
       def git_wrap

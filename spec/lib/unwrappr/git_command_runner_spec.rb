@@ -130,4 +130,31 @@ RSpec.describe Unwrappr::GitCommandRunner do
       it { is_expected.to be_nil }
     end
   end
+
+  describe '#file_exist?' do
+    subject(:file_exist) { described_class.file_exist?('Gemfile.lock') }
+
+    context 'when does not exist' do
+      before do
+        expect(fake_git).to receive(:ls_files).with('Gemfile.lock').and_return({})
+      end
+
+      it { is_expected.to be false }
+    end
+
+    context 'when it exists' do
+      before do
+        expect(fake_git).to receive(:ls_files)
+          .with('Gemfile.lock')
+          .and_return('Gemfile.lock' => {
+                        path: 'Gemfile.lock',
+                        mode_index: '100644',
+                        sha_index: 'cabbage',
+                        stage: '0'
+                      })
+      end
+
+      it { is_expected.to be true }
+    end
+  end
 end

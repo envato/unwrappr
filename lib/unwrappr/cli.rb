@@ -16,7 +16,7 @@ module Unwrappr
     subcommand 'all', 'run bundle update, push to github, '\
                       'create a pr and annotate changes' do
       def execute
-        run_unwapper_in_pwd
+        Unwrappr.run_unwapper_in_pwd
       end
     end
 
@@ -67,10 +67,17 @@ module Unwrappr
   end
 
   def self.run_unwapper_in_pwd
+    return unless lockfile_present?
+
     puts "Doing the unwrappr thing in #{Dir.pwd}"
+
     GitCommandRunner.create_branch!
     BundlerCommandRunner.bundle_update!
     GitCommandRunner.commit_and_push_changes!
     GitHub::Client.make_pull_request!
+  end
+
+  def self.lockfile_present?
+    GitCommandRunner.file_exist?('Gemfile.lock')
   end
 end
