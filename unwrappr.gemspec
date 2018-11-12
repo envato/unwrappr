@@ -23,6 +23,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.homepage = 'http://www.unwrappr.com.org'
   spec.license = 'MIT'
   spec.required_ruby_version = '~> 2.3'
+  spec.required_rubygems_version = '~> 2.7'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
