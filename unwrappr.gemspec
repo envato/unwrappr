@@ -19,7 +19,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.email = AUTHORS.keys
 
   spec.summary = "A tool to unwrap your gems and see what's changed easily"
-  spec.description = "Let's fill this bit out later"
+  spec.description = 'bundle update PRs: Automated. Annotated.'
   spec.homepage = 'http://www.unwrappr.com.org'
   spec.license = 'MIT'
 
@@ -44,7 +44,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-its', '~> 1'
-  spec.add_development_dependency 'rubocop', '~> 0'
+  spec.add_development_dependency 'rubocop', '>= 0.49.0'
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/envato/unwrappr/issues',
