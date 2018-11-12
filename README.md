@@ -54,7 +54,7 @@ See https://github.com/settings/tokens to set up personal access tokens.
 
 ## Requirements
 
- - Ruby (tested against v2.4 and above)
+ - Ruby (tested against v2.3 and above)
  - GitHub access (see Configuration section)
 
 ## Contact ![Join the chat at https://gitter.im/envato/unwrappr](https://badges.gitter.im/Join%20Chat.svg)
