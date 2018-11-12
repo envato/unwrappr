@@ -44,7 +44,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.add_development_dependency 'rake', '~> 10.0'
   spec.add_development_dependency 'rspec', '~> 3.0'
   spec.add_development_dependency 'rspec-its', '~> 1'
-  spec.add_development_dependency 'rubocop', '~> 0'
+  spec.add_development_dependency 'rubocop', '>= 0.49.0'
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/envato/unwrappr/issues',
