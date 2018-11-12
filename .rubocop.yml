@@ -1,8 +1,11 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.5.1
+  TargetRubyVersion: 2.5
   Exclude:
     - 'spike/*.rb'
+
+Gemspec/RequiredRubyVersion:
+  Enabled: false
 
 Metrics/BlockLength:
   Exclude:
