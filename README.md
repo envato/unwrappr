@@ -16,7 +16,7 @@ to get regular dependency updates into production.
   - Vulnerability advisory information using [bundler-audit](https://github.com/rubysec/bundler-audit)
   - Links to the home page, source code and change log (where available) of each gem
 
-## Development status [![Build status](https://badge.buildkite.com/d7db34f910131ff2a03d31dcc0ee960a3bc5f0df2c42ec4eb4.svg?branch=master&style=flat-square)](https://buildkite.com/envato-marketplaces/unwrappr)
+## Development status [![Build Status](https://travis-ci.org/envato/unwrappr.svg?branch=master)](https://travis-ci.org/envato/unwrappr)
 
 `unwrappr` is used in many projects around [Envato][envato]
 However, it is still undergoing development and features are likely to change
@@ -54,7 +54,7 @@ See https://github.com/settings/tokens to set up personal access tokens.
 
 ## Requirements
 
- - Ruby (tested against v2.4 and above)
+ - Ruby (tested against v2.3 and above)
  - GitHub access (see Configuration section)
 
 ## Contact ![Join the chat at https://gitter.im/envato/unwrappr](https://badges.gitter.im/Join%20Chat.svg)
