@@ -50,6 +50,15 @@ export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 unwrappr
 ```
 
+To run `unwrappr` against repositories as a part of a time-based job
+scheduler, use the `clone` subcommand and specify as many `--repo` options as
+you need:
+
+```bash
+export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+unwrappr clone --repo envato/abc [[--repo envato/xyz] ...]
+```
+
 See https://github.com/settings/tokens to set up personal access tokens.
 
 ## Requirements

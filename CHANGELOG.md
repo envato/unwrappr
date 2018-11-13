@@ -7,6 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 ### Added
  - Specify Ruby and RubyGems requirements in gemspec.
+ - Clone one git repository or more and create an annotated bundle update PR for each.
 
 ## [0.3.1] 2018-11-12
 ### Changed
