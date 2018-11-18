@@ -39,5 +39,22 @@ module Unwrappr
 
       expect(subject).to eql(expected_result)
     end
+
+    it 'sets the BUNDLE_GEMFILE variable before creating a LockfileParser '\
+       'to prevent Bundler looking for a Gemfile on the filesystem '\
+       'and raising if it fails to find it (#57)' do
+      allow(Bundler::LockfileParser).to receive(:new)
+        .with(lock_file_content_before) do
+        expect(ENV['BUNDLE_GEMFILE']).to eq('Gemfile')
+        lock_file_before
+      end
+      allow(Bundler::LockfileParser).to receive(:new)
+        .with(lock_file_content_after) do
+        expect(ENV['BUNDLE_GEMFILE']).to eq('Gemfile')
+        lock_file_after
+      end
+
+      perform
+    end
   end
 end

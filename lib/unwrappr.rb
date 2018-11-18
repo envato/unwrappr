@@ -2,6 +2,7 @@
 
 require 'unwrappr/bundler_command_runner'
 require 'unwrappr/cli'
+require 'unwrappr/environment'
 require 'unwrappr/gem_change'
 require 'unwrappr/gem_version'
 require 'unwrappr/git_command_runner'
