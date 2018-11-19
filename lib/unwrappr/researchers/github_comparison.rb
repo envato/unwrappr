@@ -17,9 +17,11 @@ module Unwrappr
                               gem_added_or_removed?(gem_change)
 
         change_info.merge(
-          github_comparison: try_comparing(repo: github_repo(change_info),
-                                           base: gem_change.base_version,
-                                           head: gem_change.head_version)
+          github_comparison: try_comparing(
+            repo: github_repo(change_info),
+            base: gem_change.base_version,
+            head: gem_change.head_version
+          )
         )
       end
 
