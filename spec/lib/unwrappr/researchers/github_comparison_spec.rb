@@ -42,7 +42,7 @@ module Unwrappr
             let(:head_version) { GemVersion.new('1.1.0') }
 
             it "doesn't add data from Github" do
-              expect(research).to_not include(:github_comparison)
+              expect(research[:github_comparision]).to be_nil
             end
 
             it 'returns the data provided in gem_change_info' do
@@ -55,7 +55,7 @@ module Unwrappr
             let(:head_version) { nil }
 
             it "doesn't add data from Github" do
-              expect(research).to_not include(:github_comparison)
+              expect(research[:github_comparision]).to be_nil
             end
 
             it 'returns the data provided in gem_change_info' do
@@ -78,7 +78,7 @@ module Unwrappr
               end
 
               it 'returns the data from Github' do
-                expect(research).to include(github_comparison: response)
+                expect(research[:github_comparison]).to eq(response)
               end
 
               it 'returns the data provided in gem_change_info' do
@@ -97,7 +97,7 @@ module Unwrappr
               end
 
               it 'returns the data from Github' do
-                expect(research).to include(github_comparison: response)
+                expect(research[:github_comparison]).to eq(response)
               end
 
               it 'returns the data provided in gem_change_info' do
