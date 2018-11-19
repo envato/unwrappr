@@ -29,7 +29,7 @@ module Unwrappr
           let(:github_repo) { nil }
 
           it "doesn't add data from Github" do
-            expect(research).to_not include(:github_comparison)
+            expect(research[:github_comparision]).to be_nil
           end
 
           it 'returns the data provided in gem_change_info' do
