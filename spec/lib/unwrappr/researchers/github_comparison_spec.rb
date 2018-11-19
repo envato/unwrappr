@@ -6,6 +6,9 @@ module Unwrappr
       subject(:github_comparison) { GithubComparison.new(client) }
 
       let(:client) { instance_double(Octokit::Client) }
+      before do
+        allow(client).to receive(:compare).and_raise(Octokit::NotFound)
+      end
 
       describe '#research' do
         subject(:research) { github_comparison.research(gem_change, gem_change_info) }
@@ -72,9 +75,6 @@ module Unwrappr
                 allow(client).to receive(:compare)
                   .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
                   .and_return(response)
-                allow(client).to receive(:compare)
-                  .with('envato/unwrappr', '1.0.0', '1.1.0')
-                  .and_return(nil)
               end
 
               it 'returns the data from Github' do
@@ -88,9 +88,6 @@ module Unwrappr
 
             context 'given the repo has "x.x.x" tags' do
               before do
-                allow(client).to receive(:compare)
-                  .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
-                  .and_return(nil)
                 allow(client).to receive(:compare)
                   .with('envato/unwrappr', '1.0.0', '1.1.0')
                   .and_return(response)
