@@ -12,14 +12,13 @@ module Unwrappr
         @client = client
       end
 
-      def research(gem_change, gem_change_info)
-        repo = gem_change_info[:github_repo]
-        return gem_change_info if repo.nil? ||
-                                  gem_change.base_version.nil? ||
-                                  gem_change.head_version.nil?
+      def research(gem_change, change_info)
+        return change_info if github_repo_not_identified?(change_info) ||
+                              gem_change.base_version.nil? ||
+                              gem_change.head_version.nil?
 
-        gem_change_info.merge(
-          github_comparison: try_comparing(repo: repo,
+        change_info.merge(
+          github_comparison: try_comparing(repo: github_repo(change_info),
                                            base: gem_change.base_version,
                                            head: gem_change.head_version)
         )
@@ -37,6 +36,14 @@ module Unwrappr
         @client.compare(repo, base, head)
       rescue Octokit::NotFound
         nil
+      end
+
+      def github_repo_not_identified?(gem_change_info)
+        github_repo(gem_change_info).nil?
+      end
+
+      def github_repo(gem_change_info)
+        gem_change_info[:github_repo]
       end
     end
   end
