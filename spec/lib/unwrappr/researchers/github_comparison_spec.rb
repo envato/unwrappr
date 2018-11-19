@@ -6,6 +6,9 @@ module Unwrappr
       subject(:github_comparison) { GithubComparison.new(client) }
 
       let(:client) { instance_double(Octokit::Client) }
+      before do
+        allow(client).to receive(:compare).and_raise(Octokit::NotFound)
+      end
 
       describe '#research' do
         subject(:research) { github_comparison.research(gem_change, gem_change_info) }
@@ -26,7 +29,7 @@ module Unwrappr
           let(:github_repo) { nil }
 
           it "doesn't add data from Github" do
-            expect(research).to_not include(:github_comparison)
+            expect(research[:github_comparision]).to be_nil
           end
 
           it 'returns the data provided in gem_change_info' do
@@ -37,18 +40,17 @@ module Unwrappr
         context 'given a Github repo' do
           let(:github_repo) { 'envato/unwrappr' }
 
-          context 'given the repo has "vx.x.x" tags' do
-            before do
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
-                .and_return(response)
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', '1.0.0', '1.1.0')
-                .and_return(nil)
+          context 'given the gem is added' do
+            let(:base_version) { nil }
+            let(:head_version) { GemVersion.new('1.1.0') }
+
+            it "doesn't contact GitHub for a result we already know" do
+              research
+              expect(client).to_not have_received(:compare)
             end
 
-            it 'returns the data from Github' do
-              expect(research).to include(github_comparison: response)
+            it "doesn't add data from Github" do
+              expect(research[:github_comparision]).to be_nil
             end
 
             it 'returns the data provided in gem_change_info' do
@@ -56,22 +58,58 @@ module Unwrappr
             end
           end
 
-          context 'given the repo has "x.x.x" tags' do
-            before do
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
-                .and_return(nil)
-              allow(client).to receive(:compare)
-                .with('envato/unwrappr', '1.0.0', '1.1.0')
-                .and_return(response)
+          context 'given the gem is removed' do
+            let(:base_version) { GemVersion.new('1.0.0') }
+            let(:head_version) { nil }
+
+            it "doesn't contact GitHub for a result we already know" do
+              research
+              expect(client).to_not have_received(:compare)
             end
 
-            it 'returns the data from Github' do
-              expect(research).to include(github_comparison: response)
+            it "doesn't add data from Github" do
+              expect(research[:github_comparision]).to be_nil
             end
 
             it 'returns the data provided in gem_change_info' do
               expect(research).to include(gem_change_info)
+            end
+          end
+
+          context 'given the gem version changed' do
+            let(:base_version) { GemVersion.new('1.0.0') }
+            let(:head_version) { GemVersion.new('1.1.0') }
+
+            context 'given the repo has "vx.x.x" tags' do
+              before do
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', 'v1.0.0', 'v1.1.0')
+                  .and_return(response)
+              end
+
+              it 'returns the data from Github' do
+                expect(research[:github_comparison]).to eq(response)
+              end
+
+              it 'returns the data provided in gem_change_info' do
+                expect(research).to include(gem_change_info)
+              end
+            end
+
+            context 'given the repo has "x.x.x" tags' do
+              before do
+                allow(client).to receive(:compare)
+                  .with('envato/unwrappr', '1.0.0', '1.1.0')
+                  .and_return(response)
+              end
+
+              it 'returns the data from Github' do
+                expect(research[:github_comparison]).to eq(response)
+              end
+
+              it 'returns the data provided in gem_change_info' do
+                expect(research).to include(gem_change_info)
+              end
             end
           end
         end
