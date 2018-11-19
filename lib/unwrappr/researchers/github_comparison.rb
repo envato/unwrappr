@@ -14,8 +14,7 @@ module Unwrappr
 
       def research(gem_change, change_info)
         return change_info if github_repo_not_identified?(change_info) ||
-                              gem_change.base_version.nil? ||
-                              gem_change.head_version.nil?
+                              gem_added_or_removed?(gem_change)
 
         change_info.merge(
           github_comparison: try_comparing(repo: github_repo(change_info),
@@ -44,6 +43,10 @@ module Unwrappr
 
       def github_repo(gem_change_info)
         gem_change_info[:github_repo]
+      end
+
+      def gem_added_or_removed?(gem_change)
+        gem_change.base_version.nil? || gem_change.head_version.nil?
       end
     end
   end
