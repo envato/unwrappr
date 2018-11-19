@@ -44,6 +44,11 @@ module Unwrappr
             let(:base_version) { nil }
             let(:head_version) { GemVersion.new('1.1.0') }
 
+            it "doesn't contact GitHub for a result we already know" do
+              research
+              expect(client).to_not have_received(:compare)
+            end
+
             it "doesn't add data from Github" do
               expect(research[:github_comparision]).to be_nil
             end
@@ -56,6 +61,11 @@ module Unwrappr
           context 'given the gem is removed' do
             let(:base_version) { GemVersion.new('1.0.0') }
             let(:head_version) { nil }
+
+            it "doesn't contact GitHub for a result we already know" do
+              research
+              expect(client).to_not have_received(:compare)
+            end
 
             it "doesn't add data from Github" do
               expect(research[:github_comparision]).to be_nil
