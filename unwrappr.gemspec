@@ -23,7 +23,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.homepage = 'http://www.unwrappr.com.org'
   spec.license = 'MIT'
   spec.required_ruby_version = '~> 2.3'
-  spec.required_rubygems_version = '~> 2.7'
+  spec.required_rubygems_version = '>= 2.7'
 
   spec.files = `git ls-files -z`.split("\x0").reject do |f|
     f.match(%r{^(test|spec|features)/})
@@ -32,7 +32,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_dependency 'bundler', '~> 1.16'
+  spec.add_dependency 'bundler', '< 3'
   spec.add_dependency 'bundler-audit', '~> 0'
   spec.add_dependency 'clamp', '~> 1'
   spec.add_dependency 'faraday', '~> 0'
