@@ -1,6 +1,15 @@
 ---
 
 steps:
+  - label: ":ruby: 2.6 :rspec:"
+    command: ".buildkite/steps/rspec.sh"
+    plugins:
+      docker#v1.2.1:
+        image: "ruby:2.6"
+    agents:
+      queue: "platform-docker-spot"
+    timeout_in_minutes: 5
+
   - label: ":ruby: 2.5 :rspec:"
     command: ".buildkite/steps/rspec.sh"
     plugins:
