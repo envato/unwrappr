@@ -22,7 +22,6 @@ module Unwrappr
 
     subcommand 'annotate-pull-request',
                'Annotate Gemfile.lock changes in a Github pull request' do
-
       option ['-r', '--repo'], 'REPO',
              'The repo in github <owner/project>',
              required: true
