@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.3] 2019-06-07
+- Fix issue where gem install will now work on RubyGems v3
+
 ## [0.3.2] 2018-11-13
 ### Added
  - Specify Ruby and RubyGems requirements in gemspec.
