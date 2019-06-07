@@ -27,7 +27,7 @@ module Unwrappr
                     cvss_v2: 9.9,
                     criticality: 'high',
                     url: 'https://gist.github.com/viraptor/881276ea61e8d56bac6e28454c79f1e6',
-                    description: <<~DESC,
+                    description: <<~DESC
                       mysql-binuuid-rails 1.1.0 and earlier allows SQL Injection because it removes
                       default string escaping for affected database columns. ActiveRecord does not
                       explicitly escape the Binary data type (Type::Binary::Data) for mysql.
