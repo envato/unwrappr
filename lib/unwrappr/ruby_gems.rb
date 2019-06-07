@@ -26,7 +26,7 @@ module Unwrappr
         when 404
           nil
         else
-          STDERR.puts(error_message(response: response, name: name))
+          warn(error_message(response: response, name: name))
         end
       end
 
