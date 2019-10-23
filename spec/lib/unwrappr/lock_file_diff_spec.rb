@@ -39,6 +39,7 @@ module Unwrappr
       -    rspec-support (3.7.0)
       +    rspec-support (3.7.1)
            highline (2.0.0)
+      -    http_parser.rb (0.6.0)
       -    i18n (1.0.1)
       +    i18n (1.1.0)
 
@@ -71,6 +72,7 @@ module Unwrappr
             rspec-support (~> 3.7.0)
           rspec-support (3.7.0)
           highline (2.0.0)
+          http_parser.rb (0.6.0)
           i18n (1.0.1)
 
       PLATFORMS
@@ -135,16 +137,25 @@ module Unwrappr
 
       describe '2nd change' do
         subject(:gem_change) { gem_changes[1] }
-        its(:name) { should eq('i18n') }
-        it { should be_upgrade }
-        it { should be_minor }
-        its(:line_number) { should eq 27 }
-        its(:base_version) { should eq GemVersion.new('1.0.1') }
-        its(:head_version) { should eq GemVersion.new('1.1.0') }
+        its(:name) { should eq('http_parser.rb') }
+        it { should be_removed }
+        its(:line_number) { should eq 26 }
+        its(:base_version) { should eq GemVersion.new('0.6.0') }
+        its(:head_version) { should be_nil }
       end
 
       describe '3rd change' do
         subject(:gem_change) { gem_changes[2] }
+        its(:name) { should eq('i18n') }
+        it { should be_upgrade }
+        it { should be_minor }
+        its(:line_number) { should eq 28 }
+        its(:base_version) { should eq GemVersion.new('1.0.1') }
+        its(:head_version) { should eq GemVersion.new('1.1.0') }
+      end
+
+      describe '4th change' do
+        subject(:gem_change) { gem_changes[3] }
         its(:name) { should eq('pry') }
         it { should be_added }
         its(:line_number) { should eq 6 }
@@ -152,8 +163,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('0.11.3') }
       end
 
-      describe '4th change' do
-        subject(:gem_change) { gem_changes[3] }
+      describe '5th change' do
+        subject(:gem_change) { gem_changes[4] }
         its(:name) { should eq('rspec') }
         it { should be_upgrade }
         it { should be_major }
@@ -162,8 +173,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('4.0.0') }
       end
 
-      describe '5th change' do
-        subject(:gem_change) { gem_changes[4] }
+      describe '6th change' do
+        subject(:gem_change) { gem_changes[5] }
         its(:name) { should eq('rspec-expectations') }
         it { should be_upgrade }
         it { should be_minor }
@@ -172,8 +183,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('3.8.0') }
       end
 
-      describe '6th change' do
-        subject(:gem_change) { gem_changes[5] }
+      describe '7th change' do
+        subject(:gem_change) { gem_changes[6] }
         its(:name) { should eq('rspec-mocks') }
         it { should be_downgrade }
         it { should be_minor }
@@ -182,8 +193,8 @@ module Unwrappr
         its(:head_version) { should eq GemVersion.new('3.6.0') }
       end
 
-      describe '7th change' do
-        subject(:gem_change) { gem_changes[6] }
+      describe '8th change' do
+        subject(:gem_change) { gem_changes[7] }
         its(:name) { should eq('rspec-support') }
         it { should be_upgrade }
         it { should be_patch }
