@@ -39,6 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#49]: https://github.com/envato/unwrappr/pull/49
 
 ## [0.3.0] 2018-11-12
-## Initial Release
+### Initial Release
 
 [0.3.0]: https://github.com/envato/unwrappr/releases/tag/v0.3.0
