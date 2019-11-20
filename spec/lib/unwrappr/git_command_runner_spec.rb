@@ -13,7 +13,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
   describe '#create_branch!' do
     subject(:create_branch!) { described_class.create_branch! }
 
-    before { allow(Time).to receive(:now).and_return(Time.parse('2017-01-01 11:23')) }
+    before { allow(Time).to receive(:now).and_return(Time.parse('2017-11-01 11:23')) }
 
     context 'Given current directory is not a git repo' do
       before do
@@ -32,7 +32,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
       end
 
       it 'checks out a new branch based on origin/master, with a timestamp' do
-        expect(fake_git).to receive(:branch).with('auto_bundle_update_20170101-1123').and_return(fake_git)
+        expect(fake_git).to receive(:branch).with('auto_bundle_update_20171101-1123').and_return(fake_git)
 
         expect(fake_git).to receive(:checkout).with(no_args)
 
