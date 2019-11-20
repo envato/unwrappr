@@ -42,7 +42,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
       context 'When there is some failure in creating the branch' do
         before do
           expect(fake_git).to receive(:branch)
-            .with('auto_bundle_update_20170101-1123')
+            .with('auto_bundle_update_20171101-1123')
             .and_raise(Git::GitExecuteError)
         end
 
