@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.3.4...HEAD
+### Changed
+- ISO 8601 Date and time format for branch name ([#68])
 
 ## [0.3.4] 2019-10-24
 ### Fixed
