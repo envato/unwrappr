@@ -13,10 +13,6 @@ module Unwrappr
         parse(Faraday.get(SERVER + GET_GEM % name), name)
       end
 
-      def try_get_source_code_uri(gem_name)
-        Unwrappr::RubyGems.gem_info(gem_name)&.source_code_uri
-      end
-
       private
 
       def parse(response, name)
