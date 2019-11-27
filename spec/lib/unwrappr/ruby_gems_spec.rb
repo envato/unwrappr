@@ -2,8 +2,9 @@
 
 module Unwrappr
   RSpec.describe RubyGems do
-    subject(:gem_info) { described_class.gem_info(gem_name) }
+    subject(:gem_info) { described_class.gem_info(gem_name, gem_version) }
     let(:gem_name) { 'gem_name' }
+    let(:gem_version) { GemVersion.new('17.53.125') }
 
     let(:response) { double('faraday_response', status: response_status, body: response_body) }
     let(:response_status) { 200 }
@@ -16,7 +17,7 @@ module Unwrappr
     context 'connectivity' do
       it 'requests rubygems.org API' do
         expect(Faraday).to receive(:get)
-          .with('https://rubygems.org/api/v1/gems/gem_name.json')
+          .with('https://rubygems.org/api/v2/rubygems/gem_name/versions/17.53.125.json')
 
         gem_info
       end

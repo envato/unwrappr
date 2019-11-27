@@ -6,11 +6,11 @@ module Unwrappr
   # A wrapper around RubyGems' API
   module RubyGems
     SERVER = 'https://rubygems.org'
-    GET_GEM = '/api/v1/gems/%s.json'
+    GET_GEM = '/api/v2/rubygems/%s/versions/%s.json'
 
     class << self
-      def gem_info(name)
-        parse(Faraday.get(SERVER + GET_GEM % name), name)
+      def gem_info(name, version)
+        parse(Faraday.get(SERVER + format(GET_GEM, name, version)), name)
       end
 
       private
