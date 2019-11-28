@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - ISO 8601 Date and time format for branch name ([#68])
 ### Fixed
 - Changelog and source links in PR annotation are specific to the version
-  used in the project, not the latest available on Rubygems.org ([#69]).
+  used in the project, not just the latest available on Rubygems.org ([#69]).
 
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.3.4...HEAD
 [#68]: https://github.com/envato/unwrappr/pull/68
