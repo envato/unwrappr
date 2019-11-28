@@ -9,7 +9,9 @@ module Unwrappr
     class RubyGemsInfo
       def research(gem_change, gem_change_info)
         gem_change_info.merge(
-          ruby_gems: ::Unwrappr::RubyGems.gem_info(gem_change.name)
+          ruby_gems: ::Unwrappr::RubyGems.gem_info(
+            gem_change.name, gem_change.head_version
+          )
         )
       end
     end

@@ -96,7 +96,7 @@ module Unwrappr
 
         before do
           allow(::Unwrappr::RubyGems).to receive(:gem_info)
-            .with('rspec-support')
+            .with('rspec-support', GemVersion.new('3.7.1'))
             .and_return(spy(homepage_uri: 'home-uri',
                             source_code_uri: 'source-uri',
                             changelog_uri: 'changelog-uri'))

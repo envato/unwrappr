@@ -9,9 +9,10 @@ module Unwrappr
         ruby_gems_info.research(gem_change, gem_change_info)
       end
 
-      let(:gem_change) { instance_double(GemChange, name: gem_name) }
+      let(:gem_change) { instance_double(GemChange, name: gem_name, head_version: gem_version) }
       let(:gem_change_info) { { something_existing: 'random' } }
       let(:gem_name) { 'test-name' }
+      let(:gem_version) { GemVersion.new('7.3.15') }
       let(:info) { 'this-is-the-info-from-rubygems' }
 
       before do
@@ -20,7 +21,7 @@ module Unwrappr
 
       it 'queries RubyGems using the gem name' do
         research
-        expect(::Unwrappr::RubyGems).to have_received(:gem_info).with(gem_name)
+        expect(::Unwrappr::RubyGems).to have_received(:gem_info).with(gem_name, gem_version)
       end
 
       it 'returns the data from RubyGems' do
