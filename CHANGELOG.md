@@ -5,8 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Changed
+- `bundler-audit` limited to `>= 0.6.0` ([#71])
 
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.3.5...HEAD
+[#71]: https://github.com/envato/unwrappr/pull/71
 
 ## [0.3.5] 2019-11-28
 ### Changed
