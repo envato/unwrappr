@@ -8,6 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - `bundler-audit` limited to `>= 0.6.0` ([#71])
 
+### Removed
+- Support for Ruby 2.3 and 2.4
+
+### Added
+- Support for Ruby 2.6 and 2.7
+
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.3.5...HEAD
 [#71]: https://github.com/envato/unwrappr/pull/71
 
