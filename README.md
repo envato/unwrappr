@@ -66,7 +66,7 @@ See https://github.com/settings/tokens to set up personal access tokens.
  - Ruby (tested against v2.5 and above)
  - GitHub access (see Configuration section)
 
-## Contact ![Join the chat at https://gitter.im/envato/unwrappr](https://badges.gitter.im/Join%20Chat.svg)
+## Contact
 
  - [GitHub project](https://github.com/envato/unwrappr)
  - Bug reports and feature requests are welcome via [GitHub Issues](https://github.com/envato/unwrappr/issues)
