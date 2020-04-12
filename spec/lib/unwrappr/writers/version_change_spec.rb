@@ -15,15 +15,6 @@ module Unwrappr
         end
         let(:gem_change_info) { {} }
 
-        context 'change from 4.2.0 to 4.2.1' do
-          let(:base_version) { GemVersion.new('4.2.0') }
-          let(:head_version) { GemVersion.new('4.2.1') }
-
-          it { should eq <<~MESSAGE }
-            **Patch** version upgrade :chart_with_upwards_trend::small_blue_diamond: 4.2.0 → 4.2.1
-          MESSAGE
-        end
-
         context 'change from 3.9.0 to 4.0.5' do
           let(:base_version) { GemVersion.new('3.9.0') }
           let(:head_version) { GemVersion.new('4.0.5') }
@@ -39,6 +30,24 @@ module Unwrappr
 
           it { should eq <<~MESSAGE }
             **Minor** version downgrade :chart_with_downwards_trend::exclamation::large_orange_diamond: 3.9.0 → 3.8.5
+          MESSAGE
+        end
+
+        context 'change from 4.2.0 to 4.2.1' do
+          let(:base_version) { GemVersion.new('4.2.0') }
+          let(:head_version) { GemVersion.new('4.2.1') }
+
+          it { should eq <<~MESSAGE }
+            **Patch** version upgrade :chart_with_upwards_trend::small_blue_diamond: 4.2.0 → 4.2.1
+          MESSAGE
+        end
+
+        context 'change from 6.0.2.2 to 6.0.2.1' do
+          let(:base_version) { GemVersion.new('6.0.2.2') }
+          let(:head_version) { GemVersion.new('6.0.2.1') }
+
+          it { should eq <<~MESSAGE }
+            **Hotfix** version downgrade :chart_with_downwards_trend::exclamation::small_red_triangle: 6.0.2.2 → 6.0.2.1
           MESSAGE
         end
 

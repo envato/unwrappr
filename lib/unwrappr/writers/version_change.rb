@@ -27,7 +27,7 @@ module Unwrappr
       private
 
       def_delegators(:@gem_change,
-                     :added?, :removed?, :major?, :minor?, :patch?,
+                     :added?, :removed?, :major?, :minor?, :patch?, :hotfix?,
                      :upgrade?, :downgrade?, :base_version, :head_version)
 
       def change_description
@@ -39,6 +39,8 @@ module Unwrappr
           "**Minor** version #{grade}:large_orange_diamond: #{version_diff}"
         elsif patch?
           "**Patch** version #{grade}:small_blue_diamond: #{version_diff}"
+        elsif hotfix?
+          "**Hotfix** version #{grade}:small_red_triangle: #{version_diff}"
         end
       end
 
