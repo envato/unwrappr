@@ -63,19 +63,17 @@ See https://github.com/settings/tokens to set up personal access tokens.
 
 ## Requirements
 
- - Ruby (tested against v2.3 and above)
+ - Ruby (tested against v2.5 and above)
  - GitHub access (see Configuration section)
 
 ## Contact ![Join the chat at https://gitter.im/envato/unwrappr](https://badges.gitter.im/Join%20Chat.svg)
 
  - [GitHub project](https://github.com/envato/unwrappr)
- - [Gitter chat room](https://gitter.im/envato/unwrappr)
  - Bug reports and feature requests are welcome via [GitHub Issues](https://github.com/envato/unwrappr/issues)
 
 ## Maintainers
 
  - [Pete Johns](https://github.com/johnsyweb)
- - [Joe Sustaric](https://github.com/joesustaric)
 
 ## Authors
 
