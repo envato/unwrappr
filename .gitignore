@@ -1,3 +1,5 @@
+*.gem
+.rspec_status
 /.bundle/
 /.yardoc
 /Gemfile.lock
@@ -9,7 +11,3 @@
 /spec/reports/
 /stdout.txt
 /tmp/
-/unwrappr-*.gem
-
-# rspec failure tracking
-.rspec_status
