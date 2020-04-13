@@ -7,7 +7,10 @@ module Unwrappr
     # Implements the `gem_researcher` interface required by the
     # LockFileAnnotator.
     class GithubRepo
-      GITHUB_URI_PATTERN = %r{^https?://github.com/(?<repo>[^/]+/[[:alnum:]_.-]+)}i.freeze
+      GITHUB_URI_PATTERN = %r{^https?://
+                              github.com/
+                              (?<repo>[^/]+/[[:alnum:]_.-]+)
+                              }ix.freeze
 
       def research(_gem_change, gem_change_info)
         repo = match_repo(gem_change_info, :source_code_uri) ||
