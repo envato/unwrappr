@@ -43,6 +43,11 @@ module Unwrappr
         head_version.patch_difference?(base_version)
     end
 
+    def hotfix?
+      head_version && base_version &&
+        head_version.hotfix_difference?(base_version)
+    end
+
     def upgrade?
       head_version && base_version && (head_version > base_version)
     end

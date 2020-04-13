@@ -9,13 +9,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `bundler-audit` limited to `>= 0.6.0` ([#71])
 
 ### Removed
-- Support for Ruby 2.3 and 2.4
+- Support for Ruby 2.3 and 2.4 ([#73])
 
 ### Added
-- Support for Ruby 2.6 and 2.7
+- Rake vulnerability CVE-2020-8130 fixes ([#72])
+- Support for Ruby 2.6 and 2.7 ([#73])
+- Support for version numbers including a fourth segment (_e.g._ "6.0.2.2") ([#74])
 
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.3.5...HEAD
 [#71]: https://github.com/envato/unwrappr/pull/71
+[#72]: https://github.com/envato/unwrappr/pull/72
+[#73]: https://github.com/envato/unwrappr/pull/73
+[#74]: https://github.com/envato/unwrappr/pull/74
 
 ## [0.3.5] 2019-11-28
 ### Changed

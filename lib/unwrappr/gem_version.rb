@@ -13,9 +13,10 @@ module Unwrappr
       @major = segment(0)
       @minor = segment(1)
       @patch = segment(2)
+      @hotfix = segment(3)
     end
 
-    attr_reader :major, :minor, :patch, :version
+    attr_reader :major, :minor, :patch, :hotfix, :version
 
     def major_difference?(other)
       (major != other.major)
@@ -30,6 +31,13 @@ module Unwrappr
       (major == other.major) &&
         (minor == other.minor) &&
         (patch != other.patch)
+    end
+
+    def hotfix_difference?(other)
+      (major == other.major) &&
+        (minor == other.minor) &&
+        (patch == other.patch) &&
+        (hotfix != other.hotfix)
     end
 
     def <=>(other)
