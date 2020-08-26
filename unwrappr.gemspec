@@ -12,6 +12,9 @@ AUTHORS = {
   'vladimir.chervanev@envato.com' => 'Vladimir Chervanev'
 }.freeze
 
+GITHUB_URL = 'https://github.com/envato/unwrappr'
+HOMEPAGE_URL = 'https://opensource.envato.com/projects/unwrappr.html'
+
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.name = 'unwrappr'
   spec.version = Unwrappr::VERSION
@@ -20,7 +23,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
 
   spec.summary = "A tool to unwrap your gems and see what's changed easily"
   spec.description = 'bundle update PRs: Automated. Annotated.'
-  spec.homepage = 'http://www.unwrappr.com.org'
+  spec.homepage = GITHUB_URL
   spec.license = 'MIT'
   spec.required_ruby_version = '~> 2.5'
   spec.required_rubygems_version = '>= 2.7'
@@ -49,10 +52,10 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.add_development_dependency 'rubocop', '>= 0.49.0'
 
   spec.metadata = {
-    'bug_tracker_uri' => 'https://github.com/envato/unwrappr/issues',
-    'changelog_uri' => 'https://github.com/envato/unwrappr/blob/master/CHANGELOG.md',
-    'documentation_uri' => 'https://github.com/envato/unwrappr/blob/master/README.md',
-    'homepage_uri' => 'https://opensource.envato.com/projects/unwrappr.html',
-    'source_code_uri' => 'https://github.com/envato/unwrappr'
+    'bug_tracker_uri' => "#{GITHUB_URL}/issues",
+    'changelog_uri' => "#{GITHUB_URL}/blob/master/CHANGELOG.md",
+    'documentation_uri' => "#{GITHUB_URL}/blob/master/README.md",
+    'homepage_uri' => HOMEPAGE_URL,
+    'source_code_uri' => GITHUB_URL
   }
 end
