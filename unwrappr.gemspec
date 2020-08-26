@@ -23,7 +23,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
 
   spec.summary = "A tool to unwrap your gems and see what's changed easily"
   spec.description = 'bundle update PRs: Automated. Annotated.'
-  spec.homepage = GITHUB_URL
+  spec.homepage = HOMEPAGE_URL
   spec.license = 'MIT'
   spec.required_ruby_version = '~> 2.5'
   spec.required_rubygems_version = '>= 2.7'
