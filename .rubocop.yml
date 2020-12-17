@@ -1,8 +1,9 @@
 ---
 AllCops:
-  TargetRubyVersion: 2.5
   Exclude:
     - 'spike/*.rb'
+  NewCops: enable
+  TargetRubyVersion: 2.5
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
