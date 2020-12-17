@@ -16,7 +16,7 @@ to get regular dependency updates into production.
   - Vulnerability advisory information using [bundler-audit](https://github.com/rubysec/bundler-audit)
   - Links to the home page, source code and change log (where available) of each gem
 
-## Development status [![CI Status](https://github.com/envato/unwrappr/workflows/ci/badge.svg)](https://github.com/envato/unwrappr/actions)
+## Development status [![CI Status](https://github.com/envato/unwrappr/workflows/CI/badge.svg)](https://github.com/envato/unwrappr/actions?query=workflow%3ACI)
 
 `unwrappr` is used in many projects around [Envato][envato]
 However, it is still undergoing development and features are likely to change
