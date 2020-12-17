@@ -63,7 +63,7 @@ module Unwrappr
       # '+    websocket-driver (0.6.5)'
       # Careful not to match this (note the wider indent):
       # '+      websocket-extensions (>= 0.1.0)'
-      pattern = /^(?<change_type>[\+\-])    (?<gem_name>[\S]+) \(\d/
+      pattern = /^(?<change_type>[+\-])    (?<gem_name>\S+) \(\d/
       match = pattern.match(line)
       return match[:gem_name], match[:change_type] unless match.nil?
     end

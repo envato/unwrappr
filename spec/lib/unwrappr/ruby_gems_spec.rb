@@ -41,14 +41,12 @@ module Unwrappr
     end
 
     context 'runtime error' do
-      class UnknownError < StandardError; end
-
       before do
-        allow(Faraday).to receive(:get).and_raise(UnknownError)
+        allow(Faraday).to receive(:get).and_raise(StandardError)
       end
 
-      it 'returns nil' do
-        expect { subject }.to raise_error(instance_of(UnknownError))
+      it 'is re-raised' do
+        expect { subject }.to raise_error(instance_of(StandardError))
       end
     end
   end
