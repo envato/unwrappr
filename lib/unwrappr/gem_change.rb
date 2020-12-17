@@ -18,6 +18,7 @@ module Unwrappr
     end
 
     attr_reader :name, :head_version, :base_version, :line_number
+
     def_delegators :@lock_file_diff, :filename, :sha
 
     def added?
