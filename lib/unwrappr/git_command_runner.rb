@@ -80,7 +80,7 @@ module Unwrappr
 
       def log_options
         {}.tap do |opt|
-          opt[:log] = Logger.new(STDOUT) if ENV['DEBUG']
+          opt[:log] = Logger.new($stdout) if ENV['DEBUG']
         end
       end
 
