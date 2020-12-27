@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+- Support for Ruby 3. ([#79])
+
 ### Changed
 - Moved CI to GitHub Actions ([#78])
 - Fixed homepage URL in gemspec ([#77])
@@ -13,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.4.0...HEAD
 [#77]: https://github.com/envato/unwrappr/pull/77
 [#78]: https://github.com/envato/unwrappr/pull/78
+[#79]: https://github.com/envato/unwrappr/pull/79
 
 ## [0.4.0] 2020-04-14
 ### Changed
