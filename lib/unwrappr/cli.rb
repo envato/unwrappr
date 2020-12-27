@@ -8,6 +8,15 @@ module Unwrappr
   class CLI < Clamp::Command
     self.default_subcommand = 'all'
 
+    option(['-b', '--base'],
+           'BRANCH',
+           <<~DESCRIPTION,
+             the branch upon which to base the pull-request. Omit this option
+             to use the current branch, or repository's default branch
+             (typically 'origin/main') on clone.
+           DESCRIPTION
+           attribute_name: :base_branch)
+
     option ['-v', '--version'], :flag, 'Show version' do
       puts "unwrappr v#{Unwrappr::VERSION}"
       exit(0)
@@ -16,7 +25,7 @@ module Unwrappr
     subcommand 'all', 'run bundle update, push to github, '\
                       'create a pr and annotate changes' do
       def execute
-        Unwrappr.run_unwapper_in_pwd
+        Unwrappr.run_unwapper_in_pwd(base_branch: base_branch)
       end
     end
 
@@ -59,18 +68,18 @@ module Unwrappr
             )
           end
 
-          Dir.chdir(repo) { Unwrappr.run_unwapper_in_pwd }
+          Dir.chdir(repo) { Unwrappr.run_unwapper_in_pwd(base_branch: base_branch) }
         end
       end
     end
   end
 
-  def self.run_unwapper_in_pwd
+  def self.run_unwapper_in_pwd(base_branch:)
     return unless lockfile_present?
 
     puts "Doing the unwrappr thing in #{Dir.pwd}"
 
-    GitCommandRunner.create_branch!
+    GitCommandRunner.create_branch!(base_branch: base_branch)
     BundlerCommandRunner.bundle_update!
     GitCommandRunner.commit_and_push_changes!
     GitHub::Client.make_pull_request!

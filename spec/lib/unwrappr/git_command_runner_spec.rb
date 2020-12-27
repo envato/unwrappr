@@ -11,7 +11,8 @@ RSpec.describe Unwrappr::GitCommandRunner do
   end
 
   describe '#create_branch!' do
-    subject(:create_branch!) { described_class.create_branch! }
+    subject(:create_branch!) { described_class.create_branch!(base_branch: base_branch) }
+    let(:base_branch) { 'some_branch' }
 
     before { allow(Time).to receive(:now).and_return(Time.parse('2017-11-01 11:23')) }
 
@@ -27,16 +28,32 @@ RSpec.describe Unwrappr::GitCommandRunner do
 
     context 'Given the current directory is a git repo' do
       before do
-        expect(fake_git).to receive(:current_branch).and_return('master')
-        expect(fake_git).to receive(:checkout).with('origin/master')
+        expect(fake_git).to receive(:current_branch).and_return('main')
+        allow(fake_git).to receive(:checkout)
       end
 
-      it 'checks out a new branch based on origin/master, with a timestamp' do
-        expect(fake_git).to receive(:branch).with('auto_bundle_update_20171101-1123').and_return(fake_git)
+      context 'with a named base branch' do
+        let(:base_branch) { 'origin/main' }
 
-        expect(fake_git).to receive(:checkout).with(no_args)
+        it 'checks out a new branch based on the named branch, with a timestamp' do
+          expect(fake_git).to receive(:branch).with('auto_bundle_update_20171101-1123').and_return(fake_git)
 
-        expect(create_branch!).to be_nil
+          expect(create_branch!).to be_nil
+
+          expect(fake_git).to have_received(:checkout).with('origin/main').once
+        end
+      end
+
+      context 'without a named base branch' do
+        let(:base_branch) { nil }
+
+        it 'checks out a new branch based on the current branch, with a timestamp' do
+          expect(fake_git).to receive(:branch).with('auto_bundle_update_20171101-1123').and_return(fake_git)
+
+          expect(create_branch!).to be_nil
+
+          expect(fake_git).not_to have_received(:checkout).with(nil)
+        end
       end
 
       context 'When there is some failure in creating the branch' do
@@ -47,7 +64,7 @@ RSpec.describe Unwrappr::GitCommandRunner do
         end
 
         specify do
-          expect { create_branch! }.to raise_error(RuntimeError, 'failed to create branch')
+          expect { create_branch! }.to raise_error(RuntimeError, "failed to create branch from 'some_branch'")
         end
       end
     end

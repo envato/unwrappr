@@ -7,9 +7,9 @@ module Unwrappr
   # Runs Git commands
   module GitCommandRunner
     class << self
-      def create_branch!
+      def create_branch!(base_branch:)
         raise 'Not a git working dir' unless git_dir?
-        raise 'failed to create branch' unless branch_created?
+        raise "failed to create branch from '#{base_branch}'" unless branch_created?(base_branch: base_branch)
       end
 
       def commit_and_push_changes!
@@ -50,10 +50,10 @@ module Unwrappr
         git_wrap { !current_branch_name.empty? }
       end
 
-      def branch_created?
+      def branch_created?(base_branch:)
         timestamp = Time.now.strftime('%Y%m%d-%H%M').freeze
         git_wrap do
-          git.checkout('origin/master')
+          git.checkout(base_branch) unless base_branch.nil?
           git.branch("auto_bundle_update_#{timestamp}").checkout
         end
       end
