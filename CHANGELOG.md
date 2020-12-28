@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/unwrappr/compare/v0.5.0...HEAD
+
+## [0.5.0] 2020-12-29
+
 ### Add
 - Support for Ruby 3. ([#79])
 - Allow specification of base branch, upone which to base the pull-request
@@ -18,7 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Rename private predicate methods in GitCommandRunner to be more descriptive.
   ([#82])
 
-[Unreleased]: https://github.com/envato/unwrappr/compare/v0.4.0...HEAD
+[0.5.0]: https://github.com/envato/unwrappr/compare/v0.4.0..v0.5.0
 [#77]: https://github.com/envato/unwrappr/pull/77
 [#78]: https://github.com/envato/unwrappr/pull/78
 [#79]: https://github.com/envato/unwrappr/pull/79
