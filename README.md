@@ -85,16 +85,16 @@ See https://github.com/settings/tokens to set up personal access tokens.
  - [Em Esc](https://github.com/emesc)
  - [Chun-wei Kuo](https://github.com/Domon)
 
-## License [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/envato/unwrappr/blob/master/LICENSE.txt)
+## License [![license](https://img.shields.io/github/license/mashape/apistatus.svg?style=flat-square)](https://github.com/envato/unwrappr/blob/HEAD/LICENSE.txt)
 
 `unwrappr` uses MIT license. See
-[`LICENSE.txt`](https://github.com/envato/unwrappr/blob/master/LICENSE.txt) for
+[`LICENSE.txt`](https://github.com/envato/unwrappr/blob/HEAD/LICENSE.txt) for
 details.
 
 ## Code of Conduct
 
 We welcome contribution from everyone. Read more about it in
-[`CODE_OF_CONDUCT.md`](https://github.com/envato/unwrappr/blob/master/CODE_OF_CONDUCT.md)
+[`CODE_OF_CONDUCT.md`](https://github.com/envato/unwrappr/blob/HEAD/CODE_OF_CONDUCT.md)
 
 ## Contributing [![PRs welcome](https://img.shields.io/badge/PRs-welcome-orange.svg?style=flat-square)](https://github.com/envato/unwrappr/issues)
 
