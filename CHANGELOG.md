@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Add
 - Support for Ruby 3. ([#79])
+- Allow specification of base branch, upone which to base the pull-request
+  ([#80])
 
 ### Changed
 - Moved CI to GitHub Actions ([#78])
@@ -18,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#77]: https://github.com/envato/unwrappr/pull/77
 [#78]: https://github.com/envato/unwrappr/pull/78
 [#79]: https://github.com/envato/unwrappr/pull/79
+[#80]: https://github.com/envato/unwrappr/pull/80
 [#81]: https://github.com/envato/unwrappr/pull/81
 
 ## [0.4.0] 2020-04-14
