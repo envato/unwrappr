@@ -13,7 +13,7 @@ module Unwrappr
       end
 
       def commit_and_push_changes!
-        raise 'failed to add git changes' unless git_added_changes?
+        raise 'failed to add git changes' unless stage_all_changes
         raise 'failed to commit changes' unless git_committed?
         raise 'failed to push changes' unless git_pushed?
       end
@@ -58,7 +58,7 @@ module Unwrappr
         end
       end
 
-      def git_added_changes?
+      def stage_all_changes
         git_wrap { git.add(all: true) }
       end
 
