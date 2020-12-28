@@ -9,13 +9,13 @@ module Unwrappr
     class << self
       def create_branch!(base_branch:)
         raise 'Not a git working dir' unless git_dir?
-        raise "failed to create branch from '#{base_branch}'" unless branch_created?(base_branch: base_branch)
+        raise "failed to create branch from '#{base_branch}'" unless checkout_target_branch(base_branch: base_branch)
       end
 
       def commit_and_push_changes!
-        raise 'failed to add git changes' unless git_added_changes?
-        raise 'failed to commit changes' unless git_committed?
-        raise 'failed to push changes' unless git_pushed?
+        raise 'failed to add git changes' unless stage_all_changes
+        raise 'failed to commit changes' unless commit_staged_changes
+        raise 'failed to push changes' unless push_current_branch_to_origin
       end
 
       def reset_client
@@ -50,7 +50,7 @@ module Unwrappr
         git_wrap { !current_branch_name.empty? }
       end
 
-      def branch_created?(base_branch:)
+      def checkout_target_branch(base_branch:)
         timestamp = Time.now.strftime('%Y%m%d-%H%M').freeze
         git_wrap do
           git.checkout(base_branch) unless base_branch.nil?
@@ -58,15 +58,15 @@ module Unwrappr
         end
       end
 
-      def git_added_changes?
+      def stage_all_changes
         git_wrap { git.add(all: true) }
       end
 
-      def git_committed?
+      def commit_staged_changes
         git_wrap { git.commit('Automatic Bundle Update') }
       end
 
-      def git_pushed?
+      def push_current_branch_to_origin
         git_wrap { git.push('origin', current_branch_name) }
       end
 
