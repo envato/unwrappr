@@ -53,8 +53,8 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
 
   spec.metadata = {
     'bug_tracker_uri' => "#{GITHUB_URL}/issues",
-    'changelog_uri' => "#{GITHUB_URL}/blob/master/CHANGELOG.md",
-    'documentation_uri' => "#{GITHUB_URL}/blob/master/README.md",
+    'changelog_uri' => "#{GITHUB_URL}/blob/HEAD/CHANGELOG.md",
+    'documentation_uri' => "#{GITHUB_URL}/blob/HEAD/README.md",
     'homepage_uri' => HOMEPAGE_URL,
     'source_code_uri' => GITHUB_URL
   }
