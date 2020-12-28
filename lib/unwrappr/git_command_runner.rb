@@ -15,7 +15,7 @@ module Unwrappr
       def commit_and_push_changes!
         raise 'failed to add git changes' unless stage_all_changes
         raise 'failed to commit changes' unless commit_staged_changes
-        raise 'failed to push changes' unless git_pushed?
+        raise 'failed to push changes' unless push_current_branch_to_origin
       end
 
       def reset_client
@@ -66,7 +66,7 @@ module Unwrappr
         git_wrap { git.commit('Automatic Bundle Update') }
       end
 
-      def git_pushed?
+      def push_current_branch_to_origin
         git_wrap { git.push('origin', current_branch_name) }
       end
 
