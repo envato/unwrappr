@@ -9,7 +9,7 @@ module Unwrappr
     class << self
       def create_branch!(base_branch:)
         raise 'Not a git working dir' unless git_dir?
-        raise "failed to create branch from '#{base_branch}'" unless branch_created?(base_branch: base_branch)
+        raise "failed to create branch from '#{base_branch}'" unless checkout_target_branch(base_branch: base_branch)
       end
 
       def commit_and_push_changes!
@@ -50,7 +50,7 @@ module Unwrappr
         git_wrap { !current_branch_name.empty? }
       end
 
-      def branch_created?(base_branch:)
+      def checkout_target_branch(base_branch:)
         timestamp = Time.now.strftime('%Y%m%d-%H%M').freeze
         git_wrap do
           git.checkout(base_branch) unless base_branch.nil?
