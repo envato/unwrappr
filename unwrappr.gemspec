@@ -38,7 +38,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.add_dependency 'bundler', '< 3'
   spec.add_dependency 'bundler-audit', '>= 0.6.0'
   spec.add_dependency 'clamp', '~> 1'
-  spec.add_dependency 'faraday', '~> 0'
+  spec.add_dependency 'faraday', '~> 1'
   spec.add_dependency 'git', '~> 1'
   spec.add_dependency 'octokit', '~> 4.0'
   spec.add_dependency 'safe_shell', '~> 1'
