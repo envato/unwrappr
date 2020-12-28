@@ -14,7 +14,7 @@ module Unwrappr
 
       def commit_and_push_changes!
         raise 'failed to add git changes' unless stage_all_changes
-        raise 'failed to commit changes' unless git_committed?
+        raise 'failed to commit changes' unless commit_staged_changes
         raise 'failed to push changes' unless git_pushed?
       end
 
@@ -62,7 +62,7 @@ module Unwrappr
         git_wrap { git.add(all: true) }
       end
 
-      def git_committed?
+      def commit_staged_changes
         git_wrap { git.commit('Automatic Bundle Update') }
       end
 
