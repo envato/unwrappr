@@ -3,9 +3,7 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::GitHub::Client do
-  before do
-    described_class.reset_client
-  end
+  before { described_class.reset_client }
 
   describe '#make_pull_request!' do
     subject(:make_pull_request!) { described_class.make_pull_request! }
@@ -22,6 +20,7 @@ RSpec.describe Unwrappr::GitHub::Client do
     context 'with a token' do
       before do
         allow(ENV).to receive(:fetch).with('GITHUB_TOKEN').and_return('fake tokenz r us')
+        allow(octokit_client).to receive_message_chain('repository.default_branch').and_return('main')
       end
 
       context 'Given a successful Octokit pull request is created' do
@@ -64,9 +63,9 @@ RSpec.describe Unwrappr::GitHub::Client do
         end
       end
 
-      context 'Given an exception is raised from octokit' do
+      context 'Given an exception is raised from Octokit' do
         before do
-          expect(octokit_client).to receive(:create_pull_request)
+          expect(octokit_client).to receive(:repository)
             .and_raise(Octokit::ClientError)
         end
 
@@ -79,7 +78,9 @@ RSpec.describe Unwrappr::GitHub::Client do
 
     context 'without a token' do
       before do
-        allow(ENV).to receive(:[]).with('GITHUB_TOKEN').and_return(nil)
+        expect(ENV).to receive(:fetch)
+          .with('GITHUB_TOKEN')
+          .and_raise(KeyError, 'key not found GITHUB_TOKEN')
       end
 
       it 'provides useful feedback' do
