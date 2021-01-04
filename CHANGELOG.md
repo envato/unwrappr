@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Default branch is now `main`([#81])
 - Rename private predicate methods in GitCommandRunner to be more descriptive.
   ([#82])
+- Upgrade Faraday dependency to version 1 ([#85])
 
 [0.5.0]: https://github.com/envato/unwrappr/compare/v0.4.0..v0.5.0
 [#77]: https://github.com/envato/unwrappr/pull/77
@@ -30,6 +31,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [#81]: https://github.com/envato/unwrappr/pull/81
 [#82]: https://github.com/envato/unwrappr/pull/82
 [#84]: https://github.com/envato/unwrappr/pull/84
+[#85]: https://github.com/envato/unwrappr/pull/85
 
 ## [0.4.0] 2020-04-14
 ### Changed

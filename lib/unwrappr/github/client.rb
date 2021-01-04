@@ -30,12 +30,17 @@ module Unwrappr
         def create_and_annotate_pull_request
           pr = git_client.create_pull_request(
             repo_name_and_org,
-            'master',
+            repo_default_branch,
             Unwrappr::GitCommandRunner.current_branch_name,
             'Automated Bundle Update',
             pull_request_body
           )
           annotate_pull_request(pr.number)
+        end
+
+        def repo_default_branch
+          git_client.repository(repo_name_and_org)
+                    .default_branch
         end
 
         def pull_request_body
@@ -58,16 +63,16 @@ module Unwrappr
         end
 
         def github_token
-          @github_token ||= ENV.fetch('GITHUB_TOKEN') do
-            raise %(
+          @github_token ||= ENV.fetch('GITHUB_TOKEN')
+        rescue KeyError
+          raise %(
 Missing environment variable GITHUB_TOKEN.
 See https://github.com/settings/tokens to set up personal access tokens.
 Add to the environment:
 
     export GITHUB_TOKEN=XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-)
-          end
+            )
         end
       end
     end
