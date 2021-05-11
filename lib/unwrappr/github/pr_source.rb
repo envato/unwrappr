@@ -9,9 +9,10 @@ module Unwrappr
     # Implements the `lock_file_diff_source` interface as defined by the
     # LockFileAnnotator.
     class PrSource
-      def initialize(repo, pr_number, client)
+      def initialize(repo, pr_number, lock_files, client)
         @repo = repo
         @pr_number = pr_number
+        @lock_files = lock_files
         @client = client
       end
 
@@ -33,7 +34,7 @@ module Unwrappr
         @lock_file_diffs ||= @client
                              .pull_request_files(@repo, @pr_number)
                              .select do |file|
-                               File.basename(file.filename) == 'Gemfile.lock'
+                               @lock_files.include?(File.basename(file.filename))
                              end
       end
 
