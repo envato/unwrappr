@@ -75,8 +75,8 @@ RSpec.describe Unwrappr::GitHub::Client do
 
             expect(Unwrappr::LockFileAnnotator)
               .to have_received(:annotate_github_pull_request)
-                    .with(repo: 'org/repo', pr_number: 34, lock_files: ['Gemfile.lock', 'Gemfile_next.lock'],
-                          client: octokit_client)
+              .with(repo: 'org/repo', pr_number: 34, lock_files: ['Gemfile.lock', 'Gemfile_next.lock'],
+                    client: octokit_client)
           end
         end
       end

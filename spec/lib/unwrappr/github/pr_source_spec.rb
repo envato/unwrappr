@@ -21,8 +21,8 @@ module Unwrappr
 
     before do
       allow(LockFileDiff).to receive(:new)
-                               .with(hash_including(filename: 'my/Gemfile.lock'))
-                               .and_return(double(filename: 'my/Gemfile.lock'))
+        .with(hash_including(filename: 'my/Gemfile.lock'))
+        .and_return(double(filename: 'my/Gemfile.lock'))
       allow(Base64).to receive(:decode64)
         .with('encoded-content-1')
         .and_return('content-1')
@@ -82,14 +82,14 @@ module Unwrappr
 
         before do
           allow(LockFileDiff).to receive(:new)
-                                   .with(hash_including(filename: 'Gemfile_next.lock'))
-                                   .and_return(double(filename: 'Gemfile_next.lock'))
+            .with(hash_including(filename: 'Gemfile_next.lock'))
+            .and_return(double(filename: 'Gemfile_next.lock'))
           allow(client).to receive(:contents)
-                             .with(repo, path: 'Gemfile_next.lock', ref: 'base-sha')
-                             .and_return(content1)
+            .with(repo, path: 'Gemfile_next.lock', ref: 'base-sha')
+            .and_return(content1)
           allow(client).to receive(:contents)
-                             .with(repo, path: 'Gemfile_next.lock', ref: 'head-sha')
-                             .and_return(content2)
+            .with(repo, path: 'Gemfile_next.lock', ref: 'head-sha')
+            .and_return(content2)
         end
 
         it 'identifies all the gem lock files' do
@@ -99,17 +99,17 @@ module Unwrappr
         it 'produces LockFileDiff instances with the expected attributes' do
           files
           expect(LockFileDiff).to have_received(:new)
-                                    .with(filename: 'my/Gemfile.lock',
-                                          base_file: 'content-1',
-                                          head_file: 'content-2',
-                                          patch: 'my-gem-patch',
-                                          sha: 'head-sha')
+            .with(filename: 'my/Gemfile.lock',
+                  base_file: 'content-1',
+                  head_file: 'content-2',
+                  patch: 'my-gem-patch',
+                  sha: 'head-sha')
           expect(LockFileDiff).to have_received(:new)
-                                    .with(filename: 'Gemfile_next.lock',
-                                          base_file: 'content-1',
-                                          head_file: 'content-2',
-                                          patch: 'next-gem-patch',
-                                          sha: 'head-sha')
+            .with(filename: 'Gemfile_next.lock',
+                  base_file: 'content-1',
+                  head_file: 'content-2',
+                  patch: 'next-gem-patch',
+                  sha: 'head-sha')
         end
       end
     end
