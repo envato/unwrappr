@@ -18,10 +18,10 @@ module Unwrappr
   class LockFileAnnotator
     # rubocop:disable Metrics/MethodLength
     def self.annotate_github_pull_request(
-      repo:, pr_number:, client: Octokit.client
+      repo:, pr_number:, lock_files:, client: Octokit.client
     )
       new(
-        lock_file_diff_source: Github::PrSource.new(repo, pr_number, client),
+        lock_file_diff_source: Github::PrSource.new(repo, pr_number, lock_files, client),
         annotation_sink: Github::PrSink.new(repo, pr_number, client),
         annotation_writer: Writers::Composite.new(
           Writers::Title,
