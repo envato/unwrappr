@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/envato/unwrappr/compare/v0.5.0...HEAD
+[Unreleased]: https://github.com/envato/unwrappr/compare/v0.6.0...HEAD
+
+## [0.6.0] 2021-05-12
+
+### Add
+- Allow specification of Gemfile lock files to annotate. ([#80])
 
 ## [0.5.0] 2021-01-04
 
