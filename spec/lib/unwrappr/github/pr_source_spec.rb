@@ -17,7 +17,6 @@ module Unwrappr
     let(:pr) { double }
     let(:content1) { double(content: 'encoded-content-1') }
     let(:content2) { double(content: 'encoded-content-2') }
-    let(:lock_file_diff) { double }
 
     before do
       allow(LockFileDiff).to receive(:new)
