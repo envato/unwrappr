@@ -21,7 +21,9 @@ module Unwrappr
       private
 
       def specs_versions(lock_file)
-        Hash[lock_file.specs.map { |s| [s.name.to_sym, s.version.to_s] }]
+        lock_file.specs.each_with_object({}) do |s, memo|
+          memo[s.name.to_sym] = s.version.to_s
+        end
       end
     end
   end

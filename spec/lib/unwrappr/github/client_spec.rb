@@ -3,10 +3,12 @@
 require 'spec_helper'
 
 RSpec.describe Unwrappr::GitHub::Client do
+  let(:lock_files) { ['Gemfile.lock'] }
+
   before { described_class.reset_client }
 
   describe '#make_pull_request!' do
-    subject(:make_pull_request!) { described_class.make_pull_request! }
+    subject(:make_pull_request!) { described_class.make_pull_request!(lock_files) }
 
     let(:git_url) { 'https://github.com/org/repo.git' }
     let(:octokit_client) { instance_spy(Octokit::Client, :fake_octokit, pull_request_files: []) }
@@ -44,7 +46,7 @@ RSpec.describe Unwrappr::GitHub::Client do
 
             expect(Unwrappr::LockFileAnnotator)
               .to have_received(:annotate_github_pull_request)
-              .with(repo: 'org/repo', pr_number: 34, client: octokit_client)
+              .with(repo: 'org/repo', pr_number: 34, lock_files: ['Gemfile.lock'], client: octokit_client)
           end
         end
 
@@ -58,7 +60,23 @@ RSpec.describe Unwrappr::GitHub::Client do
 
             expect(Unwrappr::LockFileAnnotator)
               .to have_received(:annotate_github_pull_request)
-              .with(repo: 'org/repo', pr_number: 34, client: octokit_client)
+              .with(repo: 'org/repo', pr_number: 34, lock_files: ['Gemfile.lock'], client: octokit_client)
+          end
+        end
+
+        context 'When multiple lock files are specified' do
+          let(:lock_files) { ['Gemfile.lock', 'Gemfile_next.lock'] }
+          let(:git_url) { 'https://github.com/org/repo' }
+
+          it 'annotates the pull request' do
+            allow(Unwrappr::LockFileAnnotator).to receive(:annotate_github_pull_request)
+
+            make_pull_request!
+
+            expect(Unwrappr::LockFileAnnotator)
+              .to have_received(:annotate_github_pull_request)
+              .with(repo: 'org/repo', pr_number: 34, lock_files: ['Gemfile.lock', 'Gemfile_next.lock'],
+                    client: octokit_client)
           end
         end
       end
