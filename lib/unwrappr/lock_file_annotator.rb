@@ -54,6 +54,8 @@ module Unwrappr
 
     def annotate
       @lock_file_diff_source.each_file do |lock_file_diff|
+        puts "Annotating #{lock_file_diff.filename}"
+
         lock_file_diff.each_gem_change do |gem_change|
           gem_change_info = @gem_researcher.research(gem_change, {})
           message = @annotation_writer.write(gem_change, gem_change_info)
