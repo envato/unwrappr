@@ -83,7 +83,7 @@ module Unwrappr
   end
 
   def self.run_unwapper_in_pwd(base_branch:, lock_files:)
-    return unless lockfiles_present?(lock_files)
+    return unless any_lockfile_present?(lock_files)
 
     puts "Doing the unwrappr thing in #{Dir.pwd}"
 
@@ -93,7 +93,7 @@ module Unwrappr
     GitHub::Client.make_pull_request!(lock_files)
   end
 
-  def self.lockfiles_present?(lock_files)
-    lock_files.all? { |lock_file| GitCommandRunner.file_exist?(lock_file) }
+  def self.any_lockfile_present?(lock_files)
+    lock_files.any? { |lock_file| GitCommandRunner.file_exist?(lock_file) }
   end
 end
