@@ -18,7 +18,7 @@ module Unwrappr
            attribute_name: :base_branch)
 
     option ['-f', '--lock-file'],
-           'LOCK_FILE',
+           'LOCK_FILE1 [-f LOCK_FILE2] [-f LOCK_FILE3] [-f ...]',
            'The Gemfile.lock files to annotate. Useful when working with multiple lock files.',
            multivalued: true,
            default: ['Gemfile.lock'],
