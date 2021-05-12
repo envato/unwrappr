@@ -21,7 +21,7 @@ module Unwrappr
            'LOCK_FILE',
            'The Gemfile.lock files to annotate. Useful when working with multiple lock files.',
            multivalued: true,
-           default: 'Gemfile.lock',
+           default: ['Gemfile.lock'],
            attribute_name: :lock_files
 
     option ['-v', '--version'], :flag, 'Show version' do
