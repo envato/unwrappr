@@ -37,7 +37,7 @@ module Unwrappr
       private_constant :GEM_DIFF_URL_TEMPLATE
 
       def gem_diff
-        unless ruby_gems_info.nil?
+        if !ruby_gems_info.nil? && !@gem_change.added? && !@gem_change.removed?
           gem_diff_url = format(GEM_DIFF_URL_TEMPLATE,
                                 @gem_change.name,
                                 @gem_change.base_version.to_s,
