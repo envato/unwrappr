@@ -123,7 +123,7 @@ module Unwrappr
 
                 **Patch** version upgrade :chart_with_upwards_trend::small_blue_diamond: 3.7.0 → 3.7.1
 
-                [_[change-log](changelog-uri), [source-code](source-uri)_]
+                [_[change-log](changelog-uri), [source-code](source-uri), [gem-diff](https://my.diffend.io/gems/rspec-support/3.7.0/3.7.1)_]
               MESSAGE
             )
         end
