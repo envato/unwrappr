@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+- Include link to gem contents diff in gem change annotation ([#88]).
+
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.6.0...HEAD
+[#88]: https://github.com/envato/unwrappr/pull/88
 
 ## [0.6.0] 2021-05-12
 

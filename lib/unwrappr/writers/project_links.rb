@@ -18,19 +18,36 @@ module Unwrappr
       end
 
       def write
-        "[_#{change_log}, #{source_code}_]\n"
+        "[_#{change_log}, #{source_code}, #{gem_diff}_]\n"
       end
 
       private
 
       def change_log
         link_or_strikethrough('change-log',
-                              @gem_change_info[:ruby_gems]&.changelog_uri)
+                              ruby_gems_info&.changelog_uri)
       end
 
       def source_code
         link_or_strikethrough('source-code',
-                              @gem_change_info[:ruby_gems]&.source_code_uri)
+                              ruby_gems_info&.source_code_uri)
+      end
+
+      GEM_DIFF_URL_TEMPLATE = 'https://my.diffend.io/gems/%s/%s/%s'
+      private_constant :GEM_DIFF_URL_TEMPLATE
+
+      def gem_diff
+        if !ruby_gems_info.nil? && !@gem_change.added? && !@gem_change.removed?
+          gem_diff_url = format(GEM_DIFF_URL_TEMPLATE,
+                                @gem_change.name,
+                                @gem_change.base_version.to_s,
+                                @gem_change.head_version.to_s)
+        end
+        link_or_strikethrough('gem-diff', gem_diff_url)
+      end
+
+      def ruby_gems_info
+        @gem_change_info[:ruby_gems]
       end
 
       def link_or_strikethrough(text, url)
