@@ -13,8 +13,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Add
 - Include link to gem contents diff in gem change annotation ([#88]).
 
+### Fix
+- Fix Rubocop issues ([#89]).
+
 [0.7.0]: https://github.com/envato/unwrappr/compare/v0.6.0...v0.7.0
 [#88]: https://github.com/envato/unwrappr/pull/88
+[#89]: https://github.com/envato/unwrappr/pull/89
 
 ## [0.6.0] 2021-05-12
 
