@@ -32,7 +32,7 @@ module Unwrappr
     subcommand 'all', 'run bundle update, push to github, '\
                       'create a pr and annotate changes' do
       def execute
-        Unwrappr.run_unwapper_in_pwd(base_branch: base_branch, lock_files: lock_files)
+        Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files)
       end
     end
 
@@ -76,13 +76,13 @@ module Unwrappr
             )
           end
 
-          Dir.chdir(repo) { Unwrappr.run_unwapper_in_pwd(base_branch: base_branch, lock_files: lock_files) }
+          Dir.chdir(repo) { Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files) }
         end
       end
     end
   end
 
-  def self.run_unwapper_in_pwd(base_branch:, lock_files:)
+  def self.run_unwrappr_in_pwd(base_branch:, lock_files:)
     return unless any_lockfile_present?(lock_files)
 
     puts "Doing the unwrappr thing in #{Dir.pwd}"
