@@ -29,7 +29,7 @@ module Unwrappr
       exit(0)
     end
 
-    subcommand 'all', 'run bundle update, push to github, '\
+    subcommand 'all', 'run bundle update, push to GitHub, '\
                       'create a pr and annotate changes' do
       option ['-R', '--recursive'],
              :flag,
@@ -48,7 +48,7 @@ module Unwrappr
              required: true
 
       option ['-p', '--pr'], 'PR',
-             'The github PR number',
+             'The GitHub PR number',
              required: true
 
       def execute
