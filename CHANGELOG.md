@@ -6,7 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/envato/unwrappr/compare/v0.7.0...HEAD
+[Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.0...HEAD
+
+## [0.8.0] 2021-07-22
+
+### Add
+
+- Ability to perform a `bundle update` in subdirectories with the `-R` /
+  `--recursive` flag. ([#90])
+
+[0.8.0]: https://github.com/envato/unwrappr/compare/v0.7.0...v0.8.0
+[#90]: https://github.com/envato/unwrappr/pull/90
 
 ## [0.7.0] 2021-07-15
 
