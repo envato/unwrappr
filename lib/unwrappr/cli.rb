@@ -31,8 +31,13 @@ module Unwrappr
 
     subcommand 'all', 'run bundle update, push to github, '\
                       'create a pr and annotate changes' do
+      option ['-R', '--recursive'],
+             :flag,
+             'Recurse into subdirectories',
+             attribute_name: :recursive
+
       def execute
-        Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files)
+        Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files, recursive: recursive?)
       end
     end
 
@@ -62,38 +67,58 @@ module Unwrappr
       option(['-r', '--repo'],
              'REPO',
              <<~DESCRIPTION,
-               a repo in github <owner/project>, may be specified multiple times
+               a repo in GitHub <owner/project>, may be specified multiple times
              DESCRIPTION
              required: true,
              multivalued: true)
 
+      option ['-R', '--recursive'],
+             :flag,
+             'Recurse into subdirectories',
+             attribute_name: :recursive
+
       def execute
         repo_list.each do |repo|
-          unless Dir.exist?(repo)
-            GitCommandRunner.clone_repository(
-              "https://github.com/#{repo}",
-              repo
-            )
-          end
+          GitCommandRunner.clone_repository("https://github.com/#{repo}", repo) unless Dir.exist?(repo)
 
-          Dir.chdir(repo) { Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files) }
+          Dir.chdir(repo) do
+            Unwrappr.run_unwrappr_in_pwd(base_branch: base_branch, lock_files: lock_files, recursive: recursive?)
+          end
         end
       end
     end
   end
 
-  def self.run_unwrappr_in_pwd(base_branch:, lock_files:)
+  def self.run_unwrappr_in_pwd(base_branch:, lock_files:, recursive:)
     return unless any_lockfile_present?(lock_files)
 
-    puts "Doing the unwrappr thing in #{Dir.pwd}"
-
     GitCommandRunner.create_branch!(base_branch: base_branch)
-    BundlerCommandRunner.bundle_update!
+    bundle_update!(lock_files: lock_files, recursive: recursive)
     GitCommandRunner.commit_and_push_changes!
     GitHub::Client.make_pull_request!(lock_files)
   end
 
   def self.any_lockfile_present?(lock_files)
     lock_files.any? { |lock_file| GitCommandRunner.file_exist?(lock_file) }
+  end
+
+  def self.bundle_update!(lock_files:, recursive:)
+    directories(lock_files: lock_files, recursive: recursive).each do |dir|
+      Dir.chdir(dir) do
+        puts "Doing the unwrappr thing in #{Dir.pwd}"
+        BundlerCommandRunner.bundle_update!
+      end
+    end
+  end
+
+  def self.directories(lock_files:, recursive:)
+    if recursive
+      lock_files
+        .flat_map { |f| Dir.glob("**/#{f}") }
+        .map { |f| File.dirname(f) }
+        .uniq
+    else
+      %w[.]
+    end
   end
 end
