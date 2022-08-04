@@ -41,7 +41,15 @@ $ gem install unwrappr
 
 ## Configuration
 
-`unwrappr` needs a [GitHub Personal Access Token](https://github.com/settings/tokens), stored in the environment as `GITHUB_TOKEN`.
+`unwrappr` needs a [GitHub Personal Access
+Token](https://github.com/settings/tokens), stored in the environment as
+`GITHUB_TOKEN`. If you have your Personal Access Token stored in the macOS
+keychain, you can pull this into your shell environment using the `security`
+tool. _E.g:_
+
+```bash
+export GITHUB_TOKEN=$(security find-internet-password -gs github.com 2>&1 | awk -F' ' '$1 == "password:" { print $2 }' | tr -d '"')
+```
 
 To run `unwrappr` in the current working directory use...
 
