@@ -8,12 +8,12 @@ AllCops:
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
-Metrics/BlockLength:
+Layout/LineLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
 
-Metrics/LineLength:
+Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
