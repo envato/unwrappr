@@ -52,6 +52,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.add_development_dependency 'rubocop', '>= 0.49.0'
 
   spec.metadata = {
+    'rubygems_mfa_required' => 'true',
     'bug_tracker_uri' => "#{GITHUB_URL}/issues",
     'changelog_uri' => "#{GITHUB_URL}/blob/HEAD/CHANGELOG.md",
     'documentation_uri' => "#{GITHUB_URL}/blob/HEAD/README.md",
