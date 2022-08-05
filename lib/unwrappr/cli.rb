@@ -29,8 +29,7 @@ module Unwrappr
       exit(0)
     end
 
-    subcommand 'all', 'run bundle update, push to GitHub, '\
-                      'create a pr and annotate changes' do
+    subcommand 'all', 'run bundle update, push to GitHub, create a pr and annotate changes' do
       option ['-R', '--recursive'],
              :flag,
              'Recurse into subdirectories',

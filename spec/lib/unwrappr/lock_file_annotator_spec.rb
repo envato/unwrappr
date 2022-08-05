@@ -20,8 +20,7 @@ module Unwrappr
     describe '#annotate' do
       subject(:annotate) { annotator.annotate }
 
-      context 'given a Gemfile.lock that changes: '\
-              'rspec-support 3.7.0 -> 3.7.1' do
+      context 'given a Gemfile.lock that changes: rspec-support 3.7.0 -> 3.7.1' do
         let(:lock_file_diff_source) { instance_double(Github::PrSource) }
         let(:annotation_sink) { instance_spy(Github::PrSink) }
         let(:base_lock_file) { <<~BASE_FILE }

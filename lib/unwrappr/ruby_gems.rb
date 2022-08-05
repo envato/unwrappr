@@ -27,8 +27,7 @@ module Unwrappr
       end
 
       def error_message(response:, name:)
-        "Rubygems response for #{name}: "\
-          "HTTP #{response.status}: #{response.body}"
+        "Rubygems response for #{name}: HTTP #{response.status}: #{response.body}"
       end
     end
   end

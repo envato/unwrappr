@@ -87,8 +87,7 @@ module Unwrappr
       def cvss_v2(advisory)
         # rubocop:disable Style/GuardClause
         if advisory.cvss_v2
-          "CVSS V2: [#{advisory.cvss_v2} #{advisory.criticality}]"\
-            "(#{cvss_v2_url(advisory.cve_id)})"
+          "CVSS V2: [#{advisory.cvss_v2} #{advisory.criticality}](#{cvss_v2_url(advisory.cve_id)})"
         end
         # rubocop:enable Style/GuardClause
       end
