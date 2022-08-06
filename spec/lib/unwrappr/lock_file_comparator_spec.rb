@@ -27,7 +27,7 @@ module Unwrappr
 
     it 'calls the comparator with indexed specs versions' do
       expect(SpecVersionComparator).to receive(:perform)
-        .with({ name1: 'version1' }, name2: 'version2')
+        .with({ name1: 'version1' }, { name2: 'version2' })
 
       perform
     end
