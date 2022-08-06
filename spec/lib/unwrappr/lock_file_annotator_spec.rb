@@ -96,9 +96,9 @@ module Unwrappr
         before do
           allow(::Unwrappr::RubyGems).to receive(:gem_info)
             .with('rspec-support', GemVersion.new('3.7.1'))
-            .and_return(spy(homepage_uri: 'home-uri',
-                            source_code_uri: 'source-uri',
-                            changelog_uri: 'changelog-uri'))
+            .and_return({ 'homepage_uri' => 'home-uri',
+                          'source_code_uri' => 'source-uri',
+                          'changelog_uri' => 'changelog-uri' })
           allow(lock_file_diff_source).to receive(:each_file)
             .and_yield(LockFileDiff.new(filename: 'Gemfile.lock',
                                         base_file: base_lock_file,

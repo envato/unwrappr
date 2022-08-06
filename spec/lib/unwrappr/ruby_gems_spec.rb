@@ -27,7 +27,7 @@ module Unwrappr
       let(:response_body) { '{"key": "value" }' }
 
       it 'returns provided details' do
-        expect(subject.key).to eql('value')
+        expect(subject['key']).to eql('value')
       end
     end
 

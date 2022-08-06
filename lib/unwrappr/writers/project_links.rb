@@ -24,13 +24,11 @@ module Unwrappr
       private
 
       def change_log
-        link_or_strikethrough('change-log',
-                              ruby_gems_info&.changelog_uri)
+        link_or_strikethrough('change-log', ruby_gems_info('changelog_uri'))
       end
 
       def source_code
-        link_or_strikethrough('source-code',
-                              ruby_gems_info&.source_code_uri)
+        link_or_strikethrough('source-code', ruby_gems_info('source_code_uri'))
       end
 
       GEM_DIFF_URL_TEMPLATE = 'https://my.diffend.io/gems/%s/%s/%s'
@@ -46,8 +44,10 @@ module Unwrappr
         link_or_strikethrough('gem-diff', gem_diff_url)
       end
 
-      def ruby_gems_info
-        @gem_change_info[:ruby_gems]
+      def ruby_gems_info(*args)
+        return @gem_change_info[:ruby_gems] if args.empty?
+
+        @gem_change_info.dig(:ruby_gems, *args)
       end
 
       def link_or_strikethrough(text, url)

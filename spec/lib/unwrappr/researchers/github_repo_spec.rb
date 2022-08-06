@@ -24,8 +24,8 @@ module Unwrappr
             let(:gem_change_info) do
               {
                 ruby_gems: {
-                  source_code_uri: source_code_uri,
-                  homepage_uri: homepage_uri
+                  'source_code_uri' => source_code_uri,
+                  'homepage_uri' => homepage_uri
                 }
               }
             end

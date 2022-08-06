@@ -8,7 +8,7 @@ RSpec.describe Unwrappr::Writers::Title do
 
     context 'given a gem homepage URI' do
       let(:gem_change_info) { { ruby_gems: ruby_gems } }
-      let(:ruby_gems) { spy(homepage_uri: 'home-uri') }
+      let(:ruby_gems) { { 'homepage_uri' => 'home-uri' } }
 
       it { should eq "### [test-gem](home-uri)\n" }
     end
