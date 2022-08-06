@@ -45,8 +45,6 @@ module Unwrappr
       end
 
       def ruby_gems_info(*args)
-        return @gem_change_info[:ruby_gems] if args.empty?
-
         @gem_change_info.dig(:ruby_gems, *args)
       end
 
