@@ -2,6 +2,7 @@
 AllCops:
   Exclude:
     - 'spike/*.rb'
+    - 'vendor/**/*'
   NewCops: enable
   TargetRubyVersion: 2.5
 
