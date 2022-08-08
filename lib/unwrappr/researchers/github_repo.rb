@@ -13,8 +13,8 @@ module Unwrappr
                               }ix.freeze
 
       def research(_gem_change, gem_change_info)
-        repo = match_repo(gem_change_info, :source_code_uri) ||
-               match_repo(gem_change_info, :homepage_uri)
+        repo = match_repo(gem_change_info, 'source_code_uri') ||
+               match_repo(gem_change_info, 'homepage_uri')
         gem_change_info.merge(github_repo: repo)
       end
 

@@ -12,7 +12,7 @@ module Unwrappr
         def write(gem_change, gem_change_info)
           embellished_gem_name = maybe_link(
             gem_change.name,
-            gem_change_info[:ruby_gems]&.homepage_uri
+            gem_change_info.dig(:ruby_gems, 'homepage_uri')
           )
           "### #{embellished_gem_name}\n"
         end

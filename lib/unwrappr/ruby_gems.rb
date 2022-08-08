@@ -18,7 +18,7 @@ module Unwrappr
       def parse(response, name)
         case response.status
         when 200
-          JSON.parse(response.body, object_class: OpenStruct)
+          JSON.parse(response.body)
         when 404
           nil
         else
@@ -27,8 +27,7 @@ module Unwrappr
       end
 
       def error_message(response:, name:)
-        "Rubygems response for #{name}: "\
-          "HTTP #{response.status}: #{response.body}"
+        "Rubygems response for #{name}: HTTP #{response.status}: #{response.body}"
       end
     end
   end

@@ -2,18 +2,19 @@
 AllCops:
   Exclude:
     - 'spike/*.rb'
+    - 'vendor/**/*'
   NewCops: enable
   TargetRubyVersion: 2.5
 
 Gemspec/RequiredRubyVersion:
   Enabled: false
 
-Metrics/BlockLength:
+Layout/LineLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'
 
-Metrics/LineLength:
+Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
     - 'test/**/*'

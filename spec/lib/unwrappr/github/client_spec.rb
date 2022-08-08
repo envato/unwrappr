@@ -95,12 +95,6 @@ RSpec.describe Unwrappr::GitHub::Client do
     end
 
     context 'without a token' do
-      before do
-        expect(ENV).to receive(:fetch)
-          .with('GITHUB_TOKEN')
-          .and_raise(KeyError, 'key not found GITHUB_TOKEN')
-      end
-
       it 'provides useful feedback' do
         expect { make_pull_request! }.to raise_error(RuntimeError, /^Missing environment variable/)
       end

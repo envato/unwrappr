@@ -56,6 +56,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
     'changelog_uri' => "#{GITHUB_URL}/blob/HEAD/CHANGELOG.md",
     'documentation_uri' => "#{GITHUB_URL}/blob/HEAD/README.md",
     'homepage_uri' => HOMEPAGE_URL,
+    'rubygems_mfa_required' => 'true',
     'source_code_uri' => GITHUB_URL
   }
 end

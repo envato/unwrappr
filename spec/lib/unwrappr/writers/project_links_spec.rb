@@ -21,8 +21,10 @@ module Unwrappr
         context 'given gem change info with urls' do
           let(:gem_change_info) do
             {
-              ruby_gems: spy(source_code_uri: 'source-uri',
-                             changelog_uri: 'changelog-uri')
+              ruby_gems: {
+                'source_code_uri' => 'source-uri',
+                'changelog_uri' => 'changelog-uri'
+              }
             }
           end
 
@@ -34,8 +36,10 @@ module Unwrappr
         context 'given gem change info with urls for an added gem' do
           let(:gem_change_info) do
             {
-              ruby_gems: spy(source_code_uri: 'source-uri',
-                             changelog_uri: 'changelog-uri')
+              ruby_gems: {
+                'source_code_uri' => 'source-uri',
+                'changelog_uri' => 'changelog-uri'
+              }
             }
           end
           let(:base_version) { nil }
@@ -48,8 +52,10 @@ module Unwrappr
         context 'given gem change info with urls for a removed gem' do
           let(:gem_change_info) do
             {
-              ruby_gems: spy(source_code_uri: 'source-uri',
-                             changelog_uri: 'changelog-uri')
+              ruby_gems: {
+                'source_code_uri' => 'source-uri',
+                'changelog_uri' => 'changelog-uri'
+              }
             }
           end
           let(:head_version) { nil }
