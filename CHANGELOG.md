@@ -6,7 +6,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-[Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.0...HEAD
+[Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.1...HEAD
+
+## [0.8.1] 2023-02-07
+
+### Add
+- Add Ruby 3.1 and 3.2 to the CI test matrix ([#92], [#93]).
+
+### Fix
+- Resolve a number of issues raised by Rubocop ([#92], [#93]).
+- Resolve GitHub Actions Node.js 12 deprecation ([#93]).
+- Remove development files from the gem package ([#94]).
+
+### Documentation
+- Document how to grab credentials from the keychain ([#91]).
+
+[0.8.1]: https://github.com/envato/unwrappr/compare/v0.8.0...v0.8.1
+[#91]: https://github.com/envato/unwrappr/pull/91
+[#92]: https://github.com/envato/unwrappr/pull/92
+[#93]: https://github.com/envato/unwrappr/pull/93
+[#94]: https://github.com/envato/unwrappr/pull/94
 
 ## [0.8.0] 2021-07-22
 
