@@ -28,8 +28,10 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.required_ruby_version = '>= 2.5'
   spec.required_rubygems_version = '>= 2.7'
 
-  spec.files = `git ls-files -z`.split("\x0").reject do |f|
-    f.match(%r{^(test|spec|features)/})
+  spec.files = Dir.chdir(__dir__) do
+    `git ls-files -z`.split("\x0").reject do |f|
+      f.start_with?(*%w[. CODE_OF_CONDUCT Gemfile Guardfile Rakefile bin spec unwrappr.gemspec])
+    end
   end
   spec.bindir = 'exe'
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
