@@ -22,11 +22,11 @@ module Unwrappr
     def_delegators :@lock_file_diff, :filename, :sha
 
     def added?
-      (head_version && base_version.nil?)
+      head_version && base_version.nil?
     end
 
     def removed?
-      (base_version && head_version.nil?)
+      base_version && head_version.nil?
     end
 
     def major?
