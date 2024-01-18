@@ -65,7 +65,7 @@ module Unwrappr
       # '+      websocket-extensions (>= 0.1.0)'
       pattern = /^(?<change_type>[+-])    (?<gem_name>\S+) \(\d/
       match = pattern.match(line)
-      return match[:gem_name], match[:change_type] unless match.nil?
+      [match[:gem_name], match[:change_type]] unless match.nil?
     end
   end
 end
