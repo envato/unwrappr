@@ -6,11 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+[Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.2...HEAD
+
+## [0.8.2] 2024-12-28
+
 ### Add
 - Add Ruby 3.4 to the CI test matrix ([#95]).
 - Add `base64` as a runtime dependency to support Ruby 3.4+ ([#95]).
 
-[Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.1...HEAD
+[0.8.2]: https://github.com/envato/unwrappr/compare/v0.8.1...v0.8.2
 [#95]: https://github.com/envato/unwrappr/pull/95
 
 ## [0.8.1] 2023-02-07
