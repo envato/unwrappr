@@ -37,6 +37,7 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.executables = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
+  spec.add_dependency 'base64'
   spec.add_dependency 'bundler', '< 3'
   spec.add_dependency 'bundler-audit', '>= 0.6.0'
   spec.add_dependency 'clamp', '~> 1'
