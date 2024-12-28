@@ -6,7 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+- Add Ruby 3.4 to the CI test matrix ([#95]).
+
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.1...HEAD
+[#95]: https://github.com/envato/unwrappr/pull/95
 
 ## [0.8.1] 2023-02-07
 
