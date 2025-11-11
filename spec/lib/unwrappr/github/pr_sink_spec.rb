@@ -70,6 +70,7 @@ module Unwrappr
           allow(client).to receive(:create_pull_request_comment) do
             call_count += 1
             raise error if call_count == 1
+
             true
           end
         end

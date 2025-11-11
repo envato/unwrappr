@@ -37,6 +37,13 @@ module Unwrappr
       end
 
       def create_comment_with_retry(gem_change, message, attempt = 1)
+        post_comment(gem_change, message)
+        @last_comment_time = Time.now
+      rescue Octokit::UnprocessableEntity => e
+        handle_rate_limit_error(e, gem_change, message, attempt)
+      end
+
+      def post_comment(gem_change, message)
         @client.create_pull_request_comment(
           @repo,
           @pr_number,
@@ -45,16 +52,19 @@ module Unwrappr
           gem_change.filename,
           gem_change.line_number
         )
-        @last_comment_time = Time.now
-      rescue Octokit::UnprocessableEntity => e
-        if e.message.include?('submitted too quickly') && attempt < MAX_RETRIES
-          wait_time = 2**attempt # Exponential backoff: 2, 4, 8 seconds
-          warn "Comment submitted too quickly, retrying in #{wait_time}s (attempt #{attempt}/#{MAX_RETRIES})"
-          sleep(wait_time)
-          create_comment_with_retry(gem_change, message, attempt + 1)
-        else
-          raise
-        end
+      end
+
+      def handle_rate_limit_error(error, gem_change, message, attempt)
+        raise unless rate_limited?(error) && attempt < MAX_RETRIES
+
+        wait_time = 2**attempt # Exponential backoff: 2, 4, 8 seconds
+        warn "Comment submitted too quickly, retrying in #{wait_time}s (attempt #{attempt}/#{MAX_RETRIES})"
+        sleep(wait_time)
+        create_comment_with_retry(gem_change, message, attempt + 1)
+      end
+
+      def rate_limited?(error)
+        error.message.include?('submitted too quickly')
       end
     end
   end
