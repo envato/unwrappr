@@ -57,7 +57,7 @@ module Unwrappr
       def handle_rate_limit_error(error, gem_change, message, attempt)
         raise unless rate_limited?(error) && attempt < MAX_RETRIES
 
-        wait_time = 2**attempt # Exponential backoff: 2, 4, 8 seconds
+        wait_time = calculate_wait_time(error, attempt)
         warn "Comment submitted too quickly, retrying in #{wait_time}s (attempt #{attempt}/#{MAX_RETRIES})"
         sleep(wait_time)
         create_comment_with_retry(gem_change, message, attempt + 1)
@@ -65,6 +65,27 @@ module Unwrappr
 
       def rate_limited?(error)
         error.message.include?('submitted too quickly')
+      end
+
+      def calculate_wait_time(error, attempt)
+        # Check for retry-after header (GitHub tells us exactly when to retry)
+        retry_after = extract_retry_after(error)
+        return retry_after if retry_after
+
+        # Fall back to exponential backoff: 2, 4, 8 seconds
+        2**attempt
+      end
+
+      def extract_retry_after(error)
+        return nil unless error.respond_to?(:response_headers)
+
+        headers = error.response_headers
+        return nil unless headers
+
+        retry_after = headers['retry-after']
+        return nil unless retry_after&.to_i&.positive?
+
+        retry_after.to_i
       end
     end
   end

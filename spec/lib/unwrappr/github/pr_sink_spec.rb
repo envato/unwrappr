@@ -79,6 +79,37 @@ module Unwrappr
           expect { annotate_change }.not_to raise_error
           expect(client).to have_received(:create_pull_request_comment).twice
         end
+
+        context 'when retry-after header is present' do
+          let(:error) do
+            error = Octokit::UnprocessableEntity.new(
+              status: 422,
+              body: 'Validation Failed: was submitted too quickly'
+            )
+            allow(error).to receive(:response_headers).and_return({ 'retry-after' => '3' })
+            error
+          end
+
+          it 'uses the retry-after value for wait time' do
+            call_count = 0
+            allow(client).to receive(:create_pull_request_comment) do
+              call_count += 1
+              raise error if call_count == 1
+
+              true
+            end
+
+            expect(pr_sink).to receive(:sleep).with(3)
+            expect { annotate_change }.not_to raise_error
+          end
+        end
+
+        context 'when retry-after header is not present' do
+          it 'uses exponential backoff for wait time' do
+            expect(pr_sink).to receive(:sleep).with(2) # 2^1
+            expect { annotate_change }.not_to raise_error
+          end
+        end
       end
 
       context 'when retry limit is exceeded' do
