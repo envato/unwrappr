@@ -36,11 +36,25 @@ module Unwrappr
         sleep(@delay - elapsed) if elapsed < @delay
       end
 
-      def create_comment_with_retry(gem_change, message, attempt = 1)
-        post_comment(gem_change, message)
-        @last_comment_time = Time.now
-      rescue Octokit::UnprocessableEntity => e
-        handle_rate_limit_error(e, gem_change, message, attempt)
+      def create_comment_with_retry(gem_change, message)
+        attempt = 0
+
+        begin
+          attempt += 1
+          post_comment(gem_change, message)
+          @last_comment_time = Time.now
+        rescue Octokit::UnprocessableEntity => e
+          handle_retry(e, attempt)
+          retry
+        end
+      end
+
+      def handle_retry(error, attempt)
+        raise unless rate_limited?(error) && attempt < MAX_RETRIES
+
+        wait_time = calculate_wait_time(error, attempt)
+        warn "Comment submitted too quickly, retrying in #{wait_time}s (attempt #{attempt}/#{MAX_RETRIES})"
+        sleep(wait_time)
       end
 
       def post_comment(gem_change, message)
@@ -52,15 +66,6 @@ module Unwrappr
           gem_change.filename,
           gem_change.line_number
         )
-      end
-
-      def handle_rate_limit_error(error, gem_change, message, attempt)
-        raise unless rate_limited?(error) && attempt < MAX_RETRIES
-
-        wait_time = calculate_wait_time(error, attempt)
-        warn "Comment submitted too quickly, retrying in #{wait_time}s (attempt #{attempt}/#{MAX_RETRIES})"
-        sleep(wait_time)
-        create_comment_with_retry(gem_change, message, attempt + 1)
       end
 
       def rate_limited?(error)
