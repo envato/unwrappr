@@ -15,7 +15,7 @@ AUTHORS = {
 GITHUB_URL = 'https://github.com/envato/unwrappr'
 HOMEPAGE_URL = 'https://opensource.envato.com/projects/unwrappr.html'
 
-Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name = 'unwrappr'
   spec.version = Unwrappr::VERSION
   spec.authors = AUTHORS.values
