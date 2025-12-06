@@ -13,7 +13,7 @@ AUTHORS = {
 }.freeze
 
 GITHUB_URL = 'https://github.com/envato/unwrappr'
-HOMEPAGE_URL = 'https://opensource.envato.com/projects/unwrappr.html'
+HOMEPAGE_URL = GITHUB_URL
 
 Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
   spec.name = 'unwrappr'
