@@ -8,14 +8,14 @@ AUTHORS = {
   'emilyn.escabarte@envato.com' => 'Emilyn Escabarte',
   'joe.sustaric@envato.com' => 'Joe Sustaric',
   'orien.madgwick@envato.com' => 'Orien Madgwick',
-  'pete.johns@envato.com' => 'Pete Johns',
+  'paj+rubygems@johnsy.com' => 'Pete Johns',
   'vladimir.chervanev@envato.com' => 'Vladimir Chervanev'
 }.freeze
 
 GITHUB_URL = 'https://github.com/envato/unwrappr'
-HOMEPAGE_URL = 'https://opensource.envato.com/projects/unwrappr.html'
+HOMEPAGE_URL = GITHUB_URL
 
-Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength:
+Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.name = 'unwrappr'
   spec.version = Unwrappr::VERSION
   spec.authors = AUTHORS.values
