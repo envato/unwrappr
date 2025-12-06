@@ -8,7 +8,7 @@ AUTHORS = {
   'emilyn.escabarte@envato.com' => 'Emilyn Escabarte',
   'joe.sustaric@envato.com' => 'Joe Sustaric',
   'orien.madgwick@envato.com' => 'Orien Madgwick',
-  'pete.johns@envato.com' => 'Pete Johns',
+  'paj+rubygems@johnsy.com' => 'Pete Johns',
   'vladimir.chervanev@envato.com' => 'Vladimir Chervanev'
 }.freeze
 
