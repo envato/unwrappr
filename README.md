@@ -81,7 +81,6 @@ See https://github.com/settings/tokens to set up personal access tokens.
 
 ## Maintainers
 
- - [Pete Johns](https://github.com/johnsyweb)
  - [Joe Sustaric](https://github.com/joesustaric)
 
 ## Authors
