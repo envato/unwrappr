@@ -79,10 +79,6 @@ See https://github.com/settings/tokens to set up personal access tokens.
  - [GitHub project](https://github.com/envato/unwrappr)
  - Bug reports and feature requests are welcome via [GitHub Issues](https://github.com/envato/unwrappr/issues)
 
-## Maintainers
-
- - [Joe Sustaric](https://github.com/joesustaric)
-
 ## Authors
 
  - [Pete Johns](https://github.com/johnsyweb)
