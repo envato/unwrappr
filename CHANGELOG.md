@@ -6,7 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Add
+- Loosen Bundler depndency constraint to allow major version 4 ([#99]).
+- Add Ruby 4.0 to the CI test matrix ([#99]).
+
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.2...HEAD
+[#99]: https://github.com/envato/unwrappr/pull/99
 
 ## [0.8.2] 2024-12-28
 
