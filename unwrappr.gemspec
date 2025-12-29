@@ -43,10 +43,12 @@ Gem::Specification.new do |spec| # rubocop:disable Metrics/BlockLength
   spec.add_dependency 'clamp', '~> 1'
   spec.add_dependency 'faraday', '~> 1'
   spec.add_dependency 'git', '~> 1'
+  spec.add_dependency 'logger', '~> 1'
   spec.add_dependency 'octokit', '~> 4.0'
   spec.add_dependency 'safe_shell', '~> 1'
 
   spec.metadata = {
+    'allowed_push_host' => 'https://rubygems.org',
     'bug_tracker_uri' => "#{GITHUB_URL}/issues",
     'changelog_uri' => "#{GITHUB_URL}/blob/HEAD/CHANGELOG.md",
     'documentation_uri' => "#{GITHUB_URL}/blob/HEAD/README.md",
