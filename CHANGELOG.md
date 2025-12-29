@@ -6,7 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+- Add `logger` as a runtime dependency to support Ruby 4.0 ([#101]).
+
 [Unreleased]: https://github.com/envato/unwrappr/compare/v0.8.3...HEAD
+[#101]: https://github.com/envato/unwrappr/pull/101
 
 ## [0.8.3] 2025-12-29
 
